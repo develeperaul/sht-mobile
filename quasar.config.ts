@@ -2,7 +2,15 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
 
 import { defineConfig } from '#q-app/wrappers';
-
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import Components from 'unplugin-vue-components/vite'
+import path from 'path'
+import AutoImport from 'unplugin-auto-import/vite'
+import {
+  dirResolver,
+  DirResolverHelper,
+  AutoGenerateImports,
+} from 'vite-auto-import-resolvers'
 export default defineConfig((/* ctx */) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -12,6 +20,11 @@ export default defineConfig((/* ctx */) => {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
+      'init',
+      'global-registration',
+      'registr-validators',
+      'registr-router-hooks',
+      'registr-error-handlers',
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
@@ -65,9 +78,38 @@ export default defineConfig((/* ctx */) => {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
       
-      // vitePlugins: [
-      //   [ 'package-name', { ..pluginOptions.. }, { server: true, client: true } ]
-      // ]
+      vitePlugins: [
+        DirResolverHelper(),
+        AutoImport({
+          vueTemplate: true,
+          imports: ['vue', 'pinia'],
+          resolvers: [
+            dirResolver({
+              target: 'src/composables',
+            }),
+
+            dirResolver({ prefix: 'use' }), // prefix use
+            dirResolver({
+              target: 'src/stores',
+              suffix: 'Store',
+            }),
+          ],
+        }),
+        Components({
+          // allow auto load markdown components under `./src/components/`
+          extensions: ['vue', 'md'],
+          // allow auto import and register components used in markdown
+          include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+          dts: 'src/components.d.ts',
+        }),
+        createSvgIconsPlugin({
+          iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+          // Specify symbolId format
+          symbolId: 'icon-[dir]-[name]',
+          inject: 'body-last' | 'body-first',
+          customDomId: '__svg__icons__dom__',
+        }),
+      ],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
