@@ -14,7 +14,9 @@ export default ({ app, router }) => {
     errorHandler(err)
   }
 
-  function errorHandler(err) {
+  async function errorHandler(err) {
+    // console.log(err.response.status)
+
     if (err instanceof TimeoutError) {
       return 'reload'
     } else if (err instanceof HTTPError) {
@@ -47,9 +49,18 @@ export default ({ app, router }) => {
         return
       } else if (err.response.status === 429) {
         console.log(429)
+        const { message } = await err.response.json()
         Notify.create({
           type: 'negative',
-          message: 'Что-то пошло не так! Попробуйте позже.',
+          message: message,
+          position: 'top',
+        })
+        return
+      } else if (err.response.status === 422) {
+        const { message } = await err.response.json()
+        Notify.create({
+          type: 'negative',
+          message: message,
           position: 'top',
         })
         return

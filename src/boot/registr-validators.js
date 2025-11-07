@@ -7,9 +7,9 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 dayjs.extend(customParseFormat)
 function cellphone(value) {
   // паттерн для чисел со знаком, дробная часть опциональна
-  const pattern = /^\+7\s\(\d{3}\)-\d{3}\-\d{2}\-\d{2}$/
+  // const pattern = /^\+7\s\(\d{3}\)-\d{3}\-\d{2}\-\d{2}$/
   // console.log(value);
-  // const pattern = /[1-9]\d{8,14}$/;
+  const pattern = /[1-9]\d{8,14}$/
   console.log(value)
 
   return pattern.test(value)
@@ -25,7 +25,7 @@ function password(value) {
 
 function dateformat(value, [currentTime]) {
   if (value) {
-    const dateValue = value.split('-')
+    const dateValue = value.split('.')
     if (dateValue.length === 3) {
       let y = +dateValue[2],
         m = +dateValue[1].replace(/^0/, ''),
@@ -35,7 +35,7 @@ function dateformat(value, [currentTime]) {
       var x = new Date(y, m, d)
       if (y > 1900) {
         if (currentTime) {
-          return +currentTime > dayjs(value, 'DD-MM-YYYY').unix()
+          return +currentTime > dayjs(value, 'DD.MM.YYYY').unix()
         } else {
           return (
             x.getFullYear() === y && x.getMonth() === m && x.getDate() === d
@@ -56,6 +56,7 @@ const rules = {
   cellphone,
   dateformat,
   min,
+  email,
 }
 for (let ruleName in rules) {
   defineRule(ruleName, rules[ruleName])
@@ -67,6 +68,10 @@ configure({
       date: 'дата',
       password: 'пароль',
       email: 'почта',
+      last_name: 'Имя',
+      first_name: 'Фамилия',
+      patronymic: 'Отчество',
+      birthday: 'Дата рождения',
     },
   }),
 })

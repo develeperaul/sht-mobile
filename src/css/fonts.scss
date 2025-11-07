@@ -1,34 +1,40 @@
 @mixin gilroy {
-  $path: "assets/fonts/Gilroy";
+  $path: 'assets/fonts/Gilroy';
 
   @font-face {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     src: url(#{$path}/Gilroy-Regular.eot);
-    src: local("Gilroy Regular"), local("Gilroy-Regular"),
-      url(#{$path}/Gilroy-Regular.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/Gilroy-Regular.woff) format("eot");
+    src:
+      local('Gilroy Regular'),
+      local('Gilroy-Regular'),
+      url(#{$path}/Gilroy-Regular.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/Gilroy-Regular.woff) format('eot');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     src: url(#{$path}/Gilroy-SemiBold.eot);
-    src: local("Gilroy Bold"), local("Gilroy-SemiBold"),
-      url(#{$path}/Gilroy-SemiBold.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/Gilroy-SemiBold.woff) format("woff"),
-      url(#{$path}/Gilroy-SemiBold.woff) format("eot");
+    src:
+      local('Gilroy Bold'),
+      local('Gilroy-SemiBold'),
+      url(#{$path}/Gilroy-SemiBold.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/Gilroy-SemiBold.woff) format('woff'),
+      url(#{$path}/Gilroy-SemiBold.woff) format('eot');
     font-weight: 700;
     font-style: normal;
   }
 
   @font-face {
-    font-family: "Gilroy";
+    font-family: 'Gilroy';
     src: url(#{$path}/Gilroy-Medium.eot);
-    src: local("Gilroy Medium"), local("Gilroy-Medium"),
-      url(#{$path}/Gilroy-Medium.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/Gilroy-Medium.woff) format("woff"),
-      url(#{$path}/Gilroy-Medium.woff) format("eot");
+    src:
+      local('Gilroy Medium'),
+      local('Gilroy-Medium'),
+      url(#{$path}/Gilroy-Medium.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/Gilroy-Medium.woff) format('woff'),
+      url(#{$path}/Gilroy-Medium.woff) format('eot');
     font-weight: 500;
     font-style: normal;
   }
@@ -36,40 +42,73 @@
 
 @include gilroy();
 @mixin ua-brand {
-  $path: "assets/fonts/ua-Brand";
+  $path: 'assets/fonts/ua-Brand';
 
   @font-face {
-    font-family: "ua-Brand";
+    font-family: 'ua-Brand';
     src: url(#{$path}/ua-BRAND-Regular.eot);
-    src: local("ua-BRAND Regular"), local("ua-BRAND-Regular"),
-      url(#{$path}/ua-BRAND-Regular.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/ua-BRAND-Regular.woff) format("eot");
+    src:
+      local('ua-BRAND Regular'),
+      local('ua-BRAND-Regular'),
+      url(#{$path}/ua-BRAND-Regular.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/ua-BRAND-Regular.woff) format('eot');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
-    font-family: "ua-Brand";
+    font-family: 'ua-Brand';
     src: url(#{$path}/ua-BRAND-bold.eot);
-    src: local("ua-BRAND bold"), local("ua-BRAND-bold"),
-      url(#{$path}/ua-BRAND-bold.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/ua-BRAND-bold.woff) format("woff"),
-      url(#{$path}/ua-BRAND-bold.woff) format("eot");
+    src:
+      local('ua-BRAND bold'),
+      local('ua-BRAND-bold'),
+      url(#{$path}/ua-BRAND-bold.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/ua-BRAND-bold.woff) format('woff'),
+      url(#{$path}/ua-BRAND-bold.woff) format('eot');
     font-weight: 800;
     font-style: normal;
   }
   @font-face {
-    font-family: "ua-Brand";
+    font-family: 'ua-Brand';
     src: url(#{$path}/ua-BRAND-black.eot);
-    src: local("ua-BRAND black"), local("ua-BRAND-black"),
-      url(#{$path}/ua-BRAND-black.eot?#iefix) format("embedded-opentype"),
-      url(#{$path}/ua-BRAND-black.woff) format("woff"),
-      url(#{$path}/ua-BRAND-black.woff) format("eot");
+    src:
+      local('ua-BRAND black'),
+      local('ua-BRAND-black'),
+      url(#{$path}/ua-BRAND-black.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/ua-BRAND-black.woff) format('woff'),
+      url(#{$path}/ua-BRAND-black.woff) format('eot');
     font-weight: 900;
     font-style: normal;
   }
-
-  
 }
 
 @include ua-brand();
+
+@mixin montserrat {
+  $path: 'assets/fonts/Montserrat';
+
+  @font-face {
+    font-family: 'montserrat';
+    src: url(#{$path}/montserrat-regular.eot);
+    src:
+      local('montserrat regular'),
+      local('montserrat-regular'),
+      url(#{$path}/montserrat-regular.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/montserrat-regular.woff) format('eot');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'montserrat';
+    src: url(#{$path}/montserrat-500.eot);
+    src:
+      local('montserrat 500'),
+      local('montserrat-500'),
+      url(#{$path}/montserrat-500.eot?#iefix) format('embedded-opentype'),
+      url(#{$path}/montserrat-500.woff) format('eot');
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+
+@include montserrat();
