@@ -3,6 +3,14 @@
     <div
       class="tw-container tw-grid tw-content-between tw-grid-rows-[1fr_auto]"
     >
+      <div class="tw-absolute tw-left-5 tw-top-0 env-t">
+        <div
+          @click="router.push({ name: 'home' })"
+          class="tw-rounded-full tw-w-8 tw-h-8 tw-bg-white tw-grid tw-place-content-center"
+        >
+          <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6" />
+        </div>
+      </div>
       <div>
         <base-icon name="splash" class="tw-w-[332px] tw-h-[100%] tw-mx-auto" />
       </div>

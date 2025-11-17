@@ -1,38 +1,24 @@
 <template>
-  <div class="tw-overflow-hidden">
-    <Swiper
-      :modules="[Pagination]"
-      :slides-per-view="1"
-      :space-between="20"
-      :pagination="pagination"
-      class="slider"
-    >
-      <SwiperSlide
-        v-for="(slide, idx) in hotels"
-        :key="idx"
-        src
-        class="slider__slide"
-      >
-        <div class="h3 tw-mb-3 tw-font-bold">
-          {{ slide.name }}
-        </div>
-        <div class="tw-overflow-hidden tw-mb-3">
-          <Slider :imgs="slide.images" />
-        </div>
-        <div>
-          <div
-            class="h3 tw-font-bold tw-flex tw-items-center tw-justify-between tw-mb-3"
-          >
-            <div class=" ">Рейтинг</div>
-            <div>
-              {{ slide.rating }}
-            </div>
+  <div class="tw-grid tw-gap-2">
+    <div class="tw-overflow-hidden" v-for="(slide, idx) in hotels">
+      <div class="h3 tw-mb-3 tw-font-bold">
+        {{ slide.name }}
+      </div>
+      <div class="tw-overflow-hidden tw-mb-3">
+        <Slider :imgs="slide.images" />
+      </div>
+      <div>
+        <div
+          class="h3 tw-font-bold tw-flex tw-items-center tw-justify-between tw-mb-3"
+        >
+          <div class=" ">Рейтинг</div>
+          <div>
+            {{ slide.rating }}
           </div>
-          <div class="p1 tw-break-all" v-html="slide.description"></div>
         </div>
-      </SwiperSlide>
-      <div class="slider__pagination-orher"></div>
-    </Swiper>
+        <div class="p1 tw-grid tw-gap-4" v-html="slide.description"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">

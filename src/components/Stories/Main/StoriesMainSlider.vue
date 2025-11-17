@@ -17,18 +17,17 @@
       :key="i"
       @click="slideTo(i, speed)"
     >
-      <q-btn
-        round
-        flat
-        class="tw-absolute tw-right-7 tw-top-7 tw-z-10"
-        @click="closeStory"
-      >
-        <base-icon name="close" class="tw-w-6 tw-h-6 tw-text-white" />
-      </q-btn>
+      <div class="tw-absolute tw-right-7 tw-top-7 tw-z-10 env-t">
+        <q-btn round flat class="" @click="closeStory">
+          <base-icon name="close" class="tw-w-6 tw-h-6 tw-text-white" />
+        </q-btn>
+      </div>
       <StoriesGroupSlider
         :mainStory="mainStore().storyGroup.data[story.id]"
         @swiper="setGroupSlider"
         @slideChange="onSlideChange"
+        @prev="slidePrev"
+        @next="slideNext"
       />
     </swiper-slide>
   </swiper>
@@ -46,7 +45,7 @@ import 'swiper/css'
 const mainSlider = ref(null)
 const groupSlider = ref(null)
 const autoplayDelay = ref(5000)
-const speed = ref(100)
+const speed = ref(500)
 const isPaused = ref(false)
 let interval = ref(null)
 const storiesMainSlider = ref(null)
@@ -89,6 +88,8 @@ const closeStory = () => {
 }
 
 const slideNext = () => {
+  console.log('next')
+
   if (!sliderGroup.value.swiper.isEnd) {
     sliderGroup.value.swiper.slideNext(speed.value)
     return
@@ -163,7 +164,6 @@ const stopProgress = () => {
 }
 
 const onSlideChange = () => {
-  console.log('ss')
   mainSlider.value ? (stopProgress(), setProgress()) : false
   setActiveIndex()
 }

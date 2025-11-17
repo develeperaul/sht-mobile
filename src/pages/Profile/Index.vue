@@ -1,5 +1,5 @@
 <template>
-  <q-page class="tw-container tw-grid tw-content-between">
+  <q-page class="tw-container tw-grid tw-content-between env-b">
     <div>
       <head-block-profile class="tw-mb-[5px]" />
       <div class="tw-bg-white tw-rounded-32 tw-px-2.5">
@@ -36,13 +36,16 @@
           <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
         </div>
         <div class="tw-border-b tw-border-blue_bg"></div>
-        <div class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1">
+        <router-link
+          :to="{ name: 'docs' }"
+          class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
+        >
           <div class="tw-flex tw-gap-2 tw-items-center">
             <BaseIcon name="list" class="tw-w-6 tw-h-6 tw-text-blue_icon" />
             <div>Документы</div>
           </div>
           <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
-        </div>
+        </router-link>
         <div class="tw-border-b tw-border-blue_bg"></div>
 
         <router-link

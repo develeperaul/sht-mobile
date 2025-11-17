@@ -47,9 +47,13 @@ export type DirectionT = {
   offers_max_end_date: string
   min_date: string
 }
+export type DirectionSubgroupT = {
+  data: DirectionT[]
+  dates: string[]
+}
 
 export type FilterT = {
-  years: number[]
+  years: { [key: string]: number[] }
   months: string[]
   directions: {
     locals: { name: string }[]
@@ -116,6 +120,7 @@ export type OfferT = {
   price: string
   operator: string
   description: string
+  direction: DirectionCardT
   is_weekend: boolean
 }
 export interface OfferCardT extends OfferT {
@@ -128,6 +133,8 @@ export interface OfferCardT extends OfferT {
   }
 }
 export interface OfferCardList {
+  final_prepay: string
+  final_price: string
   id: string
   offer: OfferCardT
   status:
@@ -148,4 +155,12 @@ export type PromoT = {
   id: string
   code: string
   discount: string
+}
+
+export type PromotionT = {
+  uuid: string
+  title: string
+  label: string
+  description: string
+  image: null | { url: string }
 }

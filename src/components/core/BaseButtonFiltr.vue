@@ -22,7 +22,7 @@ const props = withDefaults(
 </script>
 <style lang="scss" scoped>
 .btn {
-  @apply tw-flex tw-gap-2 tw-bg-white tw-items-center tw-justify-center  tw-cursor-pointer tw-font-medium p1;
+  @apply tw-flex tw-gap-2 tw-bg-white tw-items-center tw-justify-center  tw-cursor-pointer tw-font-normal p1;
   border-radius: 60px;
   height: 38px;
   padding-inline: 12px;

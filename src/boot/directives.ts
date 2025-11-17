@@ -1,4 +1,5 @@
 import { boot } from 'quasar/wrappers'
+import FitText from './v-fit-text'
 export default boot(({ app }) => {
   app.directive('pretty', {
     mounted: function (el: HTMLLinkElement, binding: any, vnode: any) {
@@ -21,6 +22,7 @@ export default boot(({ app }) => {
       el.textContent = amountSq(binding.value)
     },
   })
+  app.directive('fit-text', FitText)
 
   function amount(val: string | number): string {
     return app.config.globalProperties.$pretty(val, '₽')

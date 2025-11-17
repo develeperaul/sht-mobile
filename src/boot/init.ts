@@ -1,6 +1,9 @@
 import 'virtual:svg-icons-register'
 import { vMaska } from 'maska/vue'
 import 'dayjs/locale/ru'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 // import ru from 'dayjs/locale/ru'
 export default async ({ app }) => {
   app.directive('maska', vMaska)

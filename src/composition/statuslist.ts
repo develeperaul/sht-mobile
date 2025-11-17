@@ -16,5 +16,5 @@ export function useStatus(
     if (status === 'waiting_review') return 'Ожидает отзыва' // кнопка ожидает отзыва
     if (status === 'completed') return 'Завершен' //
   })
-  return statusNaming
+  return { statusNaming }
 }

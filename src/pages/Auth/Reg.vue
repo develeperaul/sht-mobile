@@ -1,12 +1,12 @@
 <template>
-  <q-page class="tw-bg-blue_bg">
-    <div class="tw-container">
+  <q-page class="tw-bg-blue_bg tw-grid">
+    <div class="tw-container tw-grid tw-grid-rows-[auto_1fr]">
       <TopBlock label="Регистрация" />
 
       <Form
         v-if="step === 1"
         @submit="submit"
-        class="card-white tw-grid tw-gap-[23px] tw-mt-3"
+        class="card-white tw-grid tw-gap-[23px] tw-mt-3 tw-content-start tw-h-fit"
       >
         <div class="h2 tw-text-center">
           Введите имя <br />
@@ -19,7 +19,7 @@
         </div>
         <div class="p1 tw-text-center">
           <span>
-            Нажимая на кнопку «Получить код», <br />
+            Нажимая на кнопку «Получить код»,
             я принимаю условия
           </span>
           <a class="link" href="/">Пользовательского соглашения</a>
@@ -36,13 +36,14 @@
       </Form>
       <Form
         v-if="step === 2"
-        class="card-white tw-grid tw-gap-[23px] tw-mt-[32.5px]"
+        
+        class="card-white tw-grid tw-gap-[23px] tw-mt-[32.5px] tw-content-start tw-h-fit"
         @submit="auth"
       >
         <div class="h2 tw-text-center">Введите СМС код</div>
         <div class="p1 tw-text-center">
           Мы отправили код на номер <br />
-          +7{{ phone }}
+          +7{{ fields.phone }}
         </div>
         <code-input
           class="tw-flex tw-justify-center"
@@ -54,52 +55,80 @@
         </div>
         <BaseButton :disabled="diabledBtn"> Отправить </BaseButton>
       </Form>
-      <div v-if="step === 3" class="card-white tw-grid tw-gap-[23px]">
-        <img
-          src="~assets/img/1000.png"
-          width="273"
-          height="99"
-          alt=""
-          class="tw-mx-auto"
-        />
-        <div class="p1 tw-text-center">
-          Поздравляем!
-          <br />
-          <br />
-          Ваш промокод на 1000 рублей <br> для первого заказа. <br></br> Сохраните
-          его и используйте, <br></br> чтобы получить скидку.
-        </div>
-        <div
-          class="tw-flex tw-justify-between tw-items-center tw-rounded-[100px] tw-border-blue_bg tw-border-[3px] tw-bg-blue_bg tw-font-medium tw-pl-3"
-        >
-          1000START
+      <div v-if="step === 3" class=" tw-grid tw-content-between tw-pb-10 tw-pt-10" >
+        <div class="card-white tw-grid tw-gap-[23px]">
+
+          <img
+            src="~assets/img/1000.png"
+            width="273"
+            height="99"
+            alt=""
+            class="tw-mx-auto"
+          />
+          <div class="p1 tw-text-center">
+            Поздравляем!
+            <br />
+            <br />
+            Ваш промокод на 1000 рублей <br> для первого заказа. <br></br> Сохраните
+            его и используйте, <br></br> чтобы получить скидку.
+          </div>
           <div
-            class="tw-bg-geen_btn tw-flex tw-gap-[15px] tw-items-center tw-rounded-[100px] tw-shrink-0 tw-py-[15px] tw-px-6"
-            @click="copyRefLink"
+            class="tw-flex tw-justify-between tw-items-center tw-rounded-[100px] tw-border-blue_bg tw-border-[3px] tw-bg-blue_bg tw-font-normal tw-pl-3"
           >
-            <BaseIcon name="copy" class="tw-w-6 tw-h-6" />
-            Скопировать
+            1000START
+            <div
+              class="tw-bg-geen_btn tw-flex tw-gap-[15px] tw-items-center tw-rounded-[100px] tw-shrink-0 tw-py-[15px] tw-px-6"
+              @click="copyRefLink"
+            >
+              <BaseIcon name="copy" class="tw-w-6 tw-h-6" />
+              Скопировать
+            </div>
           </div>
         </div>
+        <BaseButton @click="router.push({ name: 'home' })" theme="black" class="">
+          Далее
+        </BaseButton>
       </div>
     </div>
+
+    <Teleport to="body">
+      <Transition name="fade">
+        <div class="popup" v-if="success">
+          <div class="popup__wrapper">
+            <div class="tw-bg-white tw-py-8 tw-px-5 tw-rounded-32">
+              <div class="h2 tw-text-center tw-mb-4">
+                У вас уже есть акккаунт
+              </div>
+              <div class="p1 tw-text-center tw-mb-4">
+                Под этим номер уже зарегистрирован аккаунт, войдите в профиль или введите новый номер телефона
+              </div>
+              <BaseButton @click="router.push({ name: 'login' })" class="">
+                Войти
+              </BaseButton>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </q-page>
 </template>
 <script setup lang="ts">
 import { regSendCode, regVerify } from 'src/api/auth'
 import authStore from 'src/stores/authStore'
-
+import { LocalStorage } from 'quasar'
 import { useRouter } from 'vue-router'
+import { devices } from 'src/api/main'
+import { Notify } from 'quasar'
 
 const router = useRouter()
-
+const success = ref(false)
 const fields = ref({
   name: '',
   phone: "",
 })
 
 const step = ref<1 | 2 | 3>(1)
-const promo = ref('1234')
+const promo = ref('1000START')
 const diabledBtn = ref(true)
 
 const getCode =  async() => {
@@ -111,14 +140,22 @@ const submit =  async() => {
     await getCode();
     step.value = 2
   } catch (e) {
-    throw e
+    if (e.response.status === 409) {
+      success.value = true
+    } else {
+      
+      throw e
+    }
+    
   }
  }
 const auth =  async(vals: { kod: string }) => {
   try {
-    authStore().reg(fields.value.name,'+7'+fields.value.phone,vals.kod)
-    
-    router.push({name:'home'})
+    await authStore().reg(fields.value.name,'+7'+fields.value.phone,vals.kod)
+    step.value = 3
+    if (window.localStorage.getItem('deviceTokenForPushNotification'))
+      await devices(window.localStorage.getItem('deviceTokenForPushNotification'))
+    // router.push({name:'home'})
   } catch (e) {
     throw e
   }
@@ -131,7 +168,14 @@ function copyRefLink() {
     .writeText( promo.value)
     .then(() => {
       linkIsInBuffer.value = true
-      setTimeout(() => (linkIsInBuffer.value = false), 1000 * 10)
+      Notify.create({
+        type: 'positive',
+        message: 'Промо скопирован',
+        position: 'top',
+      })
+      setTimeout(() => {
+        linkIsInBuffer.value = false
+      }, 1000 * 10)
     })
 }
 </script>

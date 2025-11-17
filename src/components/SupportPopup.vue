@@ -16,7 +16,9 @@
               Наш отдел заботы ответит вам в течение суток
             </div>
             <BaseButton>
-              <a href="/"> Написать в поддержку </a>
+              <a href="https://t.me/sayhellosupport_bot">
+                Написать в поддержку
+              </a>
             </BaseButton>
           </div>
         </div>

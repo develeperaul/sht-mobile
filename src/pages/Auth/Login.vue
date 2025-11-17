@@ -6,7 +6,7 @@
       <Form
         v-if="step === 1"
         @submit="submit"
-        class="card-white tw-grid tw-gap-[23px] tw-mt-3"
+        class="card-white tw-grid tw-gap-[23px] tw-mt-3 tw-content-start"
       >
         <div class="h2 tw-text-center">Введите номер телефона</div>
         <div class="p1 tw-text-center">Мы отправим код подтверждения</div>
@@ -55,19 +55,39 @@
         <BaseButton :disabled="diabledBtn"> Отправить </BaseButton>
       </Form>
     </div>
+    <Teleport to="body">
+      <Transition name="fade">
+        <div class="popup" v-if="success">
+          <div class="popup__wrapper">
+            <div class="tw-bg-white tw-py-8 tw-px-5 tw-rounded-32">
+              <div class="h2 tw-text-center tw-mb-4">У вас нет акккаунта</div>
+              <div class="p1 tw-text-center tw-mb-4">
+                Под этим номер не зарегистрирован аккаунт, зарегистрируйтесь или
+                введите новый номер телефона
+              </div>
+              <BaseButton @click="router.push({ name: 'reg' })" class="">
+                Зарегистрироваться
+              </BaseButton>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </q-page>
 </template>
 <script setup lang="ts">
 import { authSendCode, authVerify } from 'src/api/auth'
+import { devices } from 'src/api/main'
 import authStore from 'src/stores/authStore'
 import { useRouter } from 'vue-router'
-
+import { LocalStorage } from 'quasar'
 const router = useRouter()
 
 const phone = ref('')
 const step = ref<1 | 2>(1)
 const promo = ref('1234')
 const diabledBtn = ref(true)
+const success = ref(false)
 const getCode = async () => {
   await authSendCode('+7' + phone.value)
 }
@@ -77,13 +97,21 @@ const submit = async () => {
     await getCode()
     step.value = 2
   } catch (e) {
-    throw e
+    if (e.response.status === 409) {
+      success.value = true
+    } else {
+      throw e
+    }
   }
 }
 const auth = async (vals: { kod: string }) => {
   try {
-    authStore().auth('+7' + phone.value, vals.kod)
+    await authStore().auth('+7' + phone.value, vals.kod)
     router.push({ name: 'home' })
+    if (window.localStorage.getItem('deviceTokenForPushNotification'))
+      await devices(
+        window.localStorage.getItem('deviceTokenForPushNotification')
+      )
   } catch (e) {
     throw e
   }

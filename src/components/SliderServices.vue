@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="tw-overflow-hidden tw-mb-3">
+    <div v-if="service?.slider" class="tw-overflow-hidden tw-mb-3">
       <Slider :imgs="service.slider" />
     </div>
     <div>
-      <div class="p1 tw-break-all" v-html="service.description"></div>
+      <div class="p1 tw-grid tw-gap-4" v-html="service.description"></div>
     </div>
   </div>
 </template>

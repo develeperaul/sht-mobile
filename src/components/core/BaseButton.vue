@@ -11,7 +11,7 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    theme?: 'bg' | 'border'
+    theme?: 'bg' | 'border' | 'black'
     size?: 'sm'
     load?: boolean
   }>(),
@@ -41,6 +41,9 @@ const props = withDefaults(
   &_border {
     @apply tw-text-blue_link tw-outline tw-outline-blue_link tw-outline-[1px];
     offset: 1px;
+  }
+  &_black {
+    @apply tw-bg-gray_main tw-text-white;
   }
 }
 </style>

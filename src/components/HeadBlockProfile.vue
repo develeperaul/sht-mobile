@@ -3,11 +3,16 @@
     <div class="h3">Привет{{ name }}!</div>
 
     <router-link
-      to="/"
-      class="tw-bg-white tw-rounded-full tw-w-12 tw-h-12 tw-grid tw-place-content-center"
+      :to="{ name: 'profile' }"
+      class="tw-bg-white tw-rounded-full tw-w-12 tw-h-12 tw-grid tw-place-content-center tw-overflow-hidden"
     >
-      <img v-if="profile?.avatar" :src="profile.avatar" alt="" />
-      <BaseIcon v-else name="user" class="tw-w-7 tw-h-7" />
+      <img
+        v-if="profile?.avatar"
+        :src="profile.avatar.url"
+        alt=""
+        class="tw-w-full tw-h-full"
+      />
+      <BaseIcon v-else name="user" class="tw-w-7 tw-h-7 tw-text-blue_icon" />
     </router-link>
   </div>
 </template>

@@ -24,6 +24,11 @@ quasar build
 
 ### Customize the configuration
 
+### Key
+
+password 12345qwert
+alias - key0
+
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
 
 // progressbar +-
@@ -38,3 +43,7 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 // rgba(0,0,0,0.33) bg
 // форматировать стоимость
 // маска на др +
+
+Приложение хочет использовать вашу камеру для приклепления фото
+Приложение хочет использовать вашу медия библиотеку для приклепления файлов
+Приложение хочет использовать пуш уведомления для уведомления о статусах заказов

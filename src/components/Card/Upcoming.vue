@@ -1,16 +1,21 @@
 <template>
   <div @click="router.push(to)" class="card-upcoming">
-    <div class="card-upcoming__top">
+    <div class="card-upcoming__top tw-pb-3">
       <div class="tw-flex tw-gap-2">
         <img :src="img" alt="" class="card-upcoming__img" />
         <div class="tw-px-3">
           <div class="p1 tw-mb-1 tw-max-w-[206px]">
             {{ title }}
           </div>
-          <div class="tw-min-h-[68px] h1 tw-uppercase">{{ name }}</div>
+          <div
+            class="tw-min-h-[68px] h1 tw-uppercase"
+            v-fit-text="{ min: 26, max: 30, lineHeight: 1.1 }"
+          >
+            {{ name }}
+          </div>
         </div>
       </div>
-      <div class="p1 tw-h-[54px] tw-flex tw-justify-between">
+      <div class="p1 tw-h-[54px] tw-flex tw-justify-between tw-items-end">
         <div>{{ dates }}</div>
         <div>
           {{ diff }}
@@ -96,7 +101,7 @@ const { statusNaming } = useStatus(props.status)
 </script>
 <style lang="scss" scoped>
 .card-upcoming {
-  @apply tw-bg-white tw-overflow-hidden;
+  @apply tw-bg-white tw-overflow-hidden tw-grid;
   border-radius: 32px;
   &__top {
     @apply tw-px-5 tw-pt-5;

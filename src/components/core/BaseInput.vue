@@ -1,6 +1,6 @@
 <template>
   <div class="field">
-    <label class="tw-font-medium" v-if="label && !hideLabel">
+    <label class="tw-font-normal" v-if="label && !hideLabel">
       {{ label }}
     </label>
     <div class="input__wrapper" :class="{ error: errorMessage }">
@@ -100,7 +100,7 @@ function updateInput() {
     @apply tw-mb-2;
   }
   input {
-    @apply tw-bg-white p1 tw-px-5 tw-w-full tw-outline-none tw-font-medium;
+    @apply tw-bg-white p1 tw-px-5 tw-w-full tw-outline-none tw-font-normal;
     height: 50px;
     border-radius: 60px;
     background: #f5f9ff;

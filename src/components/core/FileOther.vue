@@ -21,27 +21,80 @@
         />
       </svg>
     </div>
-    <div class="file-img__url">
+    <div v-if="noimg" class="file-img__url">
       {{ url }}
     </div>
-    <!-- <img v-if="url" :src="url" alt="" /> -->
+    <template v-else>
+      <img v-if="url" :src="url" alt="" />
+    </template>
   </div>
   <div v-else class="">
-    <BaseIcon
-      name="image2"
+    <svg
+      width="120"
+      height="120"
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
       class="tw-w-[120px] tw-h-[120px]"
       @click="addFile"
-    />
+    >
+      <rect width="120" height="119.008" rx="30" fill="#E5EEF9" />
+      <g clip-path="url(#clip0_717_8169)">
+        <g clip-path="url(#clip1_717_8169)">
+          <path
+            d="M81.5481 59.9355C81.5481 71.872 71.8716 81.5484 59.9352 81.5484C47.9987 81.5484 38.3223 71.872 38.3223 59.9355C38.3223 47.999 47.9987 38.3226 59.9352 38.3226C71.8716 38.3226 81.5481 47.999 81.5481 59.9355Z"
+            fill="#C6D9F1"
+          />
+          <path
+            d="M46.9668 59.9355H71.419"
+            stroke="white"
+            stroke-width="3.24194"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M59.1934 46.9678V71.42"
+            stroke="white"
+            stroke-width="3.24194"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+      </g>
+      <defs>
+        <clipPath id="clip0_717_8169">
+          <rect
+            width="51.871"
+            height="51.871"
+            fill="white"
+            transform="translate(34 34)"
+          />
+        </clipPath>
+        <clipPath id="clip1_717_8169">
+          <rect
+            width="51.871"
+            height="51.871"
+            fill="white"
+            transform="translate(34 34)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+
     <Field name="file" type="file">
       <input ref="fileInput" type="file" hidden @change="loadFile" />
     </Field>
   </div>
 </template>
 <script setup lang="ts">
-const props = defineProps<{
-  id?: string
-  url?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    id?: string
+    url?: string
+    noimg?: boolean
+  }>(),
+  { noimg: true }
+)
 const fileInput = ref<HTMLInputElement | null>(null)
 const emit = defineEmits<{
   (e: 'fileLoad', file: File): void
@@ -66,10 +119,11 @@ const loadFile = (event: Event) => {
 .file-img {
   @apply tw-w-[120px] tw-h-[120px]  tw-relative tw-bg-blue_bg tw-rounded-[30px] tw-grid tw-place-content-center;
   & img {
-    @apply tw-rounded-[30px];
+    @apply tw-rounded-[30px] tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-object-cover;
   }
   &__btn {
     @apply tw-absolute -tw-right-2 -tw-top-2;
+    z-index: 1;
   }
   &__url {
     @apply p1;

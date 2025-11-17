@@ -15,4 +15,8 @@ const props = defineProps<{
   stories: StoriesT[]
 }>()
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+.stories-group-slider .swiper-pagination-bullet:only-child {
+  display: block !important;
+}
+</style>

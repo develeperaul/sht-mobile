@@ -83,7 +83,7 @@ const openStory = async (id: number, index: number) => {
       position: relative;
       font-size: 9px;
       line-height: 120%;
-      font-weight: 500;
+      font-weight: 400;
       color: #fff;
     }
   }

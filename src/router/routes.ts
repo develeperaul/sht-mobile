@@ -93,6 +93,30 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
+      {
+        path: 'profile/docs',
+        name: 'docs',
+        component: () => import('pages/Profile/Docs/Index.vue'),
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: 'profile/docs/policy',
+        name: 'policy',
+        component: () => import('pages/Profile/Docs/Policy.vue'),
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: 'profile/docs/sogl',
+        name: 'sogl',
+        component: () => import('pages/Profile/Docs/Sogl.vue'),
+        meta: {
+          auth: true,
+        },
+      },
     ],
   },
   {
@@ -108,6 +132,11 @@ const routes: RouteRecordRaw[] = [
         path: 'auth/reg',
         name: 'reg',
         component: () => import('pages/Auth/Reg.vue'),
+      },
+      {
+        path: 'auth/reg2',
+        name: 'reg2',
+        component: () => import('pages/Auth/Reg2.vue'),
       },
       {
         path: 'auth/login',

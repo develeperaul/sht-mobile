@@ -8,7 +8,8 @@
       local('Gilroy Regular'),
       local('Gilroy-Regular'),
       url(#{$path}/Gilroy-Regular.eot?#iefix) format('embedded-opentype'),
-      url(#{$path}/Gilroy-Regular.woff) format('eot');
+      url(#{$path}/Gilroy-Regular.eot) format('eot'),
+      url(#{$path}/Gilroy-Regular.woff) format('woff');
     font-weight: 400;
     font-style: normal;
   }
@@ -46,37 +47,36 @@
 
   @font-face {
     font-family: 'ua-Brand';
-    src: url(#{$path}/ua-BRAND-Regular.eot);
+    src: url(#{$path}/ua-BRAND-Regular.otf);
     src:
       local('ua-BRAND Regular'),
       local('ua-BRAND-Regular'),
-      url(#{$path}/ua-BRAND-Regular.eot?#iefix) format('embedded-opentype'),
-      url(#{$path}/ua-BRAND-Regular.woff) format('eot');
+      url(#{$path}/ua-BRAND-Regular.otf) format('otf'),
+      url(#{$path}/ua-BRAND-Regular.woff) format('woff');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'ua-Brand';
-    src: url(#{$path}/ua-BRAND-bold.eot);
+    src: url(#{$path}/ua-BRAND-bold.otf);
     src:
       local('ua-BRAND bold'),
       local('ua-BRAND-bold'),
-      url(#{$path}/ua-BRAND-bold.eot?#iefix) format('embedded-opentype'),
-      url(#{$path}/ua-BRAND-bold.woff) format('woff'),
-      url(#{$path}/ua-BRAND-bold.woff) format('eot');
+      url(#{$path}/ua-BRAND-bold.otf) format('otf'),
+      url(#{$path}/ua-BRAND-bold.woff) format('woff');
+
     font-weight: 800;
     font-style: normal;
   }
   @font-face {
     font-family: 'ua-Brand';
-    src: url(#{$path}/ua-BRAND-black.eot);
+    src: url(#{$path}/ua-BRAND-black.otf);
     src:
       local('ua-BRAND black'),
       local('ua-BRAND-black'),
-      url(#{$path}/ua-BRAND-black.eot?#iefix) format('embedded-opentype'),
-      url(#{$path}/ua-BRAND-black.woff) format('woff'),
-      url(#{$path}/ua-BRAND-black.woff) format('eot');
+      url(#{$path}/ua-BRAND-black.otf) format('otf'),
+      url(#{$path}/ua-BRAND-black.woff) format('woff');
     font-weight: 900;
     font-style: normal;
   }

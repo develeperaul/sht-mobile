@@ -24,7 +24,57 @@
     <img v-if="url" :src="url" alt="" />
   </div>
   <div v-else class="">
-    <BaseIcon name="image" class="tw-w-[120px] tw-h-[120px]" @click="addFile" />
+    <svg
+      @click="addFile"
+      width="120"
+      height="120"
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="120" height="119.008" rx="30" fill="white" />
+      <g clip-path="url(#clip0_321_8590)">
+        <g clip-path="url(#clip1_321_8590)">
+          <path
+            d="M81.5481 59.9355C81.5481 71.872 71.8716 81.5484 59.9352 81.5484C47.9987 81.5484 38.3223 71.872 38.3223 59.9355C38.3223 47.999 47.9987 38.3226 59.9352 38.3226C71.8716 38.3226 81.5481 47.999 81.5481 59.9355Z"
+            fill="#C6D9F1"
+          />
+          <path
+            d="M46.9678 59.9355H71.42"
+            stroke="white"
+            stroke-width="3.24194"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M59.1924 46.9677V71.42"
+            stroke="white"
+            stroke-width="3.24194"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+      </g>
+      <defs>
+        <clipPath id="clip0_321_8590">
+          <rect
+            width="51.871"
+            height="51.871"
+            fill="white"
+            transform="translate(34 34)"
+          />
+        </clipPath>
+        <clipPath id="clip1_321_8590">
+          <rect
+            width="51.871"
+            height="51.871"
+            fill="white"
+            transform="translate(34 34)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+
     <Field name="file" type="file">
       <input ref="fileInput" type="file" hidden @change="loadFile" />
     </Field>

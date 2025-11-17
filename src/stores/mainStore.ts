@@ -1,13 +1,16 @@
 // import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { stories, story } from 'src/api/main'
+import { getPromotion, stories, story } from 'src/api/main'
 import { DataVal } from 'src/models'
-import { StoriesT, StoryT, StoryGroupT } from 'src/models/api/main'
+import { StoriesT, StoryT, StoryGroupT, PromotionT } from 'src/models/api/main'
+import { useOnline } from '@vueuse/core'
 
 export default defineStore('main', () => {
+  const isOnline = useOnline()
+  const noInt = ref(false)
   //main
   const bg = ref<string | null>('background:rgba(0,0,0,0.33)')
-
+  const bgColor = 'rgba(0,0,0,0.33) bg'
   // start сторисы
   const storyIndex = ref<number | null>(null)
   const isStoriesActive = ref(false)
@@ -198,6 +201,14 @@ export default defineStore('main', () => {
   })
 
   // end сторисы
+  const promotion = ref<PromotionT | null>(null)
+  const setPromotion = async () => {
+    try {
+      promotion.value = (await getPromotion()).data
+    } catch (e) {
+      throw e
+    }
+  }
 
   return {
     bg,
@@ -215,5 +226,11 @@ export default defineStore('main', () => {
 
     storyOtherGroup,
     getStoryOther,
+
+    noInt,
+
+    promotion,
+    setPromotion,
+    isOnline,
   }
 })

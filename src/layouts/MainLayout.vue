@@ -1,15 +1,16 @@
 <template>
   <q-layout
     view="lHh Lpr lFf"
-    class="tw-bg-blue_bg bg"
+    class="tw-bg-blue_bg bg env-t"
     :style="{
       backgroundImage: route.meta.bg ? 'url(' + storeMain.bg + ')' : '',
+      backgroundColor: route.meta.bg ? '#000' : '',
     }"
   >
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer class="nav-panel">
+    <q-footer class="nav-panel env-b">
       <div class="tw-container tw-py-4 tw-flex tw-justify-between tw-px-8">
         <router-link
           to="/"
@@ -88,7 +89,6 @@ const storeMain = mainStore()
 <style scoped>
 .bg {
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: auto;
 }
 </style>

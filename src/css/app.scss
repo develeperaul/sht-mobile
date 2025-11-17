@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply tw-font-gilroy;
+    @apply tw-font-gilroy tw-font-normal;
     font-size: 16px;
   }
 
@@ -39,17 +39,17 @@
     line-height: 20px;
   }
   .p1 {
-    @apply tw-font-gilroy tw-font-medium;
+    @apply tw-font-gilroy tw-font-normal;
     font-size: 16px;
     line-height: 22px;
   }
   .p2 {
-    @apply tw-font-gilroy tw-font-medium;
+    @apply tw-font-gilroy tw-font-normal;
     font-size: 14px;
     line-height: 18px;
   }
   .p3 {
-    @apply tw-font-gilroy tw-font-medium;
+    @apply tw-font-gilroy tw-font-normal;
     font-size: 12px;
     line-height: 18px;
   }
@@ -162,9 +162,22 @@
   .slider__pagination-orher .swiper-pagination-bullet {
     @apply tw-bg-blue_icon tw-w-[6px] tw-h-[6px];
     transition: all 0.3s ease;
+    flex-shrink: 0;
   }
   .slider__pagination-orher .swiper-pagination-bullet-active {
     @apply tw-bg-gray_main tw-w-[27px];
     border-radius: 6px;
+  }
+
+  .slider-other .swiper-pagination {
+    .swiper-pagination-bullet {
+      @apply tw-bg-blue_icon tw-w-[6px] tw-h-[6px];
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .swiper-pagination-bullet-active {
+      @apply tw-bg-gray_main tw-w-[27px];
+      border-radius: 6px;
+    }
   }
 }

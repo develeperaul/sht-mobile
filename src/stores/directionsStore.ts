@@ -1,6 +1,12 @@
 // import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { getFilters, getOffers, stories, story } from 'src/api/main'
+import {
+  getDirectionSubgroup,
+  getFilters,
+  getOffers,
+  stories,
+  story,
+} from 'src/api/main'
 import { DataVal } from 'src/models'
 import {
   StoriesT,
@@ -9,6 +15,7 @@ import {
   FilterT,
   OfferT,
   OfferCardT,
+  DirectionSubgroupT,
 } from 'src/models/api/main'
 import { DirectionT, DirectionCardT } from 'src/models/api/main'
 import { getDirections, getDirection } from 'src/api/main'
@@ -48,6 +55,21 @@ export default defineStore('directions', () => {
       throw e
     } finally {
       direction.value.loading = false
+    }
+  }
+
+  const directionsSubgroup = ref<DataVal<DirectionSubgroupT | null>>({
+    loading: false,
+    data: null,
+  })
+  const setDirectionsSubgroup = async (uuid: string) => {
+    try {
+      directionsSubgroup.value.loading = true
+      directionsSubgroup.value.data = await getDirectionSubgroup(uuid)
+    } catch (e) {
+      throw e
+    } finally {
+      directionsSubgroup.value.loading = false
     }
   }
 
@@ -119,5 +141,7 @@ export default defineStore('directions', () => {
     currentOffer,
     transportData,
     powerData,
+    directionsSubgroup,
+    setDirectionsSubgroup,
   }
 })

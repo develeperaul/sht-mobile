@@ -92,10 +92,12 @@
                     maska="+7 (###)-###-##-##"
                     name="phone"
                     placeholder="Телефон"
+                    rules="required|cellphone"
                   />
                   <BaseInput
                     :model-value="profile.email ?? ''"
                     name="email"
+                    rules="required|email"
                     placeholder="Почта"
                   />
                 </div>
@@ -336,11 +338,21 @@
         </template>
       </template>
     </div>
+    <VerifyMail
+      v-model="isVerifyMail"
+      :mail="updateMail"
+      @update="isVerifyMail = false"
+    />
+    <VerifyPhone
+      v-model="isVerifyPhone"
+      :phone="updatePhone"
+      @update="isVerifyPhone = false"
+    />
   </q-page>
 </template>
 <script setup lang="ts">
 import profileStore from 'src/stores/profileStore'
-import { updateProfile, uploadFile } from 'src/api/profile'
+import { updateProfile, uploadFile, updateProfilePhoto } from 'src/api/profile'
 import friendStore from 'src/stores/friendStore'
 import { deleteMedia } from 'src/api/main'
 
@@ -431,7 +443,10 @@ const addGuest = () => {
   guests.value.push({ open: false, trash: false, edit: false })
   guestActive.value = guests.value.length - 1
 }
-
+const isVerifyMail = ref(false)
+const isVerifyPhone = ref(false)
+const updateMail = ref('')
+const updatePhone = ref('')
 //обновление профиля
 const updateData = async (vals: {
   phone: string
@@ -442,7 +457,32 @@ const updateData = async (vals: {
   email: string
 }) => {
   await profileStore().update({ ...vals, phone: '+7' + vals.phone })
+  console.log(
+    profile.value?.email !== vals.email ||
+      (profile.value?.email === null && vals.email !== null)
+  )
+
+  if (
+    profile.value?.email !== vals.email &&
+    vals.email !== null &&
+    vals.email.length > 0
+  ) {
+    console.log(vals.email.length > 0)
+
+    updateMail.value = vals.email
+    isVerifyMail.value = true
+  }
+
+  if (
+    profile.value?.phone !== '+7' + vals.phone &&
+    vals.phone !== null &&
+    vals.phone.length > 0
+  ) {
+    updatePhone.value = vals.phone
+    isVerifyPhone.value = true
+  }
 }
+
 //создание гостя
 const createGuest = (vals: {
   phone: string
@@ -495,11 +535,7 @@ const avatar_id = ref<string>('')
 const fileLoad = async (file: File) => {
   try {
     avatar_id.value = (await uploadFile(file)).data.id
-
-    await profileStore().update({
-      ...profile.value,
-      avatar_id: avatar_id.value,
-    })
+    profile.value = (await updateProfilePhoto(avatar_id.value)).data
   } catch (e) {
     throw e
   }

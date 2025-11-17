@@ -42,6 +42,8 @@
           </base-button>
         </div>
       </div>
+      <div class="prev" @click="$emit('prev')"></div>
+      <div class="next" @click="$emit('next')"></div>
     </swiper-slide>
 
     <div class="swiper-pagination stories-group-slider__pagination"></div>
@@ -60,6 +62,7 @@ const props = defineProps({
     default: () => ({}),
   },
 })
+const emit = defineEmits(['prev', 'next'])
 onMounted(() => {
   console.log(props.mainStory)
 })
@@ -94,12 +97,13 @@ const swiperOptions = ref({
     background-size: cover;
 
     &::after {
-      content: '';
+      // content: '';
       background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 0) 19.27%,
         #0f0e0e 93.72%
       );
+      z-index: 0;
       position: absolute;
       left: 0;
       top: 0;
@@ -125,6 +129,7 @@ const swiperOptions = ref({
     }
     &-title {
       @apply h1 tw-text-white tw-font-bold;
+      z-index: 2;
     }
     &-description {
       @apply p2 tw-text-white;
@@ -132,7 +137,7 @@ const swiperOptions = ref({
   }
 
   &__pagination {
-    @apply tw-absolute tw-top-5 tw-left-0 tw-right-0 tw-opacity-0 tw-w-full;
+    @apply tw-absolute tw-top-5 tw-left-0 tw-right-0 tw-opacity-0 tw-w-full env-t tw-h-fit;
     display: flex;
     justify-content: space-between;
 
@@ -172,6 +177,20 @@ const swiperOptions = ref({
         transition: transform 0.3s ease;
       }
     }
+  }
+  .prev,
+  .next {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+  }
+  .prev {
+    left: 0;
+  }
+  .next {
+    right: 0;
   }
 }
 </style>

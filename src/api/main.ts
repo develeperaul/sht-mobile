@@ -1,14 +1,17 @@
 import { DataObj } from 'src/models/api'
 import { api, apiAuth } from './index'
 import {
+  DirectionSubgroupT,
   FilterT,
   OfferCardT,
   OfferT,
   PromoT,
+  PromotionT,
   StoriesT,
   StoryT,
 } from 'src/models/api/main'
 import { DirectionT, DirectionCardT } from 'src/models/api/main'
+import { json } from 'stream/consumers'
 //сторисы
 
 // Показывает список сторисов
@@ -29,6 +32,7 @@ export const getDirections = (obj?: {
   price_from?: string
   price_to?: string
   year?: null | string | number
+  type?: null | string | number
 }): Promise<DataObj<DirectionT[]>> => {
   if (obj) {
     let params = ''
@@ -52,16 +56,22 @@ export const getDirection = (
 ): Promise<DataObj<DirectionCardT>> => {
   return api.mainKy(`directions/${uuid}`).json()
 }
+export const getDirectionSubgroup = (
+  uuid: string
+): Promise<DirectionSubgroupT> => {
+  return api.mainKy(`directions/${uuid}/subgroup`).json()
+}
 export const getDirectionReview = (
   direciton_uuid: string,
   obj: {
     rating: number
     description?: string
     how_found_us?: string
+    image_ids?: string[]
   }
 ): Promise<DataObj<'OK'>> => {
   return api.mainKy
-    .post(`directions/${direciton_uuid}/review`, { json: obj })
+    .post(`directions/${direciton_uuid}/reviews`, { json: obj })
     .json()
 }
 // Фильтры
@@ -82,6 +92,9 @@ export const getOffers = (
 export const getOffer = (uuid: string): Promise<DataObj<OfferCardT>> => {
   return api.mainKy(`offers/${uuid}`).json()
 }
+export const getPromotion = (): Promise<DataObj<PromotionT>> => {
+  return api.mainKy('promotion').json()
+}
 export const getPromo = (): Promise<DataObj<PromoT>> => {
   return api.mainKy(`promotional-code`).json()
 }
@@ -93,4 +106,7 @@ export const infoPromo = (code: string): Promise<DataObj<PromoT>> => {
 
 export const deleteMedia = (id: string) => {
   return api.mainKy.delete(`media/${id}`).json()
+}
+export const devices = (id: string) => {
+  return api.mainKy.post('/devices', { json: { id } })
 }

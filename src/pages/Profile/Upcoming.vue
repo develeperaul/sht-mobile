@@ -36,7 +36,7 @@
           <div class="tw-grid tw-grid-cols-2">
             <div class="tw-grid tw-gap-3">
               <div class="h3">Стоимость</div>
-              <div class="h2">{{ Number(offer.offer.price).toFixed() }} ₽</div>
+              <div class="h2" v-amount-pretty="offer.final_price"></div>
             </div>
             <div class="tw-grid tw-gap-3">
               <div class="h3">Статус</div>
@@ -49,27 +49,29 @@
           <div class="p1">
             {{ offer.offer.description }}
           </div>
-          <div class="tw-mt-6">
+          <div class="tw-mt-6" v-if="offer.voucher_url || offer.contract_url">
             <div class="h3 tw-font-bold tw-mb-3">Документы</div>
             <div class="tw-flex tw-gap-2">
               <a
-                href=""
+                v-if="offer.voucher_url"
+                :href="offer.voucher_url"
                 class="tw-w-[120px] tw-h-[120px] tw-rounded-32 tw-bg-blue_bg p1 tw-grid tw-place-content-center"
               >
                 Ваучер.pdf
               </a>
               <a
-                href=""
+                v-if="offer.contract_url"
+                :href="offer.contract_url"
                 class="tw-w-[120px] tw-h-[120px] tw-rounded-32 tw-bg-blue_bg p1 tw-grid tw-place-content-center"
               >
                 Договор.pdf
               </a>
             </div>
           </div>
-          <div class="tw-mt-6">
+          <div class="tw-mt-6" v-if="offer.status === 'paid'">
             <div class="h3 tw-font-bold tw-mb-1">Авиабилеты</div>
-            <div class="p2 tw-mb-3">Вы можете подгрузить сюда свои билеты</div>
-            <div class="tw-flex tw-gap-2">
+            <div class="p2 tw-mb-6">Вы можете подгрузить сюда свои билеты</div>
+            <div class="tw-flex tw-flex-wrap tw-gap-2 tw-justify-items-start">
               <FileOther @file-load="fileLoad" />
               <FileOther
                 v-for="value in offer.tickets"
@@ -81,9 +83,26 @@
           </div>
 
           <div class="tw-grid tw-gap-3 tw-mt-3">
-            <BaseButton theme="border"> Перейти в чат путешествия </BaseButton>
-            <BaseButton @click="openReview = true"> Оставить отзыв </BaseButton>
+            <BaseButton
+              theme="border"
+              v-if="offer.status === 'paid' && offer.chat_url"
+              @click="openChat(offer.chat_url)"
+            >
+              Перейти в чат путешествия
+            </BaseButton>
+            <BaseButton
+              v-if="offer.status === 'waiting_review'"
+              @click="openReview = true"
+            >
+              Оставить отзыв
+            </BaseButton>
           </div>
+          <BaseButton
+            v-if="offer.status === 'pending' && offer.payment_url"
+            @click="ordersStore().openURL(offer.payment_url)"
+          >
+            Внести предоплату
+          </BaseButton>
 
           <!-- <div class="h3 tw-mb-3">Популярные вопросы</div>
                 <div v-for="question in direction.data.questions">
@@ -129,7 +148,7 @@
                       <div class="p1">Обзорное видео</div>
                       <!-- {{ showVideo }} -->
                       <div
-                        class="tw-relative tw-h-[98px] tw-rounded-[30px] tw-overflow-hidden"
+                        class="tw-relative tw-h-[250px] tw-rounded-[30px] tw-overflow-hidden"
                       >
                         <BaseIcon
                           name="play"
@@ -188,6 +207,7 @@
       v-if="direction.data"
       v-model="openReview"
       :direction__uuid="direction.data.id"
+      :title="direction.data.name"
     />
   </q-page>
 </template>
@@ -201,10 +221,15 @@ import directionsStore from 'src/stores/directionsStore'
 import { deleteMedia } from 'src/api/main'
 import { useStatus } from 'src/composition/statuslist'
 
+import { useRouter } from 'vue-router'
+import ordersStore from 'src/stores/ordersStore'
+
 const props = defineProps<{
   offerProps?: OfferCardList
   uuid: string
 }>()
+
+const router = useRouter()
 const tab = ref<'obsh' | 'local'>('obsh')
 const tabs = ref<{ id: string; name: string }[]>([
   { id: 'obsh', name: 'Общая информация' },
@@ -232,6 +257,7 @@ const avatar_id = ref<string>('')
 const fileLoad = async (file: File) => {
   try {
     avatar_id.value = (await uploadTicket(props.uuid, file)).data.id
+    offer.value = (await getOrder(props.uuid)).data
   } catch (e) {
     throw e
   }
@@ -240,8 +266,10 @@ const fileLoad = async (file: File) => {
 const openReview = ref(false)
 const offer = ref<OfferCardList>()
 const loading = ref(false)
+// const { statusNaming } = useStatus(offer.value?.status)
 const statusNaming = computed(() => {
   if (offer.value && offer.value.status === 'fresh') return 'Новый'
+  if (offer.value && offer.value.status === 'paid') return 'Оплачено'
   if (offer.value && offer.value.status === 'pending')
     return 'Ожидает предоплаты'
   if (offer.value && offer.value.status === 'cancelled') return 'Отменен'
@@ -261,6 +289,7 @@ onMounted(async () => {
     await directionsStore().setDirection(offer.value.offer.direction.id)
     if (offer.value.offer.direction.background)
       mainStore().bg = offer.value.offer.direction.background.url
+    else mainStore().bg = ''
   }
 })
 
@@ -268,9 +297,13 @@ const diff = computed(() => {
   let d = 0
 
   if (offer.value)
-    d = dayjs(offer.value.offer.end_date)
+    d = dayjs(dayjs(offer.value.offer.end_date).format('YYYY-MM-DD'))
       .locale('ru')
-      .diff(offer.value.offer.start_date, 'day', true)
+      .diff(
+        dayjs(offer.value.offer.start_date).format('YYYY-MM-DD'),
+        'day',
+        true
+      )
 
   return `${d} ${
     Number(d) == 1 ? 'день' : Number(d) >= 2 && Number(d) <= 4 ? 'дня' : 'дней'
@@ -282,10 +315,22 @@ const interval = computed(() => {
   return ''
 })
 
-const deleteTicket = (id: string) => {
-  console.log(id)
+const deleteTicket = async (id: string) => {
+  try {
+    deleteMedia(id)
+    offer.value = (await getOrder(props.uuid)).data
+  } catch (e) {
+    throw e
+  }
+}
 
-  deleteMedia(id)
+const openChat = (url: string) => {
+  // alert(url)
+  Browser.open({ url: url })
+  Browser.addListener('browserFinished', () => {
+    // обновить статус
+  })
+  router.push({ name: 'orders' })
 }
 </script>
 <style scoped lang="scss"></style>

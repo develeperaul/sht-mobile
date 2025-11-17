@@ -1,0 +1,16 @@
+{
+  "name": "sht-project",
+  "version": "0.0.1",
+  "description": "Sey Hello Travel",
+  "author": "Ralfik <developeraul@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/browser": "^7.0.2",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/push-notifications": "^7.0.3"
+  }
+}

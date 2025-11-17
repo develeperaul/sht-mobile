@@ -1,23 +1,32 @@
 <template>
   <div class="card-raffle">
     <div class="card-raffle__content">
-      <div class="card-raffle__label">Розыгрыш</div>
+      <div v-if="promotion.label" class="card-raffle__label">
+        {{ promotion.label }}
+      </div>
 
       <div>
         <div
           class="h1 tw-uppercase tw-text-center tw-mb-2"
-          v-html="'Прыжок <br/> с парашютом'"
+          v-html="promotion.title"
         ></div>
-        <div class="p2">Выиграйте прыжок при поездке на Кавказ!</div>
+        <div class="p2 tw-text-center" v-html="promotion.description"></div>
       </div>
     </div>
     <div
+      v-if="promotion.image"
       class="card-raffle__bg"
-      style="background-image: url('src/assets/test.png')"
+      :style="{ backgroundImage: `url(${promotion.image.url})` }"
     ></div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { PromotionT } from 'src/models/api/main'
+
+const props = defineProps<{
+  promotion: PromotionT
+}>()
+</script>
 <style lang="scss" scoped>
 .card-raffle {
   height: 457px;
