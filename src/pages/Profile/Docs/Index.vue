@@ -2,7 +2,7 @@
   <q-page class="tw-container tw-grid tw-content-between">
     <div>
       <head-block title="Документы" class="tw-mb-3" />
-      <div class="tw-bg-white tw-rounded-32 tw-px-2.5">
+      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5">
         <router-link
           :to="{ name: 'sogl' }"
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"

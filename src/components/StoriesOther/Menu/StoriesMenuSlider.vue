@@ -64,15 +64,7 @@ const openStory = async (id: number, index: number) => {
       top: 0;
       width: 100%;
       height: 100%;
-      &::before {
-        @apply tw-bg-black/30;
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
+
       img {
         object-fit: cover;
         width: 100%;

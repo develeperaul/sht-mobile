@@ -2,7 +2,10 @@
   <q-page class="tw-container tw-grid tw-content-between">
     <div>
       <head-block title="Лицензионное соглашение" class="tw-mb-3" />
-      <div class="tw-bg-white tw-rounded-32 tw-p-2 p1">
+      <div
+        class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 -tw-mx-4 tw-font-medium"
+        style="font-size: 14px; line-height: 18px"
+      >
         Лицензионное соглашение на использование программы «Say Hello Travel»
         для мобильных устройств
         <br />

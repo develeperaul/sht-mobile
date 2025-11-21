@@ -11,11 +11,9 @@
           <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6" />
         </div>
       </div>
-      <div>
-        <base-icon name="splash" class="tw-w-[332px] tw-h-[100%] tw-mx-auto" />
-      </div>
-      <div class="tw-grid tw-content-end">
-        <div class="tw-grid tw-justify-items-center">
+
+      <div class="tw-grid tw-grid-rows-[1fr_auto]">
+        <div class="tw-grid tw-justify-items-center tw-content-center">
           <base-icon name="sht" class="tw-h-12" />
           <div class="p2">Твой путеводитель в мир путешествий</div>
         </div>

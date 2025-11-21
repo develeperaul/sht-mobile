@@ -45,5 +45,10 @@ const props = withDefaults(
   &_black {
     @apply tw-bg-gray_main tw-text-white;
   }
+  &:disabled {
+    background: #e5eef9;
+    color: #16161633;
+    opacity: 1 !important;
+  }
 }
 </style>

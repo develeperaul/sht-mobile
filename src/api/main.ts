@@ -108,5 +108,7 @@ export const deleteMedia = (id: string) => {
   return api.mainKy.delete(`media/${id}`).json()
 }
 export const devices = (id: string) => {
-  return api.mainKy.post('/devices', { json: { id } })
+  console.log(id, 'test')
+
+  return api.mainKy.post('devices', { json: { device_id: id } })
 }

@@ -106,7 +106,7 @@ const routes: RouteRecordRaw[] = [
         name: 'policy',
         component: () => import('pages/Profile/Docs/Policy.vue'),
         meta: {
-          auth: true,
+          // auth: true,
         },
       },
       {
@@ -114,7 +114,7 @@ const routes: RouteRecordRaw[] = [
         name: 'sogl',
         component: () => import('pages/Profile/Docs/Sogl.vue'),
         meta: {
-          auth: true,
+          // auth: true,
         },
       },
     ],

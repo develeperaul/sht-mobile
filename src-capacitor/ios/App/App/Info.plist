@@ -26,6 +26,10 @@
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Приложение хочет использовать вашу медия библиотеку для приклепления файлов</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Нужен доступ к сохранению фото</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Нужен доступ к галерее</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Приложение хочет использовать вашу камеру для приклепления фото</string>
 	<key>NSUserNotificationsUsageDescription</key>

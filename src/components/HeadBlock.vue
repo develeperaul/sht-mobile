@@ -9,7 +9,9 @@
     >
       <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6" :class="iconColor" />
     </div>
-    <div class="p1" :class="titleColor">{{ title }}</div>
+    <div class="p1 tw-px-[44px] tw-text-center" :class="titleColor">
+      {{ title }}
+    </div>
   </div>
 </template>
 <script setup lang="ts">

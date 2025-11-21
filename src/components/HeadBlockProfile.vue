@@ -1,6 +1,6 @@
 <template>
   <div class="tw-flex tw-justify-between tw-items-center">
-    <div class="h3">Привет{{ name }}!</div>
+    <div class="h2">Привет{{ name }}!</div>
 
     <router-link
       :to="{ name: 'profile' }"

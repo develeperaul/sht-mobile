@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-grid tw-gap-2">
+  <div class="tw-grid tw-gap-8">
     <div class="tw-overflow-hidden" v-for="(slide, idx) in hotels">
       <div class="h3 tw-mb-3 tw-font-bold">
         {{ slide.name }}

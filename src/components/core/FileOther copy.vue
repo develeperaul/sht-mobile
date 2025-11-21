@@ -21,7 +21,6 @@
         />
       </svg>
     </div>
-
     <div v-if="noimg" class="file-img__url">
       {{ url }}
     </div>
@@ -29,8 +28,7 @@
       <img v-if="url" :src="url" alt="" />
     </template>
   </div>
-
-  <div v-else>
+  <div v-else class="">
     <svg
       width="120"
       height="120"
@@ -38,7 +36,7 @@
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       class="tw-w-[120px] tw-h-[120px]"
-      @click="openCamera"
+      @click="addFile"
     >
       <rect width="120" height="119.008" rx="30" fill="#E5EEF9" />
       <g clip-path="url(#clip0_717_8169)">
@@ -82,12 +80,13 @@
         </clipPath>
       </defs>
     </svg>
+
+    <Field name="file" type="file">
+      <input ref="fileInput" type="file" hidden @change="loadFile" />
+    </Field>
   </div>
 </template>
-
 <script setup lang="ts">
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
-
 const props = withDefaults(
   defineProps<{
     id?: string
@@ -96,42 +95,30 @@ const props = withDefaults(
   }>(),
   { noimg: true }
 )
-
+const fileInput = ref<HTMLInputElement | null>(null)
 const emit = defineEmits<{
   (e: 'fileLoad', file: File): void
   (e: 'deleteFile', id: string): void
 }>()
+const addFile = () => {
+  console.log(fileInput.value)
+  // fileInput.value?.addEventListener('click', function (e) {
+  //   console.log(e.type)
+  // })
+  if (fileInput.value) fileInput.value.click()
+}
 
-const openCamera = async () => {
-  try {
-    const photo = await Camera.getPhoto({
-      quality: 85,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt, // системное меню: Камера / Фото
-    })
-
-    if (!photo.dataUrl) return
-
-    // dataUrl → Blob → File, чтобы наверх улетал File
-    const res = await fetch(photo.dataUrl)
-    const blob = await res.blob()
-    const ext = blob.type.split('/')[1] || 'jpg'
-
-    const file = new File([blob], `photo.${ext}`, {
-      type: blob.type,
-    })
-
-    emit('fileLoad', file)
-  } catch (e) {
-    console.log('Camera cancelled or error', e)
+const loadFile = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement
+  if (inputElement.files) {
+    if (inputElement.files[0]) emit('fileLoad', inputElement.files[0])
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .file-img {
-  @apply tw-w-[120px] tw-h-[120px] tw-relative tw-bg-blue_bg tw-rounded-[30px] tw-grid tw-place-content-center;
-  img {
+  @apply tw-w-[120px] tw-h-[120px]  tw-relative tw-bg-blue_bg tw-rounded-[30px] tw-grid tw-place-content-center;
+  & img {
     @apply tw-rounded-[30px] tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-object-cover;
   }
   &__btn {

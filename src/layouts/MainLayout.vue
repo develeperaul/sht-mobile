@@ -8,7 +8,7 @@
     }"
   >
     <q-page-container>
-      <router-view />
+      <router-view class="tw-pb-7" />
     </q-page-container>
     <q-footer class="nav-panel env-b">
       <div class="tw-container tw-py-4 tw-flex tw-justify-between tw-px-8">

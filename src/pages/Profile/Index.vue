@@ -1,8 +1,8 @@
 <template>
-  <q-page class="tw-container tw-grid tw-content-between env-b">
+  <q-page class="tw-container tw-grid tw-content-between tw-pb-[100px]">
     <div>
       <head-block-profile class="tw-mb-[5px]" />
-      <div class="tw-bg-white tw-rounded-32 tw-px-2.5">
+      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5">
         <router-link
           :to="{ name: 'data' }"
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
@@ -63,7 +63,7 @@
         </router-link>
       </div>
     </div>
-    <div class="tw-flex tw-gap-2 tw-mb-[13px]">
+    <div class="tw-flex tw-gap-2">
       <div
         class="tw-text-red tw-h-[60px] tw-outline tw-outline-[1px] tw-outline-transparent hover:tw-outline-red tw-flex tw-justify-center tw-items-center tw-bg-white tw-rounded-[90px] p1 tw-w-full"
         @click="deleteIs = true"
@@ -91,7 +91,7 @@
               <div class="p1 tw-text-center tw-mb-4">
                 После удаления аккаунт будет невозможно восстановить
               </div>
-              <div class="tw-grid tw-grid-cols-2">
+              <div class="tw-grid tw-grid-cols-2 tw-pt-4">
                 <div
                   class="tw-text-center tw-font-semibold tw-text-base"
                   @click="deleteIs = false"
@@ -120,7 +120,7 @@
               <div class="h2 tw-object-center tw-mb-4">
                 Вы действительно хотите выйти?
               </div>
-              <div class="tw-grid tw-grid-cols-2">
+              <div class="tw-grid tw-grid-cols-2 tw-pt-4">
                 <div
                   class="tw-text-center tw-font-semibold tw-text-base"
                   @click="logoutIs = false"

@@ -6,6 +6,7 @@ import { regVerify, authVerify } from 'src/api/auth'
 import { StoriesT, StoryT, StoryGroupT } from 'src/models/api/main'
 import { setTokensData, cleanTokensData } from 'src/api/tokens'
 import profileStore from './profileStore'
+import { resyncAfterAuth } from 'src/api/push'
 
 export default defineStore('auth', () => {
   const auth = async (phone: string, code: string) => {
@@ -31,6 +32,7 @@ export default defineStore('auth', () => {
     cleanTokensData()
 
     window.location.reload()
+    await resyncAfterAuth()
   }
 
   // end сторисы

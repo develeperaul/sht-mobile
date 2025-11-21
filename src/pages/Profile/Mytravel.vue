@@ -1,5 +1,5 @@
 <template>
-  <q-page class="tw-container tw-pb-2.5">
+  <q-page class="tw-container">
     <head-block title="Мои путешествия" class="tw-mb-3" />
     <div class="tw-flex tw-gap-2 tw-mb-3">
       <BaseButtonFiltr

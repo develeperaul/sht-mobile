@@ -21,41 +21,33 @@
         />
       </svg>
     </div>
-
-    <div v-if="noimg" class="file-img__url">
-      {{ url }}
-    </div>
-    <template v-else>
-      <img v-if="url" :src="url" alt="" />
-    </template>
+    <img v-if="url" :src="url" alt="" />
   </div>
-
-  <div v-else>
+  <div v-else class="">
     <svg
+      @click="addFile"
       width="120"
       height="120"
       viewBox="0 0 120 120"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="tw-w-[120px] tw-h-[120px]"
-      @click="openCamera"
     >
-      <rect width="120" height="119.008" rx="30" fill="#E5EEF9" />
-      <g clip-path="url(#clip0_717_8169)">
-        <g clip-path="url(#clip1_717_8169)">
+      <rect width="120" height="119.008" rx="30" fill="white" />
+      <g clip-path="url(#clip0_321_8590)">
+        <g clip-path="url(#clip1_321_8590)">
           <path
             d="M81.5481 59.9355C81.5481 71.872 71.8716 81.5484 59.9352 81.5484C47.9987 81.5484 38.3223 71.872 38.3223 59.9355C38.3223 47.999 47.9987 38.3226 59.9352 38.3226C71.8716 38.3226 81.5481 47.999 81.5481 59.9355Z"
             fill="#C6D9F1"
           />
           <path
-            d="M46.9668 59.9355H71.419"
+            d="M46.9678 59.9355H71.42"
             stroke="white"
             stroke-width="3.24194"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M59.1934 46.9678V71.42"
+            d="M59.1924 46.9677V71.42"
             stroke="white"
             stroke-width="3.24194"
             stroke-linecap="round"
@@ -64,7 +56,7 @@
         </g>
       </g>
       <defs>
-        <clipPath id="clip0_717_8169">
+        <clipPath id="clip0_321_8590">
           <rect
             width="51.871"
             height="51.871"
@@ -72,7 +64,7 @@
             transform="translate(34 34)"
           />
         </clipPath>
-        <clipPath id="clip1_717_8169">
+        <clipPath id="clip1_321_8590">
           <rect
             width="51.871"
             height="51.871"
@@ -82,71 +74,45 @@
         </clipPath>
       </defs>
     </svg>
+
+    <Field name="file" type="file">
+      <input ref="fileInput" type="file" hidden @change="loadFile" />
+    </Field>
   </div>
 </template>
-
 <script setup lang="ts">
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
-
-const props = withDefaults(
-  defineProps<{
-    id?: string
-    url?: string
-    noimg?: boolean
-  }>(),
-  { noimg: true }
-)
-
+const props = defineProps<{
+  id?: string
+  url?: string
+}>()
+const fileInput = ref<HTMLInputElement | null>(null)
 const emit = defineEmits<{
   (e: 'fileLoad', file: File): void
   (e: 'deleteFile', id: string): void
 }>()
+const addFile = () => {
+  console.log(fileInput.value)
+  // fileInput.value?.addEventListener('click', function (e) {
+  //   console.log(e.type)
+  // })
+  if (fileInput.value) fileInput.value.click()
+}
 
-const openCamera = async () => {
-  try {
-    const photo = await Camera.getPhoto({
-      quality: 85,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt, // системное меню: Камера / Фото
-    })
-
-    if (!photo.dataUrl) return
-
-    // dataUrl → Blob → File, чтобы наверх улетал File
-    const res = await fetch(photo.dataUrl)
-    const blob = await res.blob()
-    const ext = blob.type.split('/')[1] || 'jpg'
-
-    const file = new File([blob], `photo.${ext}`, {
-      type: blob.type,
-    })
-
-    emit('fileLoad', file)
-  } catch (e) {
-    console.log('Camera cancelled or error', e)
+const loadFile = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement
+  if (inputElement.files) {
+    if (inputElement.files[0]) emit('fileLoad', inputElement.files[0])
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .file-img {
-  @apply tw-w-[120px] tw-h-[120px] tw-relative tw-bg-blue_bg tw-rounded-[30px] tw-grid tw-place-content-center;
-  img {
-    @apply tw-rounded-[30px] tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-object-cover;
+  @apply tw-w-[120px] tw-h-[120px]  tw-relative;
+  & img {
+    @apply tw-rounded-[30px] tw-object-cover tw-w-[120px] tw-h-[120px];
   }
   &__btn {
     @apply tw-absolute -tw-right-2 -tw-top-2;
-    z-index: 1;
-  }
-  &__url {
-    @apply p1;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    max-height: 50px;
-    width: 80px;
-    text-overflow: ellipsis;
   }
 }
 </style>

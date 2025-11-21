@@ -26,11 +26,13 @@
             Нажимая на кнопку «Получить код», <br />
             я принимаю условия
           </span>
-          <a class="link" href="/">Пользовательского соглашения</a>
+          <router-link class="link" :to="{ name: 'sogl' }"
+            >Пользовательского соглашения</router-link
+          >
           и
-          <a class="link" href="/">Политику конфиденциальности</a>
-          и
-          <a class="link" href="/">Договор Оферты</a>
+          <router-link class="link" :to="{ name: 'policy' }"
+            >Политику конфиденциальности</router-link
+          >
         </div>
         <BaseButton> Получить код </BaseButton>
       </Form>
@@ -81,6 +83,7 @@ import { devices } from 'src/api/main'
 import authStore from 'src/stores/authStore'
 import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar'
+import { resyncAfterAuth } from 'src/api/push'
 const router = useRouter()
 
 const phone = ref('')
@@ -97,7 +100,7 @@ const submit = async () => {
     await getCode()
     step.value = 2
   } catch (e) {
-    if (e.response.status === 409) {
+    if (e.response.status === 409 || e.response.status === 404) {
       success.value = true
     } else {
       throw e
@@ -108,10 +111,11 @@ const auth = async (vals: { kod: string }) => {
   try {
     await authStore().auth('+7' + phone.value, vals.kod)
     router.push({ name: 'home' })
-    if (window.localStorage.getItem('deviceTokenForPushNotification'))
-      await devices(
-        window.localStorage.getItem('deviceTokenForPushNotification')
-      )
+
+    // if (window.localStorage.getItem('deviceTokenForPushNotification'))
+    //   await devices(
+    //     window.localStorage.getItem('deviceTokenForPushNotification')
+    //   )
   } catch (e) {
     throw e
   }

@@ -5,8 +5,17 @@
 
 @layer base {
   body {
-    @apply tw-font-gilroy tw-font-normal;
+    @apply tw-font-gilroy tw-font-normal no-scrollbar;
     font-size: 16px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & * {
+      @apply no-scrollbar;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 
   .button-text {

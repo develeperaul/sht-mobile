@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tw-grid">
     <div v-if="service?.slider" class="tw-overflow-hidden tw-mb-3">
       <Slider :imgs="service.slider" />
     </div>

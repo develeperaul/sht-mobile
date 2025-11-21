@@ -1,77 +1,39 @@
-import { boot } from "quasar/wrappers";
-import { PushNotifications } from "@capacitor/push-notifications";
-import { LocalStorage } from "quasar";
-// "async" is optional;
-// more info on params: https://v2.quasar.dev/quasar-cli/boot-files
-export default boot(async ({ app, router }) => {
-  const addListeners = async () => {
-    /**
-     * Triggered automatically when app is open
-     */
-    await PushNotifications.addListener("registration", (token) => {
-      if (token.value) {
-        LocalStorage.set("deviceTokenForPushNotification", token.value);
-        console.log("Device Registration Token", token.value);
-      }
-    });
+import { boot } from 'quasar/wrappers'
+import { PushNotifications } from '@capacitor/push-notifications'
+import { Device } from '@capacitor/device'
+import { setDeviceId, registerDevice, syncFirebaseToken } from 'src/api/push'
 
-    await PushNotifications.addListener("registrationError", (err) => {
-      alert("Unable to Register your device for push notifications");
-    });
+export default boot(async () => {
+  // получаем device_id только в Capacitor-режиме
+  const { identifier } = await Device.getId()
 
-    /**
-     * Triggered when a new notification received
-     */
-    await PushNotifications.addListener(
-      "pushNotificationReceived",
-      (notification) => {
-        /**
-         * Write logic to do something when a  new push notification received
-         */
-        console.log(notification, "notification received");
-      }
-    );
+  setDeviceId(identifier)
 
-    /**
-     * Triggered when click on a push notification from mobile notification bar
-     */
-    await PushNotifications.addListener(
-      "pushNotificationActionPerformed",
-      (notification) => {
-        /**
-         * You can redirect to user to any page when push notification was clicked
-         */
-        // router.push('/notification-detail')
-        console.log(notification, "Action performed JS");
-      }
-    );
-  };
+  // регистрируем устройство в backend
+  await registerDevice(identifier)
 
-  const registerNotifications = async () => {
-    /**
-     * Check for permissions
-     */
-    let permStatus = await PushNotifications.checkPermissions();
+  // разрешения
+  let perm = await PushNotifications.checkPermissions()
+  if (perm.receive !== 'granted') {
+    const req = await PushNotifications.requestPermissions()
+    if (req.receive !== 'granted') return
+  }
 
-    if (permStatus.receive === "prompt") {
-      permStatus = await PushNotifications.requestPermissions();
-    }
+  // регистрация пушей
+  await PushNotifications.register()
 
-    if (permStatus.receive !== "granted") {
-      // throw new Error('User denied permissions!');
-      console.error("User denied permissions!");
-    }
+  PushNotifications.addListener('registration', async (token) => {
+    console.log(token)
 
-    await PushNotifications.register();
-  };
+    console.log('Firebase token:', token.value)
+    await syncFirebaseToken(token.value)
+  })
 
-  /**
-   * Add all the event listeners
-   */
-  await addListeners();
+  PushNotifications.addListener('registrationError', (err) => {
+    console.error('Push registration error:', err)
+  })
 
-  /**
-   * Ask user for permissions and Register the device for the push notifications
-   */
-  await registerNotifications();
-});
+  PushNotifications.addListener('pushNotificationReceived', (notif) => {
+    console.log('Push received:', notif)
+  })
+})

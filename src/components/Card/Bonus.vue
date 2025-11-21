@@ -1,14 +1,12 @@
 <template>
-  <div class="card-bonus">
+  <div class="card-bonus" @click="router.push({ name: 'reg' })">
     <div class="tw-py-3.5 tw-px-[18px]">
       <div class="h3 tw-mb-[7px]">Скидка 1 000 ₽</div>
       <div class="p2 tw-mb-3">
         за регистрацию <br />
         в приложении
       </div>
-      <div @click="router.push({ name: 'reg2' })" class="card-bonus__btn">
-        Получить
-      </div>
+      <div class="card-bonus__btn">Получить</div>
     </div>
     <img src="~assets/img/bonus.png" alt="" />
   </div>

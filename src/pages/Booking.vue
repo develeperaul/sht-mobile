@@ -208,11 +208,13 @@
                     Нажимая на кнопку «Оставить заявку», <br />
                     я принимаю условия
                   </span>
-                  <a class="link" href="/">Пользовательского соглашения</a>
+                  <router-link class="link" :to="{ name: 'sogl' }"
+                    >Пользовательского соглашения</router-link
+                  >
                   и
-                  <a class="link" href="/">Политику конфиденциальности</a>
-                  и
-                  <a class="link" href="/">Договор Оферты</a>
+                  <router-link class="link" :to="{ name: 'policy' }"
+                    >Политику конфиденциальности</router-link
+                  >
                 </div>
                 <BaseButton> Оставить заявку </BaseButton>
               </Form>

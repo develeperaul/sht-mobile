@@ -96,6 +96,10 @@ const swiperOptions = ref({
     background-position: center;
     background-size: cover;
 
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard */
+
     &::after {
       z-index: 1;
       // content: '';
@@ -185,6 +189,9 @@ const swiperOptions = ref({
     top: 0;
     width: 50%;
     height: 100%;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard */
   }
   .prev {
     left: 0;

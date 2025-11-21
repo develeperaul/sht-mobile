@@ -49,12 +49,13 @@
           height="257px"
         ></q-skeleton>
         <template v-else>
-          <Direction
-            v-if="directions.data.length > 0"
+          <LazyOnView
             v-for="direction in directions.data"
-            size="sm"
-            :direction="direction"
-          />
+            :key="direction.id"
+            v-if="directions.data.length > 0"
+          >
+            <Direction size="sm" :direction="direction" />
+          </LazyOnView>
           <div v-else>
             <div class="tw-text-center p1">
               Нет доступных направлений в этих датах, но вы можете заказать
@@ -271,7 +272,7 @@ import dayjs from 'dayjs'
 import Stories from 'src/components/Stories/Index.vue'
 import { FilterT } from 'src/models/api/main'
 import directionsStore from 'src/stores/directionsStore'
-
+import LazyOnView from 'src/components/LazyOnView.vue'
 const { directions, filters } = storeToRefs(directionsStore())
 
 const filter = ref<'all' | 'filter' | 'other'>('all')
