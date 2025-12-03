@@ -9,7 +9,6 @@
           @click="
             () => {
               rezet()
-              filter = 'all'
             }
           "
         >
@@ -368,6 +367,7 @@ const rezet = async () => {
     price_from: '',
     price_to: '',
     year: null,
+    type: null,
   }
   filter.value = 'all'
   await directionsStore().setDirections()

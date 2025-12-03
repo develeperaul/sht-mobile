@@ -46,14 +46,22 @@
           Мы отправили код на номер <br />
           +7{{ phone }}
         </div>
+
+        <div
+          v-if="errorCode && !diabledBtn"
+          class="tw-text-red p1 tw-text-center"
+        >
+          Код некорректный, попробуйте снова
+        </div>
         <code-input
           class="tw-flex tw-justify-center"
-          @filled="diabledBtn = false"
+          @filled="() => ((errorCode = false), (diabledBtn = false))"
           @unfilled="diabledBtn = true"
         />
         <div @click="step = 1" class="link p2 tw-text-center">
           Не получили код?
         </div>
+
         <BaseButton :disabled="diabledBtn"> Отправить </BaseButton>
       </Form>
     </div>
@@ -107,6 +115,7 @@ const submit = async () => {
     }
   }
 }
+const errorCode = ref(false)
 const auth = async (vals: { kod: string }) => {
   try {
     await authStore().auth('+7' + phone.value, vals.kod)
@@ -117,7 +126,11 @@ const auth = async (vals: { kod: string }) => {
     //     window.localStorage.getItem('deviceTokenForPushNotification')
     //   )
   } catch (e) {
-    throw e
+    if (e.response.status === 500) {
+      errorCode.value = true
+    } else {
+      throw e
+    }
   }
 }
 

@@ -147,6 +147,21 @@ const pagination = {
 }
 
 onMounted(async () => {
+  const countStart = localStorage.getItem('countStart')
+  if (countStart && JSON.parse(countStart) == '1') {
+    console.log('sss')
+
+    try {
+      await Promise.allSettled([
+        mainStore().getStories(),
+        directionsStore().setDirections(),
+        directionsStore().setFilters(),
+        mainStore().setPromotion(),
+      ])
+    } catch (e) {
+      throw e
+    }
+  }
   const token = getAccessToken()
   if (token) {
     ordersStore().setOrder('upcoming')

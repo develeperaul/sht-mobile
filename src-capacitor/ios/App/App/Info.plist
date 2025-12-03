@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>ru</string>
 	<key>CFBundleDisplayName</key>
 	<string>SH Travel</string>
 	<key>CFBundleExecutable</key>
@@ -25,15 +25,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Приложение хочет использовать вашу медия библиотеку для приклепления файлов</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Нужен доступ к сохранению фото</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Нужен доступ к галерее</string>
+	<string>Приложение использует фото для аватара пользователя или отзывов</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Приложение хочет использовать вашу камеру для приклепления фото</string>
+	<string>Приложение использует фото для аватара пользователя или отзывов</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Приложение использует фото для аватара пользователя или отзывов</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Приложение использует фото для аватара пользователя или отзывов</string>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string>Приложение хочет использовать пуш уведомления для уведомления о статусах заказов</string>
+	<string>Приложение использует пуш уведомления для информирования о статусах заказов</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

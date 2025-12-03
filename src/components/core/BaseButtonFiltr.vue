@@ -1,5 +1,8 @@
 <template>
-  <button class="btn" :class="[`btn_${theme}`, size ? `btn_${size}` : '']">
+  <button
+    class="btn tw-whitespace-nowrap"
+    :class="[`btn_${theme}`, size ? `btn_${size}` : '']"
+  >
     <template v-if="load">
       <q-spinner-tail color="white" />
     </template>

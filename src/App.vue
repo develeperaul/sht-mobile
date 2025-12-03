@@ -17,6 +17,12 @@ const isPreloaderVisible = ref(false)
 const isPreloader = LocalStorage.getItem('preloader')
 if (!isPreloader) isPreloaderVisible.value = true
 onMounted(async () => {
+  const countStart = localStorage.getItem('countStart')
+  if (countStart) {
+    localStorage.setItem('countStart', String(JSON.parse(countStart) + 1))
+  } else {
+    localStorage.setItem('countStart', '1')
+  }
   const token = getAccessToken()
   if (token) {
     try {

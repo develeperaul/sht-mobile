@@ -1,0 +1,1 @@
+import{g as o}from"./index-Cu7ORWtZ.js";import{a}from"./authStore-BLZq8dTd.js";const i=({router:t,store:s})=>{a(),t.beforeEach((r,m,e)=>{if(r.meta&&r.meta.auth){if(o())return e();e({name:"auth"})}return e()})};export{i as default};

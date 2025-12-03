@@ -34,9 +34,14 @@
               v-for="t in tabs4"
               :class="{ active: t.id == tab4 }"
               size="lg"
-              @click="tab4 = t.id"
+              @click="
+                () => {
+                  if (tab4 === t.id) tab4 = ''
+                  else tab4 = t.id
+                }
+              "
             >
-              {{ dayjs(t.id).locale('ru').format('MMMM') }}
+              {{ formatDate(t) }}
             </BaseButtonFiltr>
           </div>
         </div>
@@ -342,9 +347,9 @@ onMounted(async () => {
           name: day,
         }
       })
-      if (tabs4.value[0]) {
-        tab4.value = tabs4.value[0].id
-      }
+      // if (tabs4.value[0]) {
+      //   tab4.value = tabs4.value[0].id
+      // }
       if (directionsSubgroup.value.data.data[0]?.background)
         mainStore().bg = directionsSubgroup.value.data.data[0].background.url
       else mainStore().bg = ''
@@ -437,7 +442,8 @@ const setDirectionGroup = async (id: string) => {
           }
         })
         if (tabs2.value[0]) {
-          tab2.value = tabs2.value[0].id
+          const tabId = tabs2.value.find((t) => t.id === tab4.value)
+          tab2.value = tabId?.id ?? tabs2.value[0].id
         }
       }
 
@@ -548,6 +554,10 @@ watch(tab2, async (v, oV) => {
       }
     }
   }
+})
+watch(tab4, async (v, oV) => {
+  if (v) await directionsStore().setDirectionsSubgroup(props.id, v)
+  else await directionsStore().setDirectionsSubgroup(props.id)
 })
 
 onBeforeRouteLeave((to, from) => {

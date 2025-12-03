@@ -57,9 +57,11 @@ export const getDirection = (
   return api.mainKy(`directions/${uuid}`).json()
 }
 export const getDirectionSubgroup = (
-  uuid: string
+  uuid: string,
+  date?: string
 ): Promise<DirectionSubgroupT> => {
-  return api.mainKy(`directions/${uuid}/subgroup`).json()
+  if (date) return api.mainKy(`directions/${uuid}/subgroup?date=${date}`).json()
+  else return api.mainKy(`directions/${uuid}/subgroup`).json()
 }
 export const getDirectionReview = (
   direciton_uuid: string,

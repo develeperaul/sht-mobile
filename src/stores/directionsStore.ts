@@ -62,10 +62,10 @@ export default defineStore('directions', () => {
     loading: false,
     data: null,
   })
-  const setDirectionsSubgroup = async (uuid: string) => {
+  const setDirectionsSubgroup = async (uuid: string, date?: string) => {
     try {
       directionsSubgroup.value.loading = true
-      directionsSubgroup.value.data = await getDirectionSubgroup(uuid)
+      directionsSubgroup.value.data = await getDirectionSubgroup(uuid, date)
     } catch (e) {
       throw e
     } finally {
