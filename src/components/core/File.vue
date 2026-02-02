@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
+// import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 import { compressImageFile } from 'src/composition/compressImage' // путь подстрой под проект
 
 const props = withDefaults(

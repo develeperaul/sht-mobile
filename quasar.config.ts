@@ -26,7 +26,7 @@ export default defineConfig((/* ctx */) => {
       'registr-router-hooks',
       'registr-error-handlers',
       'directives',
-      'PushNotificationListeners',
+      // 'PushNotificationListeners',
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css

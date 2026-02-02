@@ -16,6 +16,7 @@ declare module 'vue' {
     BaseSelectFaq: typeof import('./components/core/BaseSelectFaq.vue')['default']
     Bonus: typeof import('./components/Card/Bonus.vue')['default']
     CodeInput: typeof import('./components/core/CodeInput.vue')['default']
+    copy: typeof import('./components/core/FileOther copy.vue')['default']
     CountBlock: typeof import('./components/CountBlock.vue')['default']
     Direction: typeof import('./components/Card/Direction.vue')['default']
     EssentialLink: typeof import('./components/EssentialLink.vue')['default']
