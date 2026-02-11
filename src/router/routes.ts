@@ -16,6 +16,12 @@ const routes: RouteRecordRaw[] = [
 
       { path: 'ui', component: () => import('pages/UI/IndexPage.vue') },
       {
+        path: 'directions-new/:id',
+        name: 'directions.show',
+        component: () => import('pages/Directions/Show.vue'),
+        props: true,
+      },
+      {
         path: 'directions/:id',
         name: 'direction',
         component: () => import('pages/DirectionsCard.vue'),
