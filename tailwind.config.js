@@ -32,6 +32,11 @@ export default {
       white: '#FFFFFF',
       transparent: 'transparent',
       dark: '#28303F',
+      gray_icon2: '#787F92',
+      black2: '#3D3F4B',
+      gray_main: '#1C1C1E',
+      blue_light_icon: '#DAE4FF',
+      blue_icon2: '#8BA7F6',
     },
     borderRadius: {
       32: '32px',
