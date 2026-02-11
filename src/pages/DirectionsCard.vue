@@ -50,7 +50,7 @@
             <div
               v-for="value in directionsSubgroup.data.data"
               class="tw-rounded-32 tw-overflow-hidden"
-              @click="setDirectionGroup(value.id)"
+              @click="$router.push({ name: 'directions.show', params: { id: value.id } })"
             >
               <div class="tw-h-[144px] tw-bg-gray_icon">
                 <img
