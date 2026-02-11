@@ -1,0 +1,119 @@
+import { api } from './index';
+
+export function show(id: string) {
+  return api.mainKy.get<DirectionRes>(`directions/${id}`).json();
+}
+
+export function showSubgroup(id: string) {
+  return api.mainKy.get<SubgroupRes>(`directions/${id}/subgroup`).json();
+}
+
+export function showOffers(id: string, params: Partial<ShowOffersParams>) {
+  return api.mainKy.get<ShowOffersRes>(`directions/${id}/offers`, { searchParams: params }).json();
+}
+
+export type ShowOffersRes = { data: ShowOfferItem[] }
+
+export interface ShowOfferItem {
+  id:              string;
+  start_date:      string;
+  end_date:        string;
+  prepay:          string;
+  price:           string;
+  prepay_children: string;
+  price_children:  string;
+  operator:        string;
+  description:     string;
+  is_weekend:      boolean;
+}
+
+export interface ShowOffersParams {
+  date: string,
+  days_count: string,
+}
+
+export interface SubgroupItem {
+    id:               string;
+    background:       { url: string };
+    name:             string;
+    title:            string;
+    video_url:        null;
+    description:      string;
+    comfort_level:    number;
+    difficulty_level: number;
+    priority:         number;
+    is_featured:      boolean;
+    max_members:      number;
+    offers_min_price: string;
+}
+
+export interface SubgroupRes {
+    data:  SubgroupItem[];
+    dates: string[];
+}
+
+export type DirectionRes = { data: DirectionItem };
+
+export interface DirectionItem {
+  id:               string;
+  background:       { url: string };
+  name:             string;
+  title:            string;
+  video_url:        null;
+  description:      string;
+  comfort_level:    number;
+  difficulty_level: number;
+  priority:         number;
+  is_featured:      boolean;
+  max_members:      number;
+  preview_stories:  any[];
+  services:         Service[];
+  location:         AdditionalInfo | null;
+  additional_info:  AdditionalInfo | null;
+  questions:        Question[];
+  dates:            Dates;
+  rating:           null;
+  hotels:           Hotel[];
+  roads:            RouteItem[];
+}
+
+export interface RouteItem {
+  day: number,
+  description: string,
+  id: string,
+  images: Background[],
+  title: string,
+}
+
+export interface AdditionalInfo {
+  id:   string;
+  name: string;
+}
+
+export interface Background {
+  url: string;
+}
+
+export type Dates = Record<string, string[]>;
+
+export interface Hotel {
+  description:  string;
+  images:       Background[];
+  name:         string;
+  rating:       string;
+  local_rating: number;
+  location:     null;
+}
+
+export interface Question {
+  id:       string;
+  question: string;
+  answer:   string;
+}
+
+export interface Service {
+  id:          string;
+  description: string;
+  type:        string;
+  slider:      Background[];
+}
