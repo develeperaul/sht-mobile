@@ -26,7 +26,8 @@
     "swiper": "^11.2.10",
     "vee-validate": "^4.15.1",
     "vue": "^3.4.18",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-slide-up-down": "^3.0.0"
   },
   "devDependencies": {
     "@quasar/app-vite": "^2.1.0",
