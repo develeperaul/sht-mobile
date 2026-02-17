@@ -22,14 +22,12 @@ export default ({ app, router }) => {
     } else if (err instanceof HTTPError) {
       if (err.response.status === 401) {
         cleanTokensData()
-        console.log('tets')
 
-        router.push({ name: 'auth' })
-        // Notify.create({
-        //   type: 'negative',
-        //   message: 'Test 401',
-        //   position: 'top',
-        // });
+        Notify.create({
+          type: 'negative',
+          message: 'Доступ запрещен',
+          position: 'top',
+        })
         return
       } else if (err.response.status === 403) {
         console.log(403)

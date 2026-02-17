@@ -21,9 +21,11 @@ export default defineConfig((/* ctx */) => {
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
       'init',
+      'init-user',
+      'auth',
       'global-registration',
       'registr-validators',
-      'registr-router-hooks',
+      // 'registr-router-hooks',
       'registr-error-handlers',
       'directives',
       // 'PushNotificationListeners',
