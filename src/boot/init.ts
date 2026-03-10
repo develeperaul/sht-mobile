@@ -1,4 +1,5 @@
 import 'virtual:svg-icons-register'
+import 'v-calendar/style.css';
 import { vMaska } from 'maska/vue'
 import 'dayjs/locale/ru'
 import 'swiper/css'
