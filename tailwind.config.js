@@ -37,6 +37,7 @@ export default {
       gray_main: '#1C1C1E',
       blue_light_icon: '#DAE4FF',
       blue_icon2: '#8BA7F6',
+      blue_additional: '#4D6DC3',
     },
     borderRadius: {
       32: '32px',

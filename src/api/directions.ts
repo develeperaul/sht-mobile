@@ -1,5 +1,9 @@
 import { api } from './index';
 
+export function all(params: Partial<DirectionAllParams> = {}) {
+  return api.mainKy.get<DirectionListRes>('directions', { searchParams: params }).json();
+}
+
 export function show(id: string) {
   return api.mainKy.get<DirectionRes>(`directions/${id}`).json();
 }
@@ -116,4 +120,29 @@ export interface Service {
   description: string;
   type:        string;
   slider:      Background[];
+}
+
+export type DirectionListRes = { data: DirectionListItem[] };
+
+export interface DirectionListItem {
+  id:               string;
+  background:       Background | null;
+  name:             string;
+  title:            string;
+  video_url:        string;
+  description:      string;
+  comfort_level:    number;
+  difficulty_level: number;
+  priority:         number;
+  is_featured:      boolean;
+  max_members:      number;
+  offers_min_price: string;
+  min_date:         number;
+  offers_min_start_date: string;
+  offers_max_end_date:   string;
+}
+
+export type DirectionAllParams = {
+  // не работает
+  // limit: number,
 }

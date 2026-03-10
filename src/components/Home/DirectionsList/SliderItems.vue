@@ -1,34 +1,29 @@
 <template>
   <Swiper
     class="swiper-gallery-pag"
-    :spaceBetween="16"
+    :slidesPerView="2.1"
+    :spaceBetween="8"
     :modules="modules"
     pagination
   >
     <SwiperSlide
-      v-for="image in images"
+      v-for="item in items"
+      :key="item.id"
     >
-      <img class="photo" :src="image.url" />
+      <DirectionsItem :item="item" size="sm" hideSubtitle />
     </SwiperSlide>
   </Swiper>
 </template>
 
 <script setup lang="ts">
+  import type { DirectionListItem } from 'src/api/directions';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import { Pagination } from 'swiper/modules';
-
-  type Item = { url: string };
+  import DirectionsItem from 'src/components/Directions/List/Item/index.vue';
 
   defineProps<{
-    images: Item[],
+    items: DirectionListItem[],
   }>();
 
   const modules = [ Pagination ];
 </script>
-
-<style scoped lang="scss">
-  .photo {
-    border-radius: 30px;
-    width: 100%;
-  }
-</style>

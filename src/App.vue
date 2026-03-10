@@ -3,19 +3,27 @@
   <div v-if="!isPreloaderVisible">
     <router-view />
   </div>
+  <svg style="display: none;">
+    <filter id="refraction-filter">
+      <!-- Генерируем мягкое искажение -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" result="noise" />
+      <!-- scale="12" соответствует сильному преломлению 80 -->
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+    </filter>
+  </svg>
 </template>
 
 <script setup lang="ts">
 import { LocalStorage } from 'quasar'
-import { getAccessToken } from './api/tokens'
 import directionsStore from './stores/directionsStore'
 import friendStore from './stores/friendStore'
-import profileStore from './stores/profileStore'
+import useProfileStore from 'src/stores/profileStore'
 
-//
+const profileStore = useProfileStore()
 const isPreloaderVisible = ref(false)
 const isPreloader = LocalStorage.getItem('preloader')
 if (!isPreloader) isPreloaderVisible.value = true
+
 onMounted(async () => {
   const countStart = localStorage.getItem('countStart')
   if (countStart) {
@@ -23,29 +31,18 @@ onMounted(async () => {
   } else {
     localStorage.setItem('countStart', '1')
   }
-  const token = getAccessToken()
-  if (token) {
-    try {
-      await Promise.allSettled([
-        profileStore().setProfile(),
-        friendStore().setFriends(),
-        mainStore().getStories(),
-        directionsStore().setDirections(),
-        directionsStore().setFilters(),
-      ])
-    } catch (e) {
-      throw e
-    }
+
+  await Promise.allSettled([
+    mainStore().getStories(),
+    directionsStore().setDirections(),
+    directionsStore().setFilters(),
+    mainStore().setPromotion(),
+  ]);
+
+  await profileStore.isReady;
+
+  if(profileStore.profile) {
+    await friendStore().setFriends();
   }
-  try {
-    await Promise.allSettled([
-      mainStore().getStories(),
-      directionsStore().setDirections(),
-      directionsStore().setFilters(),
-      mainStore().setPromotion(),
-    ])
-  } catch (e) {
-    throw e
-  }
-})
+});
 </script>

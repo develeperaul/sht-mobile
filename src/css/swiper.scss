@@ -1,0 +1,11 @@
+.swiper-gallery-pag, .swiper.swiper-gallery-pag {
+  --swiper-pagination-bottom: 0px;
+  --swiper-pagination-color: theme('colors.blue_icon2');
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-inactive-color: theme('colors.blue_light_icon');
+  padding-bottom: var(--pag-pb, 18px);
+
+  .swiper-pagination {
+    font-size: 0;
+  }
+}

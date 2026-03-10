@@ -1,0 +1,9 @@
+.card-primary {
+  border-radius: var(--radius, 32px);
+  padding: var(--py, 20px) var(--py, 20px);
+  @apply tw-bg-white;
+}
+
+.gradient-card {
+  background: linear-gradient(180deg, #F4F7FF 0%, #DFE7FF 100%);
+}
