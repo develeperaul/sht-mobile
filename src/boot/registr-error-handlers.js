@@ -72,6 +72,6 @@ export default ({ app, router }) => {
       return
     }
 
-    console.log(err.response)
+    console.log(err)
   }
 }
