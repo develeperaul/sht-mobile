@@ -8,13 +8,18 @@ export function show(id: string) {
   return api.mainKy.get<DirectionRes>(`directions/${id}`).json();
 }
 
-export function showSubgroup(id: string) {
-  return api.mainKy.get<SubgroupRes>(`directions/${id}/subgroup`).json();
+export function showSubgroup(id: string, params: Partial<SubgroupParams>) {
+  return api.mainKy.get<SubgroupRes>(`directions/${id}/subgroup`, { searchParams: params }).json();
 }
 
 export function showOffers(id: string, params: Partial<ShowOffersParams>) {
   return api.mainKy.get<ShowOffersRes>(`directions/${id}/offers`, { searchParams: params }).json();
 }
+
+export function search(params: Partial<DirectionSearchParams> = {}) {
+  return api.mainKy.get<DirectionSearchRes>('direction-search', { searchParams: params }).json();
+}
+
 
 export type ShowOffersRes = { data: ShowOfferItem[] }
 
@@ -37,23 +42,25 @@ export interface ShowOffersParams {
 }
 
 export interface SubgroupItem {
-    id:               string;
-    background:       { url: string };
-    name:             string;
-    title:            string;
-    video_url:        null;
-    description:      string;
-    comfort_level:    number;
-    difficulty_level: number;
-    priority:         number;
-    is_featured:      boolean;
-    max_members:      number;
-    offers_min_price: string;
+  id:               string;
+  background:       { url: string };
+  name:             string;
+  title:            string;
+  video_url:        null;
+  description:      string;
+  comfort_level:    number;
+  difficulty_level: number;
+  priority:         number;
+  is_featured:      boolean;
+  max_members:      number;
+  min_date:         number;
+  offers_min_price: string;
+  offers_max_end_date: string;
+  offers_min_start_date: string;
 }
 
 export interface SubgroupRes {
-    data:  SubgroupItem[];
-    dates: string[];
+  data:  SubgroupItem[];
 }
 
 export type DirectionRes = { data: DirectionItem };
@@ -146,3 +153,22 @@ export type DirectionAllParams = {
   // не работает
   // limit: number,
 }
+
+export type DirectionSearchParams = {
+  search: string,
+  date_from: string,
+  date_to: string,
+}
+
+export type SubgroupParams = DirectionSearchParams & {
+  sort_by: 'popularity' | 'fresh' | 'nearest' | 'decreasing_price' | 'increasing_price',
+};
+
+export interface DirectionSearchItem {
+  id: string,
+  name: string,
+  background: Background | null,
+  children_count: number,
+}
+
+export type DirectionSearchRes = { data: DirectionSearchItem[] };

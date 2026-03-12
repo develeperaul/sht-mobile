@@ -11,6 +11,25 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Index.vue'),
       },
 
+      {
+        path: '/search',
+        component: () => import('pages/Search/Index.vue'),
+        children: [
+          {
+            path: '',
+            name: 'search.index',
+            component: () => import('pages/Search/Directions.vue'),
+            meta: { type: 'directions' },
+          },
+          {
+            path: 'directions/:id',
+            name: 'search.show-direction',
+            component: () => import('pages/Search/ShowDirection.vue'),
+            meta: { type: 'directions-children' },
+          },
+        ],
+      },
+
       { path: 'ui', component: () => import('pages/UI/IndexPage.vue') },
       {
         path: 'directions-new/:id',

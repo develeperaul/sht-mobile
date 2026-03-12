@@ -1,0 +1,27 @@
+<template>
+  <div>
+    <ListItem
+      class="list-item"
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import ListItem from 'src/components/Directions/List/Item/index.vue';
+  import type { SubgroupItem } from 'src/api/directions';
+
+  defineProps<{
+    items: SubgroupItem[],
+  }>();
+</script>
+
+<style scoped lang="scss">
+  .list-item {
+    & + & {
+      margin-top: 12px;
+    }
+  }
+</style>

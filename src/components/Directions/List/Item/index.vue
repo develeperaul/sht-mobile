@@ -1,5 +1,5 @@
 <template>
-  <article class="item" :class="[ `item-${size}` ]">
+  <router-link class="item" :class="[ `item-${size}` ]" :to="{ name: 'directions.show', params: { id: item.id } }">
     <div class="content">
       <div class="col1">
         <div class="badge badge-lg glass">
@@ -20,7 +20,7 @@
     <div class="cover-wrap" v-if="item.background">
       <img class="cover-img" :src="item.background.url" loading="lazy" />
     </div>
-  </article>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -28,9 +28,16 @@
   import { monthLabels } from 'src/components/Directions/model/consts';
   import { computed } from 'vue';
 
+  type Item = Pick<
+    DirectionListItem,
+    'id' | 'background' | 'offers_min_start_date' |
+    'offers_max_end_date' | 'name' | 'title' |
+    'min_date' | 'offers_min_price'
+  >;
+
   const props = withDefaults(
     defineProps<{
-      item: DirectionListItem,
+      item: Item,
       size?: 'sm' | 'lg',
       hideSubtitle?: boolean,
     }>(),
@@ -48,7 +55,9 @@
 
 <style scoped lang="scss">
   .item {
+    display: block;
     position: relative;
+    z-index: 1;
     min-height: var(--min-h, 190px);
   }
 
@@ -64,6 +73,21 @@
     .name {
       font-weight: 600;
       font-size: 20px;
+    }
+  }
+
+  .item-lg {
+    .item, .cover-img {
+      border-radius: 32px;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 24px;
     }
   }
 
