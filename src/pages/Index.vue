@@ -7,7 +7,7 @@
       <DirectionsList />
       <EventsList class="main-page__section" />
       <PostsList class="main-page__section" />
-      <ReviewsList class="main-page__section" />
+      <!-- <ReviewsList class="main-page__section" /> -->
       <SoonSection class="main-page__section" />
     </div>
   </q-page>
@@ -17,7 +17,7 @@
   import DirectionsList from 'src/components/Home/DirectionsList/index.vue';
   import EventsList from 'src/components/Home/Events/index.vue';
   import SearchDirections from 'src/components/Home/SearchDirections.vue';
-  import PostsList from 'src/components/Home/PostsList/index.vue';
+  import PostsList from 'src/components/Posts/PostsList/index.vue';
   import SoonSection from 'src/components/Home/Soon/index.vue';
   import Stories from 'src/components/Stories/Index.vue';
   import HelloScreen from 'src/components/Home/Hello/index.vue';

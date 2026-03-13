@@ -12,7 +12,7 @@
       @change:category="activeCategory = $event"
     />
     <SliderItems class="items-slider" :items="itemsLimited" />
-    <CardLinkNext to="/" text="Все статьи" />
+    <CardLinkNext :to="{ name: 'posts.index' }" text="Все статьи" />
     <q-inner-loading class="tw-z-10" :showing="loading" />
   </section>
 </template>

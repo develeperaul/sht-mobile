@@ -37,6 +37,7 @@
   import type { PostsImage } from 'src/api/posts';
   import { computed } from 'vue';
   import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import { prettyDate } from 'src/utils/dates';
 
   const props = defineProps<{
     title: string,
@@ -45,12 +46,7 @@
     image: PostsImage,
   }>();
 
-  const dateVal = computed(() => {
-    const parts = props.date.split('T')[0]?.split('-');
-    if(!parts) return '-';
-    const [year, month, day] = parts;
-    return `${day}.${month}.${year}`;
-  });
+  const dateVal = computed(() => prettyDate(props.date));
 </script>
 
 <style scoped lang="scss">

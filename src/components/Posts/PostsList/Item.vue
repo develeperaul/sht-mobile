@@ -1,5 +1,12 @@
 <template>
-  <article class="item gradient-card">
+  <router-link
+    class="item"
+    :class="{
+      'gradient-card': design === 'blue',
+      'item--white': design === 'white',
+    }"
+    :to="{ name: 'posts.show', params: { id: item.id } }"
+  >
     <div class="img-wrap">
       <img class="photo" :src="item.preview_image.url" />
       <div class="cat-wrap" v-if="item.rubrics[0]">
@@ -11,7 +18,7 @@
         <span class="info-param__icon">
           <BaseIcon name="calendar" fit />
         </span>
-        <span>{{ item.created_at }}</span>
+        <span>{{ dateVal }}</span>
       </div>
       <div class="info-param">
         <span class="info-param__icon">
@@ -21,22 +28,35 @@
       </div>
     </div>
     <p class="name">{{ item.title }}</p>
-  </article>
+  </router-link>
 </template>
 
 <script setup lang="ts">
   import type { PostsItem } from 'src/api/posts';
+  import { prettyDate } from 'src/utils/dates';
 
-  defineProps<{
-    item: PostsItem,
-  }>();
+  const props = withDefaults(
+    defineProps<{
+      item: PostsItem,
+      design?: 'white' | 'blue',
+    }>(),
+    { design: 'blue' },
+  );
+
+  const dateVal = computed(() => prettyDate(props.item.created_at));
 </script>
 
 <style scoped lang="scss">
   .item {
+    display: block;
+    width: 100%;
     border-radius: 32px;
     padding: 6px;
     padding-bottom: 24px;
+
+    &--white {
+      @apply tw-bg-white;
+    }
   }
 
   .img-wrap {
