@@ -2,13 +2,27 @@
   <div class="cover">
     <img class="img" :src="image.url" :alt="title" />
     <div class="content">
-      <h1 class="title">{{ title }}</h1>
-      <p class="subtitle">{{ subtitle }}</p>
+      <div class="top">
+        <ButtonRound
+          class="btn-back"
+          type="button"
+          icon="arrowleft"
+          size="38px"
+          iconSize="0.6em"
+          @click="$router.back"
+        />
+      </div>
+      <div class="bottom">
+        <h1 class="title">{{ title }}</h1>
+        <p class="subtitle">{{ subtitle }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+
   const props = defineProps<{
     image: { url: string },
     title: string,
@@ -46,15 +60,26 @@
 
   .content {
     position: absolute;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     z-index: 10;
     padding: 24px;
     padding-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
   }
 
   .subtitle {
     font-size: 16px;
     line-height: 1.375;
     margin-top: 8px;
+  }
+
+  .btn-back {
+    @apply tw-text-white;
   }
 </style>
