@@ -20,6 +20,12 @@ const routes: RouteRecordRaw[] = [
             name: 'search.index',
             component: () => import('pages/Search/Directions.vue'),
             meta: { type: 'directions' },
+            props(to) {
+              return {
+                focusInput: to.query.focusInput === '1',
+                showCalendar: to.query.showCalendar === '1',
+              }
+            },
           },
           {
             path: 'directions/:id',

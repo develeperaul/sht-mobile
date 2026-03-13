@@ -2,6 +2,7 @@
   <q-page class="main-page env-t">
     <HelloScreen />
     <div class="tw-container main-content">
+      <SearchDirections class="search-dirs" />
       <Stories v-if="storyList.data" :stories="storyList.data" />
       <DirectionsList />
       <EventsList class="main-page__section" />
@@ -15,6 +16,7 @@
 <script setup lang="ts">
   import DirectionsList from 'src/components/Home/DirectionsList/index.vue';
   import EventsList from 'src/components/Home/Events/index.vue';
+  import SearchDirections from 'src/components/Home/SearchDirections.vue';
   import PostsList from 'src/components/Home/PostsList/index.vue';
   import SoonSection from 'src/components/Home/Soon/index.vue';
   import Stories from 'src/components/Stories/Index.vue';
@@ -37,5 +39,9 @@
 
   .main-content {
     margin-top: 25px;
+  }
+
+  .search-dirs {
+    margin-bottom: 8px;
   }
 </style>

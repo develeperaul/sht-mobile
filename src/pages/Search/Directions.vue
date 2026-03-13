@@ -1,7 +1,7 @@
 <template>
   <div class="dir-list glass">
     <div class="search-actions">
-      <TextInput class="search-actions__inp" v-model="directionParams.search" />
+      <TextInput class="search-actions__inp" v-model="directionParams.search" :autoFocus="focusInput" />
       <ButtonRound class="search-actions__btn" icon="calendar" type="button" @click="showed = true" />
     </div>
     <p class="title">Все направления</p>
@@ -22,9 +22,17 @@
   import { throttle } from 'throttle-debounce';
   import { ref, watch } from 'vue';
 
-  const props = defineProps<{
-    directionParams: DirectionParams,
-  }>();
+  const props = withDefaults(
+    defineProps<{
+      directionParams: DirectionParams,
+      focusInput?: boolean,
+      showCalendar?: boolean,
+    }>(),
+    {
+      focusInput: false,
+      showCalendar: false,
+    },
+  )
 
   const { data, send } = useRequest(
     () => directionsApi.search({
@@ -46,7 +54,7 @@
 
   const items = computed(() => data.value?.data ?? null);
 
-  const showed = ref(false);
+  const showed = ref(props.showCalendar);
 </script>
 
 <style scoped lang="scss">

@@ -1,17 +1,43 @@
 <template>
-  <div class="text-inp glass">
-    <input class="inp" name="search" type="text" autocomplete="off" placeholder="Куда отправимся?" v-model="value" />
-    <button class="clear" type="button" @click="value = ''">
+  <div class="text-inp glass" :class="{ 'is-link': isLink }">
+    <div v-if="isLink" class="inp-mock">Куда отправимся?</div>
+    <input v-else ref="inputRef" class="inp" name="search" type="text" autocomplete="off" placeholder="Куда отправимся?" v-model="value" />
+    <button v-if="!isLink" class="clear" type="button" @click="value = ''">
       <BaseIcon name="close" fit />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { onMounted, ref } from 'vue';
+
+  const props = withDefaults(
+    defineProps<{
+      isLink?: boolean,
+      autoFocus?: boolean,
+    }>(), {
+      isLink: false,
+    }
+  );
+
   const value = defineModel<string>({ required: true });
+
+  const inputRef = ref<HTMLInputElement | null>(null);
+
+  onMounted(() => {
+    if(props.autoFocus && inputRef.value) {
+      inputRef.value.focus();
+    }
+  });
 </script>
 
 <style scoped lang="scss">
+  .is-link {
+    &.text-inp {
+      cursor: pointer !important;
+    }
+  }
+
   .text-inp {
     position: relative;
     --radius: 24px;
@@ -32,17 +58,26 @@
     }
   }
 
-  .inp {
+  .inp-mock, .inp {
     background: none;
-    display: block;
     width: 100%;
     height: 60px;
-    outline: none;
     padding-left: 48px;
     padding-right: 36px;
     font-size: 14px;
     line-height: 1;
     @apply tw-text-gray_main;
+  }
+
+  .inp-mock {
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+
+  .inp {
+    display: block;
+    outline: none;
 
     &::placeholder {
       @apply tw-text-gray_main;

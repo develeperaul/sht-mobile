@@ -65,6 +65,8 @@ declare module 'vue' {
     ReviewsList: typeof import('./components/Home/ReviewsList/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchDirection: typeof import('./components/Home/SearchDirection.vue')['default']
+    SearchDirections: typeof import('./components/Home/SearchDirections.vue')['default']
     SectionDescription: typeof import('./components/Directions/CardShow/Details/SectionDescription.vue')['default']
     SectionFaq: typeof import('./components/Directions/CardShow/Details/SectionFaq.vue')['default']
     SectionFood: typeof import('./components/Directions/CardShow/Details/SectionFood.vue')['default']
