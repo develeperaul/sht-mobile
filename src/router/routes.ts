@@ -36,6 +36,13 @@ const routes: RouteRecordRaw[] = [
         ],
       },
 
+      {
+        path: '/promotions/:id',
+        component: () => import('pages/Promotions/Show.vue'),
+        name: 'promotions.show',
+        props: true,
+      },
+
       { path: 'ui', component: () => import('pages/UI/IndexPage.vue') },
       {
         path: 'directions-new/:id',
