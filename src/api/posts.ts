@@ -7,6 +7,10 @@ export function all(params: PostsAllParams = {}) {
   return api.mainKy.get<DataObj<PostsItem[]>>('posts', { searchParams }).json();
 }
 
+export function show(id: string) {
+  return api.mainKy.get<DataObj<PostsShowItem>>(`posts/${id}`).json();
+}
+
 export function categories() {
   return api.mainKy.get<DataObj<PostCategory[]>>('rubrics').json();
 }
@@ -31,4 +35,15 @@ export interface PostsImage {
 export interface PostCategory {
   id: string,
   name: string;
+}
+
+
+export interface PostsShowItem {
+  id:            string;
+  reading_time:  number;
+  title:         string;
+  description:   string;
+  banner_image:  PostsImage | null;
+  images:        PostsImage[];
+  created_at:    string;
 }
