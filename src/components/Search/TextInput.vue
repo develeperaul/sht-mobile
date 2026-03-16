@@ -1,5 +1,5 @@
 <template>
-  <div class="text-inp glass" :class="{ 'is-link': isLink }">
+  <div class="text-inp glass" :class="[ `text-inp--${color}`, { 'is-link': isLink } ]">
     <div v-if="isLink" class="inp-mock">Куда отправимся?</div>
     <input v-else ref="inputRef" class="inp" name="search" type="text" autocomplete="off" placeholder="Куда отправимся?" v-model="value" />
     <button v-if="!isLink" class="clear" type="button" @click="value = ''">
@@ -15,8 +15,10 @@
     defineProps<{
       isLink?: boolean,
       autoFocus?: boolean,
+      color?: 'blue' | 'white',
     }>(), {
       isLink: false,
+      color: 'blue',
     }
   );
 
@@ -54,7 +56,38 @@
       top: 20px;
       left: 18px;
       border-radius: 50%;
-      @apply tw-bg-blue_icon;
+    }
+
+    &--white {
+      &::before {
+        @apply tw-bg-white;
+      }
+
+      .inp-mock, .inp {
+        @apply tw-text-white;
+      }
+
+      .inp {
+        &::placeholder {
+          @apply tw-text-white;
+        }
+      }
+    }
+
+    &--blue {
+      &::before {
+        @apply tw-bg-blue_icon;
+      }
+
+      .inp-mock, .inp {
+        @apply tw-text-gray_main;
+      }
+
+      .inp {
+        &::placeholder {
+          @apply tw-text-gray_main;
+        }
+      }
     }
   }
 
@@ -66,7 +99,6 @@
     padding-right: 36px;
     font-size: 14px;
     line-height: 1;
-    @apply tw-text-gray_main;
   }
 
   .inp-mock {
@@ -78,10 +110,6 @@
   .inp {
     display: block;
     outline: none;
-
-    &::placeholder {
-      @apply tw-text-gray_main;
-    }
   }
 
   .clear {

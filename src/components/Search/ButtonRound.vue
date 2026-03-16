@@ -1,7 +1,7 @@
 <template>
   <component class="btn-round glass" :is="tag">
     <span class="icon-wrap">
-      <BaseIcon :name="icon" fit />
+      <BaseIcon :name="icon" :color="iconFill" fit />
     </span>
   </component>
 </template>
@@ -12,6 +12,7 @@
       tag?: string,
       icon: string,
       iconSize?: string,
+      iconFill?: string,
       size?: string,
     }>(),
     { tag: 'button', size: '60px', iconSize: '0.5em' },

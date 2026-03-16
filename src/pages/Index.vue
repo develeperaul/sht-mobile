@@ -1,9 +1,9 @@
 <template>
   <q-page class="main-page env-t">
-    <HelloScreen />
+    <HelloScreen :type="dayTimeType" />
     <div class="tw-container main-content">
-      <SearchDirections class="search-dirs" />
-      <Stories v-if="storyList.data" :stories="storyList.data" />
+      <SearchDirections class="search-dirs" :color="dayTimeType === 'night' ? 'white' : 'blue'" />
+      <Stories class="main-stories" v-if="storyList.data" :stories="storyList.data" />
       <DirectionsList />
       <EventsList class="main-page__section" />
       <PostsList class="main-page__section" />
@@ -22,9 +22,19 @@
   import Stories from 'src/components/Stories/Index.vue';
   import HelloScreen from 'src/components/Home/Hello/index.vue';
   import ReviewsList from 'src/components/Home/ReviewsList/index.vue';
+  import { computed } from 'vue';
 
   const storeMain = mainStore();
   const { storyList } = storeToRefs(storeMain);
+
+  const date = new Date();
+
+  const dayTimeType = computed<'morning' | 'evening' | 'night'>(() => {
+    const hours = date.getHours();
+    if(hours >= 7 && hours <= 16) return 'morning';
+    else if(hours > 16 && hours <= 22) return 'evening';
+    else return 'night';
+  });
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +52,10 @@
   }
 
   .search-dirs {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .main-stories {
+    margin-bottom: 12px;
   }
 </style>
