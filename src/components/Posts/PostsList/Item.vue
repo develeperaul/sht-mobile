@@ -116,6 +116,7 @@
     &__icon {
       width: 20px;
       height: 20px;
+      @apply tw-text-blue_icon2;
     }
   }
 </style>
