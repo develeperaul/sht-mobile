@@ -23,6 +23,7 @@ export default defineConfig((/* ctx */) => {
       'init',
       'init-user',
       'auth',
+      'init-favourites',
       'global-registration',
       'registr-validators',
       // 'registr-router-hooks',

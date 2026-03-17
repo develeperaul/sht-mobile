@@ -3,6 +3,7 @@
     <MainCover
       class="dir-sec"
       v-if="direction"
+      :id="id"
       :title="direction.name"
       :subtitle="direction.title"
       :image="direction.background"

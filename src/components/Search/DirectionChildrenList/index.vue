@@ -5,6 +5,7 @@
       v-for="item in items"
       :key="item.id"
       :item="item"
+      hideFavourites
     />
   </div>
 </template>

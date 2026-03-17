@@ -5,6 +5,7 @@
         <div class="badge badge-lg glass">
           от <span v-amount-pretty="item.offers_min_price"></span>
         </div>
+        <FavButton v-if="!hideFavourites" :size="size === 'lg' ? '34px' : '31px'" :itemId="item.id" />
       </div>
       <div class="col2">
         <p class="name">{{ item.name }}</p>
@@ -27,6 +28,7 @@
   import type { DirectionListItem } from 'src/api/directions';
   import { monthLabels } from 'src/components/Directions/model/consts';
   import { computed } from 'vue';
+  import FavButton from 'src/components/Favourites/ButtonToggle.vue';
 
   type Item = Pick<
     DirectionListItem,
@@ -40,8 +42,9 @@
       item: Item,
       size?: 'sm' | 'lg',
       hideSubtitle?: boolean,
+      hideFavourites?: boolean,
     }>(),
-    { size: 'lg', hideSubtitle: false },
+    { size: 'lg', hideSubtitle: false, hideFavourites: false },
   );
 
   const period = computed(() => {
@@ -89,6 +92,13 @@
       font-weight: 700;
       font-size: 24px;
     }
+  }
+
+  .col1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
   }
 
   .name {

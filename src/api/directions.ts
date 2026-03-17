@@ -1,7 +1,9 @@
 import { api } from './index';
 
 export function all(params: Partial<DirectionAllParams> = {}) {
-  return api.mainKy.get<DirectionListRes>('directions', { searchParams: params }).json();
+  const searchParams = new URLSearchParams();
+  params.uuids?.forEach(value => searchParams.append('uuids[]', value));
+  return api.mainKy.get<DirectionListRes>('directions', { searchParams }).json();
 }
 
 export function show(id: string) {
@@ -152,6 +154,7 @@ export interface DirectionListItem {
 export type DirectionAllParams = {
   // не работает
   // limit: number,
+  uuids?: string[],
 }
 
 export type DirectionSearchParams = {

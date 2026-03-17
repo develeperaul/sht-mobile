@@ -12,6 +12,12 @@ const routes: RouteRecordRaw[] = [
       },
 
       {
+        path: '/favourites',
+        component: () => import('pages/Favourites/Index.vue'),
+        name: 'favourites.index'
+      },
+
+      {
         path: '/search',
         component: () => import('pages/Search/Index.vue'),
         children: [
