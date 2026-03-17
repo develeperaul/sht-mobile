@@ -29,7 +29,7 @@
 <script setup lang="ts">
   import { reactive, computed } from 'vue';
   import type { DirectionParams, DirectionChildrenParams } from './types/index';
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
   import { useRoute } from 'vue-router';
 
   const directionParams = reactive<DirectionParams>({

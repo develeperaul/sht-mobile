@@ -2,7 +2,7 @@
   <div class="dir-list glass">
     <div class="search-actions">
       <TextInput class="search-actions__inp" v-model="directionParams.search" :autoFocus="focusInput" />
-      <ButtonRound class="search-actions__btn" icon="calendar" type="button" @click="showed = true" />
+      <ButtonRound class="search-actions__btn" icon="calendar" iconFill="#8BA7F6" type="button" @click="showed = true" />
     </div>
     <p class="title">Все направления</p>
     <DirectionsList v-if="items" :items="items" />
@@ -15,7 +15,7 @@
   import * as directionsApi from 'src/api/directions';
   import DirectionsList from 'src/components/Search/DirectionsList/index.vue';
   import TextInput from 'src/components/Search/TextInput.vue';
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
   import ModalCalendar from 'src/components/Search/ModalCalendar.vue';
   import type { DirectionParams } from './types/index';
   //@ts-ignore

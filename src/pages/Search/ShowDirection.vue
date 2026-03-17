@@ -2,7 +2,7 @@
   <div>
     <div class="search-actions">
       <TextInput class="search-actions__inp" v-model="directionChildrenParams.search" />
-      <ButtonRound class="search-actions__btn" icon="calendar" type="button" @click="showed = true" />
+      <ButtonRound class="search-actions__btn" icon="calendar" iconFill="#8BA7F6" type="button" @click="showed = true" />
     </div>
     <DirectionChildrenList class="items-list" v-if="items" :items="items" />
     <ModalCalendar v-model:showed="showed" v-model="directionParams.range" />

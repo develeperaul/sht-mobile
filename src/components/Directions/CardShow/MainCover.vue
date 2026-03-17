@@ -21,9 +21,10 @@
 </template>
 
 <script setup lang="ts">
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
 
   const props = defineProps<{
+    id: string,
     image: { url: string },
     title: string,
     subtitle: string,
@@ -31,6 +32,13 @@
 </script>
 
 <style scoped lang="scss">
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
   .cover {
     width: 100%;
     height: 300px;

@@ -36,7 +36,7 @@
 <script setup lang="ts">
   import type { PostsImage } from 'src/api/posts';
   import { computed } from 'vue';
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
   import { prettyDate } from 'src/utils/dates';
 
   const props = defineProps<{

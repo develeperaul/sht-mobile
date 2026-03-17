@@ -29,7 +29,7 @@
   import useRequest from 'src/composables/useRequest';
   import * as postsApi from 'src/api/posts';
   import type { PostCategory } from 'src/api/posts';
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
 
   const activeCategory = ref<PostCategory | null>(null);
 

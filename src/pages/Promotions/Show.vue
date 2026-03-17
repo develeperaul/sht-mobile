@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-  import ButtonRound from 'src/components/Search/ButtonRound.vue';
+  import ButtonRound from 'src/components/Base/ButtonRound.vue';
   import useRequest from 'src/composables/useRequest';
   import * as promotionsApi from 'src/api/promotions';
 
