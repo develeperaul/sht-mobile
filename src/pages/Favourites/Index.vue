@@ -19,7 +19,7 @@
   const favStore = useFavouritesStore();
 
   const { data, loading, send } = useRequest(
-    () => directionsApi.all({ uuids: favStore.items }),
+    () => directionsApi.favorites({ uuids: favStore.items }),
     { immediate: false },
   );
 

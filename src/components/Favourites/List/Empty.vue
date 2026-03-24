@@ -2,7 +2,7 @@
   <div class="glass empty">
     <p class="title">Ваш вишлист пока пуст</p>
     <p class="text">Отмечайте сердечком путешествия, которые вас вдохновили, чтобы не потерять их.</p>
-    <BaseButton class="!tw-w-fit tw-mx-auto" @click="$router.push({ name: 'directions' })">
+    <BaseButton class="!tw-w-fit tw-mx-auto" @click="$router.push({ name: 'directions.index' })">
       К направлениям
     </BaseButton>
   </div>

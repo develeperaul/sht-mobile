@@ -1,9 +1,8 @@
 import { api } from './index';
+import { DataObj } from 'src/models/api';
 
 export function all(params: Partial<DirectionAllParams> = {}) {
-  const searchParams = new URLSearchParams();
-  params.uuids?.forEach(value => searchParams.append('uuids[]', value));
-  return api.mainKy.get<DirectionListRes>('directions', { searchParams }).json();
+  return api.mainKy.get<DirectionListRes>('directions', { searchParams: params }).json();
 }
 
 export function show(id: string) {
@@ -22,6 +21,11 @@ export function search(params: Partial<DirectionSearchParams> = {}) {
   return api.mainKy.get<DirectionSearchRes>('direction-search', { searchParams: params }).json();
 }
 
+export function favorites(params: DirectionFavParams) {
+  const searchParams = new URLSearchParams();
+  params.uuids.forEach(value => searchParams.append('uuids[]', value));
+  return api.mainKy.get<DataObj<DirectionFavItem[]>>('direction-favorites', { searchParams }).json();
+}
 
 export type ShowOffersRes = { data: ShowOfferItem[] }
 
@@ -151,11 +155,15 @@ export interface DirectionListItem {
   offers_max_end_date:   string;
 }
 
+export type DirectionFavItem = DirectionListItem & { parent_id: string | null };
+
 export type DirectionAllParams = {
-  // не работает
-  // limit: number,
-  uuids?: string[],
+  search: string,
+  date_from: string,
+  date_to: string,
 }
+
+export type DirectionFavParams = { uuids: string[] };
 
 export type DirectionSearchParams = {
   search: string,

@@ -11,6 +11,7 @@
           iconSize="0.6em"
           @click="$router.back"
         />
+        <FavButton size="37px" :itemId="id" />
       </div>
       <div class="bottom">
         <h1 class="title">{{ title }}</h1>
@@ -22,6 +23,7 @@
 
 <script setup lang="ts">
   import ButtonRound from 'src/components/Base/ButtonRound.vue';
+  import FavButton from 'src/components/Favourites/ButtonToggle.vue';
 
   const props = defineProps<{
     id: string,
