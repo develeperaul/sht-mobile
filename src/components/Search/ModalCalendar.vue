@@ -49,7 +49,7 @@
 
   watch(value, (newVal) => {
     innerValue.value = newVal;
-  }, { deep: true });
+  }, { deep: true, immediate: true });
 
   function clear() {
     innerValue.value = null;
@@ -58,11 +58,9 @@
   function show() {
     value.value = innerValue.value;
     showed.value = false;
-    innerValue.value = null;
   }
 
   function close() {
-    innerValue.value = null;
     showed.value = false;
   }
 </script>

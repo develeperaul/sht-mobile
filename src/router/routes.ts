@@ -22,8 +22,20 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             path: '',
-            name: 'directions.index',
-            component: () => import('pages/Directions/Index.vue'),
+            component: () => import('pages/Directions/Index/index.vue'),
+            children: [
+              {
+                path: '',
+                name: 'directions.index',
+                component: () => import('pages/Directions/Index/ListItems.vue'),
+              },
+              {
+                path: ':id/groups',
+                name: 'directions.children',
+                props: true,
+                component: () => import('pages/Directions/Index/ListChildren.vue'),
+              },
+            ]
           },
           {
             path: ':id',

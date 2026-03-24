@@ -1,5 +1,5 @@
 <template>
-  <router-link class="item" :class="[ `item-${size}` ]" :to="{ name: 'directions.show', params: { id: item.id } }">
+  <component class="item" :class="[ `item-${size}` ]" :is="tag">
     <div class="content">
       <div class="col1">
         <div class="badge badge-lg glass">
@@ -21,7 +21,7 @@
     <div class="cover-wrap" v-if="item.background">
       <img class="cover-img" :src="item.background.url" loading="lazy" />
     </div>
-  </router-link>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -39,12 +39,13 @@
 
   const props = withDefaults(
     defineProps<{
+      tag?: string,
       item: Item,
       size?: 'sm' | 'lg',
       hideSubtitle?: boolean,
       hideFavourites?: boolean,
     }>(),
-    { size: 'lg', hideSubtitle: false, hideFavourites: false },
+    { size: 'lg', hideSubtitle: false, hideFavourites: false, tag: 'a' },
   );
 
   const period = computed(() => {
