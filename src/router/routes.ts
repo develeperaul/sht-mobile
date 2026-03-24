@@ -18,6 +18,23 @@ const routes: RouteRecordRaw[] = [
       },
 
       {
+        path: '/directions-new',
+        children: [
+          {
+            path: '',
+            name: 'directions.index',
+            component: () => import('pages/Directions/Index.vue'),
+          },
+          {
+            path: ':id',
+            name: 'directions.show',
+            component: () => import('pages/Directions/Show.vue'),
+            props: true,
+          },
+        ],
+      },
+
+      {
         path: '/search',
         component: () => import('pages/Search/Index.vue'),
         children: [
@@ -43,50 +60,99 @@ const routes: RouteRecordRaw[] = [
       },
 
       {
+        path: '/posts',
+        children: [
+          {
+            path: '',
+            component: () => import('pages/Posts/Index.vue'),
+            name: 'posts.index',
+          },
+
+          {
+            path: ':id',
+            component: () => import('pages/Posts/Show.vue'),
+            name: 'posts.show',
+            props: true,
+          },
+        ],
+      },
+
+      {
+        path: '/profile',
+        children: [
+          {
+            path: '',
+            name: 'profile',
+            component: () => import('pages/Profile/Index.vue'),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: 'data',
+            name: 'data',
+            component: () => import('pages/Profile/Data.vue'),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: 'mytravel',
+            name: 'mytravel',
+            component: () => import('pages/Profile/Mytravel.vue'),
+            meta: {
+              auth: true,
+            },
+          },
+
+          {
+            path: 'mytravel/upcoming/:uuid',
+            name: 'upcoming',
+            component: () => import('pages/Profile/Upcoming.vue'),
+            props: true,
+            meta: {
+              bg: true,
+              auth: true,
+            },
+          },
+          {
+            path: 'contacts',
+            name: 'contacts',
+            component: () => import('pages/Profile/Contacts.vue'),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: 'docs',
+            name: 'docs',
+            component: () => import('pages/Profile/Docs/Index.vue'),
+            meta: {
+              auth: true,
+            },
+          },
+          {
+            path: 'docs/policy',
+            name: 'policy',
+            component: () => import('pages/Profile/Docs/Policy.vue'),
+          },
+          {
+            path: 'docs/sogl',
+            name: 'sogl',
+            component: () => import('pages/Profile/Docs/Sogl.vue'),
+          },
+        ],
+      },
+
+      {
         path: '/promotions/:id',
         component: () => import('pages/Promotions/Show.vue'),
         name: 'promotions.show',
         props: true,
       },
 
-      {
-        path: '/posts',
-        component: () => import('pages/Posts/Index.vue'),
-        name: 'posts.index',
-      },
-
-      {
-        path: '/posts/:id',
-        component: () => import('pages/Posts/Show.vue'),
-        name: 'posts.show',
-        props: true,
-      },
-
       { path: 'ui', component: () => import('pages/UI/IndexPage.vue') },
-      {
-        path: 'directions-new/:id',
-        name: 'directions.show',
-        component: () => import('pages/Directions/Show.vue'),
-        props: true,
-      },
-      {
-        path: 'directions/:id',
-        name: 'direction',
-        component: () => import('pages/DirectionsCard.vue'),
-        props: true,
-        meta: {
-          bg: true,
-          // auth: true,
-        },
-      },
-      {
-        path: 'directions',
-        name: 'directions',
-        component: () => import('pages/Directions.vue'),
-        meta: {
-          // auth: true,
-        },
-      },
+
       {
         path: 'booking/:uuid',
         name: 'booking',
@@ -96,6 +162,7 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
+
       {
         path: 'payment',
         name: 'payment',
@@ -104,99 +171,33 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
-      {
-        path: 'profile',
-        name: 'profile',
-        component: () => import('pages/Profile/Index.vue'),
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: 'profile/data',
-        name: 'data',
-        component: () => import('pages/Profile/Data.vue'),
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: 'profile/mytravel',
-        name: 'mytravel',
-        component: () => import('pages/Profile/Mytravel.vue'),
-        meta: {
-          auth: true,
-        },
-      },
-
-      {
-        path: 'profile/mytravel/upcoming/:uuid',
-        name: 'upcoming',
-        component: () => import('pages/Profile/Upcoming.vue'),
-        props: true,
-        meta: {
-          bg: true,
-          auth: true,
-        },
-      },
-      {
-        path: 'profile/contacts',
-        name: 'contacts',
-        component: () => import('pages/Profile/Contacts.vue'),
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: 'profile/docs',
-        name: 'docs',
-        component: () => import('pages/Profile/Docs/Index.vue'),
-        meta: {
-          auth: true,
-        },
-      },
-      {
-        path: 'profile/docs/policy',
-        name: 'policy',
-        component: () => import('pages/Profile/Docs/Policy.vue'),
-        meta: {
-          // auth: true,
-        },
-      },
-      {
-        path: 'profile/docs/sogl',
-        name: 'sogl',
-        component: () => import('pages/Profile/Docs/Sogl.vue'),
-        meta: {
-          // auth: true,
-        },
-      },
     ],
   },
+
   {
-    path: '/',
+    path: '/auth',
     component: () => import('layouts/OtherLayout.vue'),
     meta: {
       guest: true,
     },
     children: [
       {
-        path: 'auth',
+        path: '',
         name: 'auth',
         component: () => import('pages/Auth/Choose.vue'),
       },
       {
-        path: 'auth/reg',
+        path: 'reg',
         name: 'reg',
         component: () => import('pages/Auth/Reg.vue'),
       },
       {
-        path: 'auth/reg2',
+        path: 'reg2',
         name: 'reg2',
         component: () => import('pages/Auth/Reg2.vue'),
       },
       {
-        path: 'auth/login',
+        path: 'login',
         name: 'login',
         component: () => import('pages/Auth/Login.vue'),
       },
