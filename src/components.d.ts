@@ -54,6 +54,8 @@ declare module 'vue' {
     LazyOnView: typeof import('./components/LazyOnView.vue')['default']
     LevelText: typeof import('./components/Directions/CardShow/AboutPrimary/LevelText.vue')['default']
     List: typeof import('./components/Directions/CardShow/Hotels/List.vue')['default']
+    ListChildren: typeof import('./components/Directions/Catalog/ListChildren.vue')['default']
+    ListParents: typeof import('./components/Directions/Catalog/ListParents.vue')['default']
     MainCover: typeof import('./components/Directions/CardShow/MainCover.vue')['default']
     Menu: typeof import('./components/Blocks/Menu.vue')['default']
     ModalCalendar: typeof import('./components/Search/ModalCalendar.vue')['default']

@@ -29,7 +29,7 @@
     },
     {
       icon: 'menu-dir',
-      to: { name: 'directions' },
+      to: { name: 'directions.index' },
     },
     {
       icon: 'menu-fav',

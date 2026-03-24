@@ -10,7 +10,13 @@
       v-for="item in items"
       :key="item.id"
     >
-      <DirectionsItem :item="item" size="sm" hideSubtitle />
+      <router-link
+        :to="{ name: 'directions.children', params: { id: item.id } }"
+        custom
+        v-slot="{ href, navigate }"
+      >
+        <DirectionsItem :item="item" size="sm" hideSubtitle :href="href" @click="navigate" />
+      </router-link>
     </SwiperSlide>
   </Swiper>
 </template>

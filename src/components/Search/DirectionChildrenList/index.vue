@@ -1,12 +1,20 @@
 <template>
   <div>
-    <ListItem
-      class="list-item"
+    <router-link
       v-for="item in items"
       :key="item.id"
-      :item="item"
-      hideFavourites
-    />
+      :to="{ name: 'directions.show', params: { id: item.id } }"
+      custom
+      v-slot="{ href, navigate }"
+    >
+      <ListItem
+        class="list-item"
+        :item="item"
+        tag="a"
+        :href="href"
+        @click="navigate"
+      />
+    </router-link>
   </div>
 </template>
 

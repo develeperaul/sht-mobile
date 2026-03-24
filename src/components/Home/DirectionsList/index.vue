@@ -7,7 +7,7 @@
       Выберите свой сценарий в коллекции SayHelloTravel
     </p>
     <SliderItems class="items-slider" v-if="items" :items="itemsLimited" />
-    <CardLinkNext :to="{ name: 'directions' }" :text="linkLabel" />
+    <CardLinkNext :to="{ name: 'directions.index' }" :text="linkLabel" />
   </section>
 </template>
 
