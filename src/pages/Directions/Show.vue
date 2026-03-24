@@ -1,5 +1,5 @@
 <template>
-  <q-page class="tw-relative tw-pb-36">
+  <q-page class="tw-relative">
     <MainCover
       class="dir-sec"
       v-if="direction"
@@ -8,7 +8,7 @@
       :subtitle="direction.title"
       :image="direction.background"
     />
-    <div class="tw-container" v-if="direction">
+    <div class="tw-container tw-pb-28" v-if="direction">
       <AboutPirmary
         class="dir-sec"
         :maxMembers="direction.max_members"
@@ -29,10 +29,10 @@
       />
       <CardDetails :direction="direction" />
     </div>
-    <q-page-sticky expand position="bottom" :offset="[12,8]">
+    <q-inner-loading :showing="loading" />
+    <q-page-sticky class="price-sticky" expand position="bottom" :offset="[12,8]">
       <TotalPrice v-if="currentOffer" :offer="currentOffer" />
     </q-page-sticky>
-    <q-inner-loading :showing="loading" />
   </q-page>
 </template>
 
@@ -81,5 +81,9 @@
 <style scoped lang="scss">
   .dir-sec {
     margin-bottom: 8px;
+  }
+
+  .price-sticky {
+    z-index: 1000;
   }
 </style>
