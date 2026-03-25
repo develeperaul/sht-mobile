@@ -5,6 +5,8 @@ import 'dayjs/locale/ru'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import 'animate.css';
+
 // import ru from 'dayjs/locale/ru'
 export default async ({ app }) => {
   app.directive('maska', vMaska)

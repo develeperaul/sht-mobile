@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    2: typeof import('./components/Search/FilterParams/Price copy 2.vue')['default']
     AboutPirmary: typeof import('./components/Directions/CardShow/AboutPirmary.vue')['default']
     AboutPrimary: typeof import('./components/Directions/CardShow/AboutPrimary/index.vue')['default']
     BaseButton: typeof import('./components/core/BaseButton.vue')['default']
@@ -58,12 +59,15 @@ declare module 'vue' {
     ListParents: typeof import('./components/Directions/Catalog/ListParents.vue')['default']
     MainCover: typeof import('./components/Directions/CardShow/MainCover.vue')['default']
     Menu: typeof import('./components/Blocks/Menu.vue')['default']
+    Modal: typeof import('./components/Base/Modal.vue')['default']
     ModalCalendar: typeof import('./components/Search/ModalCalendar.vue')['default']
     NavMenu: typeof import('./components/Directions/CardShow/Details/NavMenu.vue')['default']
     NoInt: typeof import('./components/NoInt.vue')['default']
     Orders: typeof import('./components/Home/Orders/index.vue')['default']
+    Period: typeof import('./components/Search/FilterParams/Period.vue')['default']
     PostsList: typeof import('./components/Posts/PostsList/index.vue')['default']
     Preloader: typeof import('./components/Preloader.vue')['default']
+    Price: typeof import('./components/Search/FilterParams/Price.vue')['default']
     PriceInfo: typeof import('./components/Directions/CardShow/QuickOrder/PriceInfo.vue')['default']
     QuickOrder: typeof import('./components/Directions/CardShow/QuickOrder/index.vue')['default']
     Raffle: typeof import('./components/Card/Raffle.vue')['default']
