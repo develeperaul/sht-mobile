@@ -161,6 +161,11 @@ export type DirectionAllParams = {
   search: string,
   date_from: string,
   date_to: string,
+  price_from: string,
+  price_to: string,
+  days_count_from: number,
+  days_count_to: number,
+  is_weekend: boolean,
 }
 
 export type DirectionFavParams = { uuids: string[] };

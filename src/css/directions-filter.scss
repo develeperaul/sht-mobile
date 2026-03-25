@@ -1,0 +1,35 @@
+.dir-filter-card {
+  padding: 16px;
+  border-radius: 40px;
+
+  &__title {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    @apply tw-text-gray_main;
+  }
+}
+
+.dir-filter-inp {
+  display: block;
+  width: 100%;
+  border-radius: 60px;
+  font-size: 14px;
+  line-height: 1;
+  padding: 10px 16px;
+  outline: none;
+  @apply tw-text-gray_icon2;
+}
+
+.dir-filter-badge {
+  padding: 8px 12px;
+  border-radius: 60px;
+  font-size: 14px;
+  line-height: 1;
+  @apply tw-bg-white tw-text-gray_main;
+
+  &--active {
+    background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+    @apply tw-text-white;
+  }
+}
