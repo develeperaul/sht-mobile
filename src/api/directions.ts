@@ -27,6 +27,10 @@ export function favorites(params: DirectionFavParams) {
   return api.mainKy.get<DataObj<DirectionFavItem[]>>('direction-favorites', { searchParams }).json();
 }
 
+export function filters() {
+  return api.mainKy.get<DataObj<FilterResponse>>('direction-filters').json();
+}
+
 export type ShowOffersRes = { data: ShowOfferItem[] }
 
 export interface ShowOfferItem {
@@ -166,6 +170,7 @@ export type DirectionAllParams = {
   days_count_from: number,
   days_count_to: number,
   is_weekend: boolean,
+  type: string,
 }
 
 export type DirectionFavParams = { uuids: string[] };
@@ -188,3 +193,22 @@ export interface DirectionSearchItem {
 }
 
 export type DirectionSearchRes = { data: DirectionSearchItem[] };
+
+export interface FilterResponse {
+  years: Record<string, string[]>,
+  directions: {
+    locals: { name: string }[],
+    foreign: { name: string }[],
+  },
+  prices: {
+    min: string,
+    max: string,
+  },
+  types: FilterTypesItem[],
+}
+
+export interface FilterTypesItem {
+  value: string,
+  title: string,
+  image: string | null,
+}

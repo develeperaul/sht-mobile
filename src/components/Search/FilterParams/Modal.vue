@@ -11,13 +11,20 @@
           </div>
         </div>
       </div>
-      <div class="card-sheet__body-wrap">
-        <FilterPrice class="filter-sec" :filter="filter" />
+      <div v-if="filterValues" class="card-sheet__body-wrap">
+        <LocationType class="filter-sec" :filter="filter" :typesItems="filterValues.types" />
+        <FilterPrice
+          class="filter-sec"
+          :filter="filter"
+          :min="filterValues.prices.min"
+          :max="filterValues.prices.max"
+        />
         <FilterPeriod class="filter-sec" :filter="filter" />
       </div>
       <div class="card-sheet__btn-wrap env-b">
         <BaseButton @click="$emit('reload'); close()">Показать</BaseButton>
       </div>
+      <q-inner-loading :showing="loading" />
     </div>
   </BaseModal>
 </template>
@@ -26,7 +33,11 @@
   import BaseModal from 'src/components/Base/Modal.vue';
   import FilterPrice from './Price.vue';
   import FilterPeriod from './Period.vue';
+  import LocationType from './LocationType.vue';
   import { FilterParams } from './useDirectionsFilter';
+  import useRequest from 'src/composables/useRequest';
+  import * as directionsApi from 'src/api/directions';
+  import { watch, computed } from 'vue';
 
   defineProps<{
     filter: FilterParams,
@@ -42,6 +53,17 @@
   function close() {
     value.value = false;
   }
+
+  const { data, loading, send } = useRequest(directionsApi.filters, { immediate: false });
+
+  const filterValues = computed(() => data.value?.data ?? null);
+
+  watch(value, (val) => {
+    if(!data.value && val) {
+      console.log(val);
+      send();
+    }
+  }, { immediate: true });
 </script>
 
 <style scoped lang="scss">
