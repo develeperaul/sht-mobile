@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Empty v-if="items.length === 0" />
+  <div v-else>
     <router-link
       v-for="item in items"
       :key="item.id"
@@ -21,6 +22,7 @@
 <script setup lang="ts">
   import ListItem from 'src/components/Directions/List/Item/index.vue';
   import type { SubgroupItem } from 'src/api/directions';
+  import Empty from 'src/components/Search/Empty.vue';
 
   defineProps<{
     items: SubgroupItem[],

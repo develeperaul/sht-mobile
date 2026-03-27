@@ -1,5 +1,6 @@
 <template>
-  <section class="tw-space-y-4">
+  <Empty v-if="items.length === 0" />
+  <section v-else class="tw-space-y-4">
     <router-link
       v-for="item in items"
       :key="item.id"
@@ -15,6 +16,7 @@
 <script setup lang="ts">
   import type { DirectionListItem } from 'src/api/directions';
   import ListItem from 'src/components/Directions/List/Item/index.vue';
+  import Empty from 'src/components/Search/Empty.vue';
 
   defineProps<{
     items: DirectionListItem[],

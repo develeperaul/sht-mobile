@@ -58,6 +58,6 @@
   }
 
   .main-stories {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
 </style>

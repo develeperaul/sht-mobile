@@ -18,6 +18,7 @@ declare module 'vue' {
     BaseSelect: typeof import('./components/core/BaseSelect.vue')['default']
     BaseSelectFaq: typeof import('./components/core/BaseSelectFaq.vue')['default']
     Bonus: typeof import('./components/Card/Bonus.vue')['default']
+    ButtonDropdown: typeof import('./components/Base/ButtonDropdown.vue')['default']
     ButtonRound: typeof import('./components/Base/ButtonRound.vue')['default']
     ButtonToggle: typeof import('./components/Favourites/ButtonToggle.vue')['default']
     CardCover: typeof import('./components/Posts/CardCover.vue')['default']
