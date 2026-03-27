@@ -171,7 +171,10 @@ export type DirectionAllParams = {
   days_count_to: number,
   is_weekend: boolean,
   type: string,
+  sort_by: SortType,
 }
+
+export type SortType = 'popularity' | 'fresh' | 'nearest' | 'decreasing_price' | 'increasing_price';
 
 export type DirectionFavParams = { uuids: string[] };
 

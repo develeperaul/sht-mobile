@@ -1,5 +1,6 @@
 <template>
-  <ul>
+  <Empty v-if="items.length === 0" />
+  <ul v-else>
     <li
       class="item-wrap"
       v-for="item in items"
@@ -13,6 +14,7 @@
 <script setup lang="ts">
   import type { DirectionSearchItem } from 'src/api/directions';
   import ListItem from './Item.vue';
+  import Empty from 'src/components/Search/Empty.vue';
 
   defineProps<{
     items: DirectionSearchItem[],

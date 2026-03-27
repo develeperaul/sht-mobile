@@ -33,3 +33,77 @@
     @apply tw-text-white;
   }
 }
+
+.card-sheet {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  --bg-color: rgba(152, 183, 222, 0.6);
+  --radius: 32px 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+
+  &__top {
+    padding-bottom: 10px;
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    height: 20px;
+    width: 100%;
+    padding-top: 5px;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 5px;
+      border-radius: 3px;
+      margin: 0 auto;
+      @apply tw-bg-white;
+    }
+  }
+
+  &__body-wrap {
+    flex-grow: 1;
+    overflow-x: hidden;
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 15px;
+  }
+
+  &__action {
+    width: 50%;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    @apply tw-text-white;
+
+    &--left {
+      text-align: left;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    @apply tw-text-white;
+  }
+
+  &__btn-wrap {
+    padding-top: 16px;
+  }
+}
