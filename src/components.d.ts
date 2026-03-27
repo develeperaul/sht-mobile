@@ -58,6 +58,7 @@ declare module 'vue' {
     ListChildren: typeof import('./components/Directions/Catalog/ListChildren.vue')['default']
     ListParents: typeof import('./components/Directions/Catalog/ListParents.vue')['default']
     ListNone: typeof import('./components/ListNone.vue')['default']
+    LocationType: typeof import('./components/Search/FilterParams/LocationType.vue')['default']
     MainCover: typeof import('./components/Directions/CardShow/MainCover.vue')['default']
     Menu: typeof import('./components/Blocks/Menu.vue')['default']
     Modal: typeof import('./components/Base/Modal.vue')['default']

@@ -145,6 +145,7 @@
     display: inline-block;
     padding: 6px 12px;
     line-height: 1;
+    white-space: nowrap;
     @apply tw-text-white;
 
     &-sm {
