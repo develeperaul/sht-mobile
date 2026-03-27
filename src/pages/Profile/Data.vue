@@ -1,7 +1,7 @@
 <template>
-  <q-page class="tw-container">
-    <head-block title="Личные данные" class="tw-mb-3" />
-
+  <q-page class="tw-container env-t">
+    <!-- <head-block title="Личные данные" class="tw-mb-3" /> -->
+    <Toolbar class="tw-mb-5" title="Личные данные" />
     <div>
       <div>
         <div
@@ -10,7 +10,8 @@
         >
           <div
             v-for="(g, index) in guests"
-            class="p1 tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1 tw-rounded-[60px] tw-w-fit tw-shrink-0"
+            class="p1 tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1 tw-rounded-[60px] tw-w-fit tw-shrink-0 tw-text-white"
+            style="background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);"
             :class="guestActive === index ? 'tw-bg-blue_main' : 'tw-bg-white'"
             @click="guestActive = index"
             @blur="closePopup(index)"
@@ -21,7 +22,7 @@
               <BaseIcon
                 @click="openPopup($event, index)"
                 name="dots"
-                class="tw-w-[27px] tw-h-[30px] tw-text-gray_main"
+                class="tw-w-[27px] tw-h-[30px] tw-text-white"
               />
               <div
                 class="edit-block__popup"
@@ -58,7 +59,7 @@
             </div>
           </div>
           <div
-            class="tw-w-[38px] tw-h-[38px] tw-rounded-full h2 tw-grid tw-place-content-center tw-bg-white tw-shrink-0"
+            class="tw-w-[38px] tw-h-[38px] tw-rounded-full h2 tw-grid tw-place-content-center tw-bg-white tw-shrink-0 glass-w"
             @click="addGuest"
           >
             +

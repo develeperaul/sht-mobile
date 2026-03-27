@@ -112,7 +112,8 @@
                 </div>
               </div>
             </div>
-            <div class="tw-mb-[46px]">
+
+            <!-- <div class="tw-mb-[46px]">
               <div
                 class="tw-flex tw-items-center tw-justify-between tw-bg-blue_light tw-rounded-[60px] tw-border-[3px] tw-border-blue_light tw-pl-4"
               >
@@ -123,7 +124,7 @@
                   :class="{ 'tw-text-red': !promo }"
                   placeholder="Введите промокод"
                 />
-                <!-- <div class="p2">1000START</div> -->
+
                 <base-button class="!tw-w-fit" @click="searchPromo">
                   Применить
                 </base-button>
@@ -134,7 +135,7 @@
               >
                 Промокод не действителен
               </div>
-            </div>
+            </div> -->
 
             <div class="h3 tw-flex tw-justify-between tw-items-center">
               <div>Предоплата</div>

@@ -2,7 +2,7 @@
   <div class="cover">
     <img class="img" :src="image.url" :alt="title" />
     <div class="content">
-      <div class="top">
+      <div class="top env-t">
         <ButtonRound
           class="btn-back"
           type="button"
@@ -77,6 +77,7 @@
     z-index: 10;
     padding: 24px;
     padding-bottom: 12px;
+    padding-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
