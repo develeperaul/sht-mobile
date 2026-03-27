@@ -2,6 +2,7 @@
   <div class="tw-grid">
     <div
       class="tw-rounded-32 tw-p-[2px] tw-inline-flex tw-whitespace-nowrap tw-overflow-auto"
+      style=" outline: 2px solid #00000013; outline-offset: -3px; padding: 3px;"
       :class="theme ? theme : 'tw-bg-white'"
     >
       <tab-item

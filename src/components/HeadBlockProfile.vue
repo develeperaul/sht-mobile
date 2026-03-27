@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-flex tw-justify-between tw-items-center">
-    <div class="h2">Привет{{ name }}!</div>
+  <div class="tw-flex tw-gap-3 tw-items-center">
+
 
     <router-link
       :to="{ name: 'profile' }"
@@ -14,6 +14,7 @@
       />
       <BaseIcon v-else name="user" class="tw-w-7 tw-h-7 tw-text-blue_icon" />
     </router-link>
+    <div class="h2">Привет<span v-html="name"></span>!</div>
   </div>
 </template>
 <script setup lang="ts">
@@ -22,7 +23,7 @@ import profileStore from 'src/stores/profileStore'
 const { profile } = storeToRefs(profileStore())
 
 const name = computed(() => {
-  if (profile.value) return ', ' + profile.value.first_name
+  if (profile.value) return ', <br> ' + profile.value.first_name
   return ''
 })
 </script>

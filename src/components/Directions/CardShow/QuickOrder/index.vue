@@ -12,7 +12,11 @@
       :getOptionLabel="getOfferLabel"
       @update:modelValue="$emit('change:offer', $event)"
     />
-    <BaseButton>Забронировать</BaseButton>
+    <BaseButton
+    @click="
+              router.push({ name: 'booking', params: { uuid: currentOffer?.id } })
+            "
+    >Забронировать</BaseButton>
     <q-inner-loading :showing="loading" />
   </section>
 </template>
@@ -26,6 +30,7 @@
   import { computed } from 'vue';
   import type { ShowOfferItem } from 'src/api/directions';
   import { monthLabels } from '../../model/consts';
+import { useRouter } from 'vue-router';
 
   const props = defineProps<{
     directionId: string,
@@ -38,7 +43,7 @@
     (event: 'change:date', value: string): void,
     (event: 'change:offer', value: ShowOfferItem | null): void,
   }>();
-
+  const router = useRouter()
   const { data, loading } = useRequest(
     () => directionsApi.showOffers(props.directionId, {
       date: props.currentDate,

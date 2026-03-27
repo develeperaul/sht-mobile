@@ -1,37 +1,46 @@
 <template>
-  <div v-if="id" class="file-img">
-    <div class="file-img__btn" @click="emit('deleteFile', id)">
-      <svg
-        width="33"
-        height="33"
-        viewBox="0 0 33 33"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M29.4519 16.0645C29.4519 23.458 23.4583 29.4516 16.0648 29.4516C8.67134 29.4516 2.67773 23.458 2.67773 16.0645C2.67773 8.67104 8.67134 2.67743 16.0648 2.67743C23.4583 2.67743 29.4519 8.67104 29.4519 16.0645Z"
-          fill="#FF3B30"
-        />
-        <path
-          d="M7.9668 16H23.1126"
-          stroke="white"
-          stroke-width="2.00806"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+  <div v-if="id" class="add glass-w">
+    <div class="add__btn" @click="emit('deleteFile', id)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.1219 9.51222C17.1219 13.715 13.7149 17.122 9.5121 17.122C5.30935 17.122 1.90234 13.715 1.90234 9.51222C1.90234 5.30947 5.30935 1.90247 9.5121 1.90247C13.7149 1.90247 17.1219 5.30947 17.1219 9.51222Z" fill="#071E3A" stroke="#071E3A" stroke-width="1.90244" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.2032 6.82166L9.51272 9.51211M9.51272 9.51211L6.82227 12.2026M9.51272 9.51211L12.2032 12.2026M9.51272 9.51211L6.82227 6.82166" stroke="white" stroke-width="1.14146" stroke-linecap="round"/>
       </svg>
+
     </div>
 
-    <div v-if="noimg" class="file-img__url">
-      {{ url }}
+    <div v-if="noimg" class="add__url">
+      <!-- {{ url }} -->
+      <img src="~assets/img/pdf.png" alt="" />
     </div>
     <template v-else>
-      <img v-if="url" :src="url" alt="" />
+      <img class="add__img" v-if="url" :src="url" alt="" />
     </template>
   </div>
 
   <div v-else>
-    <svg
+    <div class="add glass-w" @click="openCamera">
+      <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_d_9880_6040)">
+      <rect x="22.8301" y="22.8292" width="38.0488" height="38.0488" rx="19.0244" fill="white" fill-opacity="0.4" shape-rendering="crispEdges"/>
+      <path d="M41.8538 37.0975L41.8538 46.6097M46.6099 41.8536L37.0977 41.8536" stroke="#071E3A" stroke-width="1.42683" stroke-linecap="round"/>
+      </g>
+      <defs>
+      <filter id="filter0_d_9880_6040" x="0.000812531" y="-4.19617e-05" width="83.7074" height="83.7074" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="11.4146"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9880_6040"/>
+      <feBlend mode="normal" in="BackgroundImageFix" in2="effect1_dropShadow_9880_6040" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      </filter>
+      </defs>
+      </svg>
+
+    </div>
+    <!-- <svg
       width="120"
       height="120"
       viewBox="0 0 120 120"
@@ -81,7 +90,7 @@
           />
         </clipPath>
       </defs>
-    </svg>
+    </svg> -->
   </div>
 </template>
 
@@ -129,13 +138,19 @@ const openCamera = async () => {
 </script>
 
 <style lang="scss" scoped>
-.file-img {
-  @apply tw-w-[120px] tw-h-[120px] tw-relative tw-bg-blue_bg tw-rounded-[30px] tw-grid tw-place-content-center;
-  img {
-    @apply tw-rounded-[30px] tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-object-cover;
+.add {
+
+  &__img {
+    @apply   tw-absolute tw-top-0 tw-left-0 tw-object-cover;
+    border-radius: 15px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
   }
   &__btn {
-    @apply tw-absolute -tw-right-2 -tw-top-2;
+    @apply tw-absolute tw-right-0 tw-top-0 tw-m-2;
     z-index: 1;
   }
   &__url {
@@ -145,8 +160,26 @@ const openCamera = async () => {
     -webkit-box-orient: vertical;
     overflow: hidden;
     max-height: 50px;
-    width: 80px;
     text-overflow: ellipsis;
+
+    & img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: auto;
+      width: 40px;
+      object-fit: contain;
+    }
   }
+}
+.add {
+  width: 78px;
+  height: 78px;
+  box-shadow: 0px 0px 22.83px 0px #0000000D;
+  background: var(--SystemBlue-Background_Field, #98B7DE1A);
+  border-radius: 19px;
+  display: grid;
+  place-content: center;
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
-  <q-page class="tw-container tw-grid tw-content-between">
+  <q-page class="tw-container env-t tw-grid tw-content-between">
     <div>
-      <head-block title="Политика конфиденциальности" class="tw-mb-3" />
+
+      <Toolbar class="tw-mb-5" title="Политика конфиденциальности" />
       <div
-        class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 -tw-mx-4 tw-font-medium"
+        class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 -tw-mx-4 tw-font-medium glass-w"
         style="font-size: 14px; line-height: 18px"
       >
         Политика конфиденциальности

@@ -24,7 +24,9 @@ const emits = defineEmits<{
   @apply p1;
 }
 .btn {
-  @apply tw-bg-blue_main tw-grid tw-relative;
+  @apply tw-grid tw-relative;
+  background: linear-gradient(0deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+  color: white;
   font-size: 24px;
   line-height: 23px;
   width: 30px;

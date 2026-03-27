@@ -126,6 +126,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Profile/Mytravel.vue'),
         meta: {
           auth: true,
+          nav: false
         },
       },
 
@@ -135,8 +136,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Profile/Upcoming.vue'),
         props: true,
         meta: {
-          bg: true,
+          // bg: true,
           auth: true,
+          nav: false
         },
       },
       {
@@ -145,6 +147,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Profile/Contacts.vue'),
         meta: {
           auth: true,
+          nav: false
         },
       },
       {
@@ -153,6 +156,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Profile/Docs/Index.vue'),
         meta: {
           auth: true,
+          nav: false
         },
       },
       {
@@ -168,6 +172,7 @@ const routes: RouteRecordRaw[] = [
         name: 'sogl',
         component: () => import('pages/Profile/Docs/Sogl.vue'),
         meta: {
+          nav: false
           // auth: true,
         },
       },
