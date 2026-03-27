@@ -47,7 +47,7 @@
       ...(
         Object.fromEntries(Object.entries(filter).filter(e => e[1] !== null && e[1] !== ''))
       ),
-      ...(search.value !== '' ? { search: search.value } : {}),
+      ...(search.value !== '' ? { name: search.value } : {}),
       ...(props.range !== null ? {
         date_from: props.range.start,
         date_to: props.range.end,

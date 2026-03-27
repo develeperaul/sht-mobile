@@ -158,7 +158,7 @@ export interface DirectionListItem {
 export type DirectionFavItem = DirectionListItem & { parent_id: string | null };
 
 export type DirectionAllParams = {
-  search: string,
+  name: string,
   date_from: string,
   date_to: string,
   price_from: string,
