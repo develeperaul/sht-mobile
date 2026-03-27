@@ -128,8 +128,7 @@
               </a>
             </div>
           </div>
-          <!-- <div class="tw-mt-6" v-if="offer.status === 'paid'"> -->
-          <div class="tw-mt-6" >
+          <div class="tw-mt-6" v-if="offer.status === 'paid'">
             <div class="h3 tw-font-bold tw-mb-1">Авиабилеты</div>
             <div class="p2 tw-mb-6">Вы можете подгрузить сюда свои билеты</div>
             <div class="tw-flex tw-flex-wrap tw-gap-2 tw-justify-items-start">

@@ -122,6 +122,8 @@ export type OfferT = {
   description: string
   direction: DirectionCardT
   is_weekend: boolean
+  currency: null | {name: 'USD' | 'EUR' | 'CNY', rate: string}
+
 }
 export interface OfferCardT extends OfferT {
   direction: {

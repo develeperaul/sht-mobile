@@ -17,6 +17,14 @@ export default boot(({ app }) => {
       el.textContent = amount(binding.value)
     },
   })
+  app.directive('amount-pretty-n', {
+    mounted: function (el: HTMLLinkElement, binding: any, vnode: any) {
+      el.textContent = amountN(binding.value)
+    },
+    updated: function (el: HTMLLinkElement, binding: any, vnode: any) {
+      el.textContent = amountN(binding.value)
+    },
+  })
   app.directive('amount-sq-pretty', {
     mounted: function (el: HTMLLinkElement, binding: any, vnode: any) {
       el.textContent = amountSq(binding.value)
@@ -26,6 +34,9 @@ export default boot(({ app }) => {
 
   function amount(val: string | number): string {
     return app.config.globalProperties.$pretty(val, '₽')
+  }
+  function amountN(val: string | number): string {
+    return app.config.globalProperties.$pretty(val, '')
   }
   function amountSq(val: string | number): string {
     return app.config.globalProperties.$pretty(val, '₽/м²')

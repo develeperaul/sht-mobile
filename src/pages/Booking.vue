@@ -1,10 +1,12 @@
 <template>
-  <q-page class="tw-container env-t">
+  <q-page class="tw-container tw-relative env-t">
     <template v-if="step2 > 2">
 
       <Toolbar class="tw-mb-5" title="Оплата" />
       <template v-if="mainStore().isOnline">
+
         <div class="tw-grid tw-gap-2 tw-pb-2.5">
+
           <div
             class="tw-rounded-32 tw-grid tw-gap-[35px] tw-overflow-hidden tw-relative tw-text-white tw-p-5"
             v-if="currentOffer.data"
@@ -106,9 +108,30 @@
                   <div>Гость №{{ index + 2 }}</div>
                   <div v-amount-pretty="currentOffer.data?.price"></div>
                 </div>
+
                 <div class="tw-flex tw-justify-between tw-items-center">
-                  <div>Итого</div>
-                  <div v-amount-pretty="summ"></div>
+                  <div>Предоплата</div>
+
+                  <div
+                    v-amount-pretty="
+                      currentOffer.data?.prepay * (guests.length + 1) - disount
+                    "
+                  ></div>
+                </div>
+                <div class="tw-flex tw-justify-between tw-items-center" v-if=" currentOffer.data?.currency?.rate">
+                  <div>Остаток</div>
+                  <div class=" ">
+                    <span
+                      v-amount-pretty-n="(currentOffer.data?.price / currentOffer.data?.currency?.rate).toFixed(2)"
+                    ></span>&nbsp;<span>
+                      {{ currentOffer.data?.currency?.name === "USD" ? '$' :'' }}
+                      {{ currentOffer.data?.currency?.name === "EUR" ? '€': '' }}
+                      {{ currentOffer.data?.currency?.name === "CNY" ? '¥':'' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="tw-flex tw-justify-between tw-items-center">
+
                 </div>
               </div>
             </div>
@@ -138,13 +161,8 @@
             </div> -->
 
             <div class="h3 tw-flex tw-justify-between tw-items-center">
-              <div>Предоплата</div>
-
-              <div
-                v-amount-pretty="
-                  currentOffer.data?.prepay * (guests.length + 1) - disount
-                "
-              ></div>
+              <div>Итого</div>
+                  <div v-amount-pretty="summ"></div>
             </div>
           </div>
           <textarea

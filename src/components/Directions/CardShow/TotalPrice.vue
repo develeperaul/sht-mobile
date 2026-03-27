@@ -4,8 +4,10 @@
       <span>{{ daysCount }} дней</span> <span>•</span> <span>{{ period }}</span>
     </div>
     <div>
-      <p class="price-label">Предоплата</p>
-      <div class="price-value" v-amount-pretty="offer.prepay"></div>
+      <div>
+        <p class="price-label">Предоплата</p>
+        <div class="price-value" v-amount-pretty="offer.prepay"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +18,7 @@
 
   const props = defineProps<{
     offer: ShowOfferItem,
+    showBtn?: boolean
   }>();
 
   const daysCount = computed(() => {

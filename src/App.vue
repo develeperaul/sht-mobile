@@ -1,5 +1,5 @@
 <template>
-  <Preloader v-model="isPreloaderVisible" :duration="4500" />
+  <PreloaderNew v-model="isPreloaderVisible" :duration="4500" />
   <div v-if="!isPreloaderVisible">
     <router-view />
   </div>
@@ -34,9 +34,9 @@ onMounted(async () => {
 
   await Promise.allSettled([
     mainStore().getStories(),
-    directionsStore().setDirections(),
+    // directionsStore().setDirections(),
     directionsStore().setFilters(),
-    mainStore().setPromotion(),
+    // mainStore().setPromotion(),
   ]);
 
   await profileStore.isReady;
