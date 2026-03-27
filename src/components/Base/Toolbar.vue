@@ -8,7 +8,7 @@
       iconSize="0.6em"
       @click="$router.back"
     />
-    <span class="title">{{ title }}</span>
+    <span  class="title" :class="{'tw-invert': invert}">{{ title }}</span>
   </div>
 </template>
 
@@ -17,6 +17,7 @@
 
   defineProps<{
     title: string,
+    invert?: boolean
   }>();
 </script>
 

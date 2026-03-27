@@ -183,6 +183,78 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('pages/Profile/Index.vue'),
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: 'profile/data',
+        name: 'data',
+        component: () => import('pages/Profile/Data.vue'),
+        meta: {
+          auth: true,
+        },
+      },
+      {
+        path: 'profile/mytravel',
+        name: 'mytravel',
+        component: () => import('pages/Profile/Mytravel.vue'),
+        meta: {
+          auth: true,
+          nav: false
+        },
+      },
+
+      {
+        path: 'profile/mytravel/upcoming/:uuid',
+        name: 'upcoming',
+        component: () => import('pages/Profile/Upcoming.vue'),
+        props: true,
+        meta: {
+          // bg: true,
+          auth: true,
+          nav: false
+        },
+      },
+      {
+        path: 'profile/contacts',
+        name: 'contacts',
+        component: () => import('pages/Profile/Contacts.vue'),
+        meta: {
+          auth: true,
+          nav: false
+        },
+      },
+      {
+        path: 'profile/docs',
+        name: 'docs',
+        component: () => import('pages/Profile/Docs/Index.vue'),
+        meta: {
+          auth: true,
+          nav: false
+        },
+      },
+      {
+        path: 'profile/docs/policy',
+        name: 'policy',
+        component: () => import('pages/Profile/Docs/Policy.vue'),
+        meta: {
+          // auth: true,
+        },
+      },
+      {
+        path: 'profile/docs/sogl',
+        name: 'sogl',
+        component: () => import('pages/Profile/Docs/Sogl.vue'),
+        meta: {
+          nav: false
+          // auth: true,
+        },
+      },
     ],
   },
 

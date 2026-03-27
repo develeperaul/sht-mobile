@@ -1,7 +1,8 @@
 <template>
-  <q-page class="tw-container">
+  <q-page class="tw-container env-t">
     <template v-if="step2 > 2">
-      <head-block title="Оплата" class="tw-mb-3" />
+
+      <Toolbar class="tw-mb-5" title="Оплата" />
       <template v-if="mainStore().isOnline">
         <div class="tw-grid tw-gap-2 tw-pb-2.5">
           <div
@@ -50,7 +51,7 @@
             </div>
 
             <!-- <div>
-              
+
               <div
                 class="p1 tw-px-3 tw-py-[8.5px] tw-bg-blue_light tw-mb-3 tw-rounded-[60px] tw-w-fit"
               >
@@ -165,7 +166,7 @@
       <NoInt v-else />
     </template>
     <template v-else>
-      <head-block title="Бронирование" class="tw-mb-3" />
+      <Toolbar class="tw-mb-5" title="Бронирование" />
       <template v-if="mainStore().isOnline">
         <div>
           <tab-head v-model="tab" :options="tabs" class="tw-mb-6" />
@@ -203,7 +204,7 @@
                     maska="+7 (###)-###-##-##"
                   />
                 </div>
-                <div class="p1 tw-text-center tw-mb-6">
+                <!-- <div class="p1 tw-text-center tw-mb-6">
                   <span>
                     Нажимая на кнопку «Оставить заявку», <br />
                     я принимаю условия
@@ -215,7 +216,7 @@
                   <router-link class="link" :to="{ name: 'policy' }"
                     >Политику конфиденциальности</router-link
                   >
-                </div>
+                </div> -->
                 <BaseButton> Оставить заявку </BaseButton>
               </Form>
               <div
@@ -242,11 +243,11 @@
                 <div class="tw-flex tw-gap-[3px] tw-mb-6">
                   <div
                     class="tw-rounded-[12px] tw-h-[5px] tw-w-full"
-                    :class="step2 === 1 ? ' tw-bg-blue_icon' : 'tw-bg-blue_bg'"
+                    :class="step2 === 1 ? ' tw-bg-blue_icon2' : 'tw-bg-blue_bg'"
                   ></div>
                   <div
                     class="tw-rounded-[12px] tw-h-[5px] tw-w-full"
-                    :class="step2 === 2 ? ' tw-bg-blue_icon' : 'tw-bg-blue_bg'"
+                    :class="step2 === 2 ? ' tw-bg-blue_icon2' : 'tw-bg-blue_bg'"
                   ></div>
                 </div>
                 <div v-if="step2 === 1">
@@ -315,7 +316,7 @@
                             <BaseInput
                               :model-value="profile?.phone ?? ''"
                               name="phone"
-                              placeholder="Номер для связи*"
+                              placeholder="+ 7 (999) ***-**-**"
                               un-mask
                               maska="+7 (###)-###-##-##"
                               rules="required|cellphone"

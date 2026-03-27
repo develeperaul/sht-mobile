@@ -8,9 +8,14 @@
     }"
   >
     <q-page-container>
+
       <router-view class="tw-pb-7" />
     </q-page-container>
-    <MenuBottom />
+    <template v-if="route.meta.hasOwnProperty('nav')">
+      <MenuBottom v-if="route.meta.nav" />
+
+    </template>
+    <MenuBottom v-else />
   </q-layout>
 </template>
 

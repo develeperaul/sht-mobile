@@ -21,7 +21,9 @@ const props = defineProps<{
   height: 46px;
   transition: all 0.3s ease-in-out;
   &.active {
-    @apply tw-bg-geen_btn;
+    background: linear-gradient(0deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+    color: white;
+    // @apply tw-bg-geen_btn;
   }
 }
 </style>

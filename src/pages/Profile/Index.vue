@@ -1,17 +1,17 @@
 <template>
-  <q-page class="tw-container tw-grid tw-content-between tw-pb-[100px]">
+  <q-page class="tw-container env-t tw-grid tw-content-between tw-pb-[100px]">
     <div>
-      <head-block-profile class="tw-mb-[5px]" />
-      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5">
+      <head-block-profile class="tw-mb-[11px]" />
+      <div class=" tw-rounded-[24px] tw-px-2.5 glass-w" style="">
         <router-link
           :to="{ name: 'data' }"
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
         >
           <div class="tw-flex tw-gap-2 tw-items-center">
-            <BaseIcon name="profile" class="tw-w-6 tw-h-6 tw-text-blue_icon" />
+            <BaseIcon name="profile" class="tw-w-6 tw-h-6 tw-text-blue_icon2" />
             <div>Личные данные</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />
         </router-link>
         <div class="tw-border-b tw-border-blue_bg"></div>
         <router-link
@@ -19,10 +19,10 @@
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
         >
           <div class="tw-flex tw-gap-2 tw-items-center">
-            <BaseIcon name="loсation" class="tw-w-6 tw-h-6 tw-text-blue_icon" />
+            <BaseIcon name="loсation" class="tw-w-6 tw-h-6 tw-text-blue_icon2" />
             <div>Мои путешествия</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />
         </router-link>
         <div class="tw-border-b tw-border-blue_bg"></div>
         <div
@@ -30,10 +30,10 @@
           @click="supportIs = true"
         >
           <div class="tw-flex tw-gap-2 tw-items-center">
-            <BaseIcon name="help" class="tw-w-6 tw-h-6 tw-text-blue_icon" />
+            <BaseIcon name="help" class="tw-w-6 tw-h-6 tw-text-blue_icon2" />
             <div>Поддержка</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />
         </div>
         <div class="tw-border-b tw-border-blue_bg"></div>
         <router-link
@@ -41,10 +41,10 @@
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
         >
           <div class="tw-flex tw-gap-2 tw-items-center">
-            <BaseIcon name="list" class="tw-w-6 tw-h-6 tw-text-blue_icon" />
+            <BaseIcon name="list" class="tw-w-6 tw-h-6 tw-text-blue_icon2" />
             <div>Документы</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />
         </router-link>
         <div class="tw-border-b tw-border-blue_bg"></div>
 
@@ -55,11 +55,11 @@
           <div class="tw-flex tw-gap-2 tw-items-center">
             <BaseIcon
               name="location2"
-              class="tw-w-6 tw-h-6 tw-text-blue_icon"
+              class="tw-w-6 tw-h-6 tw-text-blue_icon2"
             />
             <div>Контакты</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />
         </router-link>
       </div>
     </div>

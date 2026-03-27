@@ -1,8 +1,9 @@
 <template>
-  <q-page class="tw-container tw-grid tw-content-between">
+  <q-page class="tw-container env-t tw-grid tw-content-between">
     <div>
-      <head-block title="Документы" class="tw-mb-3" />
-      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5">
+      <Toolbar class="tw-mb-5" title="Документы" />
+
+      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5 glass-w">
         <router-link
           :to="{ name: 'sogl' }"
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
@@ -10,7 +11,7 @@
           <div class="tw-flex tw-gap-2 tw-items-center">
             <div>Лицензионное соглашение</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-4 tw-h-4 " />
         </router-link>
         <div class="tw-border-b tw-border-blue_bg"></div>
         <router-link
@@ -20,7 +21,7 @@
           <div class="tw-flex tw-gap-2 tw-items-center">
             <div>Политика конфиденциальности</div>
           </div>
-          <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon" />
+          <BaseIcon name="right" class="tw-w-4 tw-h-4 " />
         </router-link>
       </div>
     </div>
