@@ -185,7 +185,7 @@ export type DirectionSearchParams = {
 }
 
 export type SubgroupParams = DirectionSearchParams & {
-  sort_by: 'popularity' | 'fresh' | 'nearest' | 'decreasing_price' | 'increasing_price',
+  sort_by: SortType,
 };
 
 export interface DirectionSearchItem {
