@@ -1,7 +1,8 @@
 <template>
-  <q-page class="tw-bg-blue_bg tw-grid">
+  <q-page class="tw-bg-blue_bg tw-grid env-t">
     <div class="tw-container tw-grid tw-grid-rows-[auto_1fr]">
-      <TopBlock label="Регистрация" />
+
+      <Toolbar class="tw-mb-5" title="Регистрация" />
 
       <Form
         v-if="step === 1"
@@ -34,7 +35,7 @@
       </Form>
       <Form
         v-if="step === 2"
-        
+
         class="card-white tw-grid tw-gap-[23px] tw-mt-[32.5px] tw-content-start tw-h-fit"
         @submit="auth"
       >
@@ -142,10 +143,10 @@ const submit =  async() => {
     if (e.response.status === 409 || e.response.status === 404) {
       success.value = true
     } else {
-      
+
       throw e
     }
-    
+
   }
  }
 const auth =  async(vals: { kod: string }) => {

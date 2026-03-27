@@ -560,7 +560,8 @@ const deleteFile = async (id: string) => {
   position: fixed;
   backdrop-filter: blur(6px);
   border-radius: 30px;
-  background: rgba(250, 250, 250, 0.4);
+  background: #FFFFFF66;
+  color: black;
   transform: translateX(-24px);
   z-index: 2;
   &::before {
@@ -571,7 +572,7 @@ const deleteFile = async (id: string) => {
     left: 30px;
     width: 16px;
     height: 8px;
-    background: rgba(250, 250, 250, 0.4);
+    background: #FFFFFF66;
     display: block;
   }
   &.active {

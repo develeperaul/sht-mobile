@@ -1,8 +1,8 @@
 <template>
-  <q-page class="tw-bg-blue_bg">
+  <q-page class="tw-bg-blue_bg env-t">
     <div class="tw-container">
-      <TopBlock label="Вход в аккаунт" />
 
+      <Toolbar class="tw-mb-5" title="Вход в аккаунт" />
       <Form
         v-if="step === 1"
         @submit="submit"
