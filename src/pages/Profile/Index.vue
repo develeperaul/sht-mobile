@@ -77,69 +77,9 @@
         Выйти из аккаунта
       </div>
     </div>
-
-    <Teleport to="body">
-      <Transition name="fade">
-        <div class="popup" v-if="deleteIs">
-          <div class="popup__wrapper">
-            <div
-              class="tw-bg-white tw-py-8 tw-px-5 tw-rounded-32 tw-text-center"
-            >
-              <div class="h2 tw-object-center tw-mb-4">
-                Вы действительно хотите удалить аккаунт?
-              </div>
-              <div class="p1 tw-text-center tw-mb-4">
-                После удаления аккаунт будет невозможно восстановить
-              </div>
-              <div class="tw-grid tw-grid-cols-2 tw-pt-4">
-                <div
-                  class="tw-text-center tw-font-semibold tw-text-base"
-                  @click="deleteIs = false"
-                >
-                  Отменить
-                </div>
-                <div
-                  class="tw-text-center tw-font-semibold tw-text-base tw-text-red"
-                  @click="logout"
-                >
-                  Удалить
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
-    <Teleport to="body">
-      <Transition name="fade">
-        <div class="popup" v-if="logoutIs">
-          <div class="popup__wrapper">
-            <div
-              class="tw-bg-white tw-py-8 tw-px-5 tw-rounded-32 tw-text-center"
-            >
-              <div class="h2 tw-object-center tw-mb-4">
-                Вы действительно хотите выйти?
-              </div>
-              <div class="tw-grid tw-grid-cols-2 tw-pt-4">
-                <div
-                  class="tw-text-center tw-font-semibold tw-text-base"
-                  @click="logoutIs = false"
-                >
-                  Отменить
-                </div>
-                <div
-                  class="tw-text-center tw-font-semibold tw-text-base tw-text-red"
-                  @click="logout"
-                >
-                  Выйти
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
-    <SupportPopup v-model="supportIs" />
+    <DeletePopup v-model="deleteIs" @remove="logout"/>
+    <LogoutPopup v-model="logoutIs" @logout="logout"/>
+    <SupportPopupNew v-model="supportIs" />
   </q-page>
 </template>
 <script lang="ts" setup>

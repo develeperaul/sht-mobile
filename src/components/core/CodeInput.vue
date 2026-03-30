@@ -5,6 +5,7 @@
       :key="index"
       ref="inputEl"
       class="input-code"
+      :class="`input-code__${bg}`"
       required="true"
       type="tel"
       inputmode="numeric"
@@ -29,7 +30,9 @@ const KEYCODES = {
 }
 const props = withDefaults(
   defineProps<{
-    inputsLenght?: string | number
+    inputsLenght?: string | number,
+    bg?: string
+
   }>(),
   {
     inputsLenght: 4,
@@ -101,6 +104,9 @@ const {
   /*tw-border-negative tw-border*/
   @apply h1 tw-outline-none  tw-border-b tw-border-blue_bg tw-bg-white tw-text-center tw-w-full tw-h-[60px] focus:tw-border-red;
   @apply focus:tw-border-blue_link focus:tw-border-red valid:tw-border-red;
+  &__transparent {
+    @apply tw-bg-transparent
+  }
 }
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {

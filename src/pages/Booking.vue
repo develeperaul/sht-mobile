@@ -422,26 +422,7 @@
       </template>
       <NoInt v-else />
     </template>
-    <Teleport to="body">
-      <Transition name="fade">
-        <div class="popup" v-if="success">
-          <div class="popup__wrapper">
-            <div class="tw-bg-white tw-py-8 tw-px-5 tw-rounded-32">
-              <div class="h2 tw-object-center tw-mb-4">
-                Заявка отправлена 💌
-              </div>
-              <div class="p1 tw-text-center tw-mb-4">
-                Мы уже всё получили. В ближайшее время с вами свяжется менеджер
-                из нашей команды.
-              </div>
-              <BaseButton @click="router.push({ name: 'home' })" class="">
-                На главную
-              </BaseButton>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+    <BookingPopup v-model="success"/>
   </q-page>
 </template>
 

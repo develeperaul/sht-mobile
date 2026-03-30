@@ -339,12 +339,12 @@
         </template>
       </template>
     </div>
-    <VerifyMail
+    <VerifyMailNew
       v-model="isVerifyMail"
       :mail="updateMail"
       @update="isVerifyMail = false"
     />
-    <VerifyPhone
+    <VerifyPhoneNew
       v-model="isVerifyPhone"
       :phone="updatePhone"
       @update="isVerifyPhone = false"
@@ -444,7 +444,7 @@ const addGuest = () => {
   guests.value.push({ open: false, trash: false, edit: false })
   guestActive.value = guests.value.length - 1
 }
-const isVerifyMail = ref(false)
+const isVerifyMail = ref(true)
 const isVerifyPhone = ref(false)
 const updateMail = ref('')
 const updatePhone = ref('')

@@ -278,8 +278,14 @@
 
       </div>
     </div>
-    <ReviewPopup
+    <!-- <ReviewPopup
       v-if="direction.data"
+      v-model="openReview"
+      :direction__uuid="direction.data.id"
+      :title="direction.data.name"
+    /> -->
+    <ReviewPopupNew
+
       v-model="openReview"
       :direction__uuid="direction.data.id"
       :title="direction.data.name"
@@ -338,7 +344,7 @@ const fileLoad = async (file: File) => {
   }
 }
 
-const openReview = ref(false)
+const openReview = ref(true)
 const offer = ref<OfferCardList>()
 const loading = ref(false)
 // const { statusNaming } = useStatus(offer.value?.status)
