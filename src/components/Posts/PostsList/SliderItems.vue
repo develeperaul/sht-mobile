@@ -7,10 +7,11 @@
     pagination
   >
     <SwiperSlide
+      class="slide-item"
       v-for="item in items"
       :key="item.id"
     >
-      <ListItem :item="item" />
+      <ListItem class="list-item" :item="item" />
     </SwiperSlide>
   </Swiper>
 </template>
@@ -27,3 +28,13 @@
 
   const modules = [ Pagination ];
 </script>
+
+<style scoped>
+  .slide-item {
+    height: auto !important;
+  }
+
+  .list-item {
+    height: 100%;
+  }
+</style>
