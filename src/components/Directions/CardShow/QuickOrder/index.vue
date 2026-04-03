@@ -68,7 +68,7 @@
   function getOfferLabel(val: ShowOfferItem) {
     const start = prettyDate(val.start_date);
     const end = prettyDate(val.end_date);
-    return `${start} - ${end}`;
+    return `${start}—${end}`;
   }
 </script>
 
