@@ -40,9 +40,10 @@
     width: 44px;
     height: 44px;
     transition: transform 300ms;
+    transform: rotate(180deg);
 
     &--active {
-      transform: rotate(180deg);
+      transform: rotate(0deg);
     }
   }
 
