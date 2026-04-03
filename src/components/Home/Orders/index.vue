@@ -1,9 +1,11 @@
 <template>
-  <section class="card-primary home-card" v-if="items && items.length > 0">
-    <h2 class="home-card__title">
-      Предстоящие путешествия
-    </h2>
-    <SliderItems :items="items" />
+  <section class="orders-soon">
+    <div class="card-primary home-card" v-if="items && items.length > 0">
+      <h2 class="home-card__title">
+        Предстоящие путешествия
+      </h2>
+      <SliderItems :items="items" />
+    </div>
   </section>
 </template>
 
@@ -16,3 +18,11 @@
 
   const items = computed(() => data.value?.data ?? null);
 </script>
+
+<style scoped lang="scss">
+  .orders-soon {
+    border-radius: 32px;
+    padding: 3px;
+    background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+  }
+</style>
