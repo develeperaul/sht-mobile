@@ -1,6 +1,6 @@
 .card-primary {
   border-radius: var(--radius, 32px);
-  padding: var(--py, 20px) var(--py, 20px);
+  padding: var(--py, 20px) var(--px, 20px);
   @apply tw-bg-white;
 }
 

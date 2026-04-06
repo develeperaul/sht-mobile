@@ -1,5 +1,8 @@
 <template>
   <div class="text-inp glass" :class="[ `text-inp--${color}`, { 'is-link': isLink } ]">
+    <span class="search-icon">
+      <BaseIcon name="search" fit />
+    </span>
     <div v-if="isLink" class="inp-mock">Куда отправимся?</div>
     <input v-else ref="inputRef" class="inp" name="search" type="text" autocomplete="off" placeholder="Куда отправимся?" v-model="value" />
     <button v-if="!isLink" class="clear" type="button" @click="value = ''">
@@ -40,27 +43,25 @@
     }
   }
 
+  .search-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    z-index: 1;
+    top: 19px;
+    left: 12px;
+  }
+
   .text-inp {
     position: relative;
     --radius: 24px;
     --b-color: rgba(255, 255, 255, 0.8);
     --bg-color: rgba(255, 255, 255, 0.5);
 
-    &::before {
-      content: '';
-      width: 19px;
-      height: 19px;
-      display: block;
-      position: absolute;
-      z-index: 1;
-      top: 20px;
-      left: 18px;
-      border-radius: 50%;
-    }
-
     &--white {
-      &::before {
-        @apply tw-bg-white;
+      .search-icon {
+        @apply tw-text-white;
       }
 
       .inp-mock, .inp {
@@ -75,8 +76,8 @@
     }
 
     &--blue {
-      &::before {
-        @apply tw-bg-blue_icon;
+      .search-icon {
+        @apply tw-text-blue_icon2;
       }
 
       .inp-mock, .inp {

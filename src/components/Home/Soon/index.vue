@@ -1,11 +1,13 @@
 <template>
   <section class="card-primary home-card">
-    <h2 class="home-card__title">
-      Скоро в&nbsp;приложении
-    </h2>
-    <p class="home-card__subtitle">
-      Расширяем горизонты и&nbsp;готовим для&nbsp;вас новое
-    </p>
+    <div class="title-wrap">
+      <h2 class="home-card__title">
+        Скоро в&nbsp;приложении
+      </h2>
+      <p class="home-card__subtitle">
+        Расширяем горизонты и&nbsp;готовим для&nbsp;вас новое
+      </p>
+    </div>
     <Swiper
       class="swiper-gallery-pag"
       :initialSlide="1"
@@ -16,16 +18,15 @@
       pagination
     >
       <SwiperSlide
-        v-for="i in 4"
+        class="item-slide"
+        v-for="item in items"
       >
         <div class="item gradient-card">
           <div class="img-wrap">
-            <img width="200" height="200" src="./images/arrow.png" />
+            <img width="200" height="200" :src="item.icon" />
           </div>
-          <p class="title">Новые<br>направления</p>
-          <p class="text">
-            Мы не запускаем направления «для галочки». Каждый новый маршрут — это месяцы подготовки. В разработке Антарктика, Франция, Испания, Саудовская Аравия и кое‑что под грифом «секретно». Вы узнаете об этом первыми.
-          </p>
+          <p class="title" v-html="item.title"></p>
+          <p class="text" v-html="item.text"></p>
         </div>
       </SwiperSlide>
     </Swiper>
@@ -35,6 +36,7 @@
 <script setup lang="ts">
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import { Pagination } from 'swiper/modules';
+  import { items } from './data';
 
   const modules = [ Pagination ];
 </script>
@@ -45,6 +47,19 @@
     border-radius: 32px;
     padding: 12px;
     padding-bottom: 32px;
+    height: 100%;
+  }
+
+  .home-card {
+    --px: 0px;
+  }
+
+  .title-wrap {
+    padding: 0 16px;
+  }
+
+  .item-slide {
+    height: auto;
   }
 
   .img-wrap {
