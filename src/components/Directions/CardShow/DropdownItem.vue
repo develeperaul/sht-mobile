@@ -2,10 +2,10 @@
   <article class="item">
     <div class="title-wrap" @click="showed = !showed">
       <component v-if="title" class="label" :is="titleTag">{{ title }}</component>
-      <div class="label" v-else>
+      <div class="label " v-else>
         <slot name="title"></slot>
       </div>
-      <button class="btn" :class="{ 'btn--active': showed }" type="button">
+      <button class="btn tw-flex-shrink-0" :class="{ 'btn--active': showed }" type="button">
         <BaseIcon name="arrow-top" fit />
       </button>
     </div>

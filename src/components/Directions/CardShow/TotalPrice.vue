@@ -3,10 +3,13 @@
     <div class="days-count">
       <span>{{ daysCount }} дней</span> <span>•</span> <span>{{ period }}</span>
     </div>
-    <div>
+    <div class=" tw-flex tw-gap-5 tw-justify-between">
       <div>
         <p class="price-label">Предоплата</p>
         <div class="price-value" v-amount-pretty="offer.prepay"></div>
+      </div>
+      <div class="btn-gradient tw-w-fit" @click="router.push({ name: 'booking', params: { uuid: offer?.id } })">
+        Бронировать
       </div>
     </div>
   </div>
@@ -15,7 +18,9 @@
 <script setup lang="ts">
   import type { ShowOfferItem } from 'src/api/directions';
   import { monthLabels } from '../model/consts';
+import { useRouter } from 'vue-router';
 
+  const router = useRouter()
   const props = defineProps<{
     offer: ShowOfferItem,
     showBtn?: boolean

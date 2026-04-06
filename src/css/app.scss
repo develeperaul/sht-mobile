@@ -148,6 +148,18 @@
   }
 }
 @layer utilities {
+  .btn-gradient {
+    background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+    color: white;
+    padding-inline: 16px;
+    height: 46px;
+    border-radius: 48px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    display: grid;
+    place-content: center;
+  }
   .card-white {
     @apply tw-rounded-32 tw-bg-white tw-px-3 tw-py-8;
   }

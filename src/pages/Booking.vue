@@ -2,12 +2,39 @@
   <q-page class="tw-container tw-relative env-t">
     <template v-if="step2 > 2">
 
-      <Toolbar class="tw-mb-5" title="Оплата" />
+      <Toolbar invert class="tw-mb-5 tw-relative tw-z-10" title="Оплата" />
       <template v-if="mainStore().isOnline">
+        <div v-if="currentOffer.data.direction.background?.url" class="offer-bg tw-absolute tw-top-0 tw-left-0" :style="{
+            backgroundImage:  'url(' + currentOffer.data.direction.background.url + ')'
+          }">
+          </div>
+          <div class=" tw-relative tw-grid tw-content-end tw-h-[220px] tw-mb-6" >
+
+            <div class="badges tw-mb-3">
+
+
+                <div class="badge badge-lg glass">
+                  {{ diff }}
+                </div>
+                <div class="badge badge-lg glass">
+                  {{
+                  `${dayjs(currentOffer.data.start_date).locale('ru').format('D MMMM')} - ${dayjs(currentOffer.data.end_date).locale('ru').format('D MMMM')} `
+                }}
+
+                </div>
+                <!-- <div class="badge badge-lg glass">{{ interval }}</div> -->
+            </div>
+            <div class="h1 tw-mb-2 tw-invert">
+              {{ currentOffer.data.direction.name }}
+            </div>
+            <div class="p1 tw-mb-6 tw-invert">
+              {{ currentOffer.data.direction.title }}
+            </div>
+          </div>
 
         <div class="tw-grid tw-gap-2 tw-pb-2.5">
 
-          <div
+          <!-- <div
             class="tw-rounded-32 tw-grid tw-gap-[35px] tw-overflow-hidden tw-relative tw-text-white tw-p-5"
             v-if="currentOffer.data"
           >
@@ -23,7 +50,7 @@
               }}
               ( {{ diff }})
             </div>
-          </div>
+          </div> -->
           <div class="tw-bg-white tw-rounded-32 tw-p-5">
             <div class="h3 tw-mb-4">Гости</div>
             <div v-if="profile">
