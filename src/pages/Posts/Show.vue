@@ -9,7 +9,7 @@
       :image="item.banner_image"
     />
     <div v-if="item" class="card-primary">
-      <div class="text" v-html="item.description"></div>
+      <div class="text t" v-html="item.description"></div>
     </div>
     <q-inner-loading :showing="loading" />
   </q-page>
@@ -28,11 +28,27 @@
 
   const item = computed(() => data.value?.data ?? null);
 </script>
+<style lang="scss">
+.t {
+  // display: none;
+  & > div {
+    // & > * {
+    //     display: none;
 
+    // }
+  }
+  & * {
+      width: 100% !important;
+      height: 100%;
+      object-fit: cover;
+    }
+}
+</style>
 <style scoped lang="scss">
   .text {
     font-size: 16px;
     line-height: 1.3;
+
   }
 
   .post-cover {

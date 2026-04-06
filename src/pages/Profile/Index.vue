@@ -63,7 +63,7 @@
         </router-link>
       </div>
     </div>
-    <div class="tw-flex tw-gap-2">
+    <!-- <div class="tw-flex tw-gap-2">
       <div
         class="tw-text-red tw-h-[60px] tw-outline tw-outline-[1px] tw-outline-transparent hover:tw-outline-red tw-flex tw-justify-center tw-items-center tw-bg-white tw-rounded-[90px] p1 tw-w-full"
         @click="deleteIs = true"
@@ -76,7 +76,7 @@
       >
         Выйти из аккаунта
       </div>
-    </div>
+    </div> -->
     <DeletePopup v-model="deleteIs" @remove="logout"/>
     <LogoutPopup v-model="logoutIs" @logout="logout"/>
     <SupportPopupNew v-model="supportIs" />
