@@ -8,7 +8,7 @@
           class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
         >
           <div class="tw-flex tw-gap-2 tw-items-center">
-            <BaseIcon name="profile" class="tw-w-6 tw-h-6 tw-text-blue_icon2" />
+            <BaseIcon name="profile" class="   tw-w-6 tw-h-6 tw-text-blue_icon2" />
             <div>Личные данные</div>
           </div>
           <BaseIcon name="right" class="tw-w-5 tw-h-5 tw-text-blue_icon2" />

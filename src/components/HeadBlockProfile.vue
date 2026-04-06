@@ -14,7 +14,7 @@
       />
       <BaseIcon v-else name="user" class="tw-w-7 tw-h-7 tw-text-blue_icon" />
     </router-link>
-    <div class="h2">Привет<span v-html="name"></span>!</div>
+    <div class="h2 tw-font-wix tw-font-semibold">Привет<span v-html="name"></span>!</div>
   </div>
 </template>
 <script setup lang="ts">

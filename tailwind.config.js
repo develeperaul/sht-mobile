@@ -9,6 +9,7 @@ export default {
         gilroy: 'Gilroy',
         montserrat: 'Montserrat',
         'ua-brand': 'ua-Brand',
+        wix: "wix"
       },
       borderRadius: {},
     },

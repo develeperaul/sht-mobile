@@ -112,3 +112,33 @@
 }
 
 @include montserrat();
+@mixin wix {
+  $path: 'assets/fonts/Wix';
+
+  @font-face {
+    font-family: 'wix';
+    src: url(#{$path}/WixMadeforDisplay-SemiBold.ttf);
+    src:
+      local('wix 600'),
+      local('wix-600'),
+      url(#{$path}/WixMadeforDisplay-SemiBold.ttf?#iefix) format('ttf'),
+      url(#{$path}/WixMadeforDisplay-SemiBold.woff) format('woff'),
+      url(#{$path}/WixMadeforDisplay-SemiBold.woff2) format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'wix';
+    src: url(#{$path}/WixMadeforDisplay-VariableFont_wght.ttf);
+    src:
+      local('wix regular'),
+      local('wix-regular'),
+      url(#{$path}/WixMadeforDisplay-VariableFont_wght.ttf?#iefix) format('ttf'),
+      url(#{$path}/WixMadeforDisplay-VariableFont_wght.woff) format('woff'),
+      url(#{$path}/WixMadeforDisplay-VariableFont_wght.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
+@include wix();

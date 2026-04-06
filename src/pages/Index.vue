@@ -3,7 +3,7 @@
     <HelloScreen :type="dayTimeType" />
     <div class="tw-container main-content">
       <SearchDirections class="search-dirs" :color="dayTimeType === 'night' ? 'white' : 'blue'" />
-      <Stories class="main-stories" v-if="storyList.data" :stories="storyList.data" />
+      <Stories class="main-stories " v-if="storyList.data" :stories="storyList.data" />
       <HomeOrders />
       <DirectionsList class="main-page__section" />
       <EventsList class="main-page__section" />
@@ -59,5 +59,12 @@
 
   .main-stories {
     margin-bottom: 20px;
+    margin-inline: -20px;
+    & > :first-child {
+      margin-left: 20px;
+    }
+    & > :last-child {
+      margin-right: 20px;
+    }
   }
 </style>

@@ -67,13 +67,16 @@
         </div>
       </div>
       <template v-for="(g, index) in guests">
+
         <template v-if="index === 0">
+
           <template v-if="guestActive === index">
             <Form
               @submit="updateData($event, index)"
               v-if="guests[guestActive]?.edit"
               class="tw-grid tw-gap-6"
             >
+
               <div>
                 <div class="p1 tw-mb-[25px]">Фото</div>
                 <File
@@ -133,7 +136,10 @@
                   />
                 </div>
               </div>
-              <BaseButton>Сохранить</BaseButton>
+              <div>
+                <BaseButton>Сохранить</BaseButton>
+
+              </div>
             </Form>
             <div v-else class="tw-grid tw-gap-6">
               <div>
@@ -191,6 +197,10 @@
                     {{ profile.birthday }}
                   </div>
                 </div>
+              </div>
+              <div>
+                <BaseButton>Сохранить</BaseButton>
+
               </div>
             </div>
           </template>
@@ -333,11 +343,29 @@
                   </div>
                 </div>
                 <BaseButton>Сохранить</BaseButton>
+
               </Form>
             </template>
           </template>
         </template>
       </template>
+      <div class=" tw-grid tw-grid-cols-2 tw-gap-2 tw-mt-2">
+                    <button @click="deleteIs = true" class=" glass-w tw-text-red tw-h-[60px] tw-font-wix tw-font-semibold tw-flex tw-justify-center tw-items-center tw-gap-0.5">
+                      Удалить аккаунт
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.59961 3.59995H14.3996M5.59961 1.19995H10.3996M6.39961 11.6V6.79995M9.59961 11.6V6.79995M10.7996 14.8H5.19961C4.31595 14.8 3.59961 14.0836 3.59961 13.2L3.23433 4.43326C3.21539 3.97876 3.57874 3.59995 4.03364 3.59995H11.9656C12.4205 3.59995 12.7838 3.97876 12.7649 4.43326L12.3996 13.2C12.3996 14.0836 11.6833 14.8 10.7996 14.8Z" stroke="#FF3B30" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                    </button>
+                    <button @click="logoutIs = true" class=" glass-w tw-h-[60px] tw-font-wix tw-font-semibold tw-flex tw-justify-center tw-items-center tw-gap-0.5">
+                      Выйти
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.76471 5.20002V3.80002C9.76471 3.42872 9.61597 3.07263 9.35121 2.81007C9.08645 2.54752 8.72736 2.40002 8.35294 2.40002H3.41176C3.03734 2.40002 2.67825 2.54752 2.4135 2.81007C2.14874 3.07263 2 3.42872 2 3.80002V12.2C2 12.5713 2.14874 12.9274 2.4135 13.19C2.67825 13.4525 3.03734 13.6 3.41176 13.6H8.35294C8.72736 13.6 9.08645 13.4525 9.35121 13.19C9.61597 12.9274 9.76471 12.5713 9.76471 12.2V10.8M5.52941 8.00002H14M14 8.00002L11.8824 5.90002M14 8.00002L11.8824 10.1" stroke="#8BA7F6" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                    </button>
+
+                  </div>
     </div>
     <VerifyMailNew
       v-model="isVerifyMail"
@@ -349,6 +377,8 @@
       :phone="updatePhone"
       @update="isVerifyPhone = false"
     />
+    <DeletePopup v-model="deleteIs" @remove="logout"/>
+    <LogoutPopup v-model="logoutIs" @logout="logout"/>
   </q-page>
 </template>
 <script setup lang="ts">
@@ -359,7 +389,12 @@ import { deleteMedia } from 'src/api/main'
 
 const { profile } = storeToRefs(profileStore())
 const { friends } = storeToRefs(friendStore())
-
+const deleteIs = ref(false)
+const logoutIs = ref(false)
+const supportIs = ref(false)
+const logout = () => {
+  authStore().logout()
+}
 onMounted(async () => {
   await Promise.allSettled([
     friendStore().setFriends(),
