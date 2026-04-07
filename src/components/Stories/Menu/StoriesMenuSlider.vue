@@ -5,6 +5,7 @@
   >
     <swiper-slide
       class="stories-menu-slider__item"
+      :class="{ 'active': !mainStore().watchStoriesId.some(item => item.id === String(story.id)) }"
       v-for="(story, index) in stories"
       :key="story.id"
       @click="openStory(story.id, index)"
@@ -33,7 +34,12 @@ const swiperOptions = ref({
 
 const openStory = async (id: number, index: number) => {
   console.log(id, index)
-
+  const stringId = String(id)
+  const alreadyWatched = mainStore().watchStoriesId.some(item => item.id === stringId)
+  if (!alreadyWatched) {
+    // Просто пушим — useStorage сам обновит localStorage
+    mainStore().watchStoriesId.push({ id: stringId })
+  }
   mainStore().storyIndex = index
   mainStore().isStoriesActive = true
 }
@@ -53,8 +59,11 @@ const openStory = async (id: number, index: number) => {
     align-content: end;
     width: 95px;
     height: 95px;
-    outline: 1px solid theme('colors.blue_stories');
-    outline-offset: 2.5px;
+    &.active {
+      outline: 2.4px solid #E9FF5E;
+      outline-offset: 0px;
+
+    }
     &:not(:last-child) {
       margin-right: 10px;
     }
