@@ -3,14 +3,14 @@
     <div
       class="tw-container tw-grid tw-content-between tw-grid-rows-[1fr_auto]"
     >
-      <!-- <div class="tw-absolute tw-left-5 tw-top-0 env-t">
+      <div class="tw-absolute tw-left-5 tw-top-0 env-t ">
         <div
           @click="router.push({ name: 'home' })"
-          class="tw-rounded-full tw-w-8 tw-h-8 tw-bg-white tw-grid tw-place-content-center"
+          class="tw-rounded-full tw-w-8 tw-h-8 tw-bg-white tw-grid tw-place-content-center glass-w"
         >
           <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6" />
         </div>
-      </div> -->
+      </div>
 
       <div class=" tw-relative tw-grid tw-grid-rows-[1fr_auto]">
         <div class="tw-grid tw-justify-items-center tw-content-center tw-translate-y-[80px]">
