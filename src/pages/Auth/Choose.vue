@@ -8,7 +8,7 @@
           @click="router.push({ name: 'home' })"
           class="tw-rounded-full tw-w-8 tw-h-8 tw-bg-white tw-grid tw-place-content-center glass-w"
         >
-          <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6" />
+          <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6 " />
         </div>
       </div>
 
