@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { getPromotion, stories, story } from 'src/api/main'
 import { DataVal } from 'src/models'
 import { StoriesT, StoryT, StoryGroupT, PromotionT } from 'src/models/api/main'
-import { useOnline } from '@vueuse/core'
+import { useOnline, useStorage } from '@vueuse/core'
 
 export default defineStore('main', () => {
   const isOnline = useOnline()
@@ -12,6 +12,7 @@ export default defineStore('main', () => {
   const bg = ref<string | null>('background:rgba(0,0,0,0.33)')
   const bgColor = 'rgba(0,0,0,0.33) bg'
   // start сторисы
+  const watchStoriesId = useStorage<{id:string}[]>("stories_id",[])
   const storyIndex = ref<number | null>(null)
   const isStoriesActive = ref(false)
   // const storyList = ref<DataVal<StoriesT[]>>({
@@ -212,7 +213,7 @@ export default defineStore('main', () => {
 
   return {
     bg,
-
+    watchStoriesId,
     storyIndex,
     isStoriesActive,
     storyList,
@@ -232,5 +233,7 @@ export default defineStore('main', () => {
     promotion,
     setPromotion,
     isOnline,
+
+
   }
 })

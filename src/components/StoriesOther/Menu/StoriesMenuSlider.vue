@@ -53,8 +53,8 @@ const openStory = async (id: number, index: number) => {
     align-content: end;
     width: 95px;
     height: 95px;
-    outline: 1px solid theme('colors.blue_stories');
-    outline-offset: 2.5px;
+    outline: 2.4px solid #E9FF5E;
+    outline-offset: 0px;
     &:not(:last-child) {
       margin-right: 10px;
     }
