@@ -16,6 +16,6 @@ const props = defineProps<{
   service: ServiceT
 }>()
 
-const sanitizedDescription = useSanitizeHtml(() => props.service.description)
+const { sanitized: sanitizedDescription } = useSanitizeHtml(() => props.service.description)
 </script>
 <style lang="scss" scoped></style>

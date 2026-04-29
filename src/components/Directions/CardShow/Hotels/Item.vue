@@ -19,7 +19,8 @@
      item: Hotel,
    }>();
 
-   const sanitizedDescription = useSanitizeHtml(() => props.item.description);
+    const { sanitized: sanitizedDescription } = useSanitizeHtml(() => props.item.description);
+
 </script>
 
 <style scoped lang="scss">
