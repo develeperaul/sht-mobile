@@ -8,7 +8,9 @@
           <tab-body v-model="tab" class=" tw-grid">
             <tab-content name="upcoming" class=" tw-grid tw-content-start">
               <template v-if="ordersUpcoming.load">
-
+                <div class="tw-flex tw-justify-center tw-py-10">
+                  <q-spinner-tail size="3em" color="while" />
+                </div>
               </template>
               <template v-else>
 
@@ -35,9 +37,11 @@
                 <ListNone v-else class=" tw-self-center"/>
               </template>
             </tab-content>
-            <tab-content name="past" class=" tw-grid">
+            <tab-content name="past" class=" tw-grid tw-content-start">
               <template v-if="ordersPast.load">
-
+                <div class="tw-flex tw-justify-center tw-py-10">
+                  <q-spinner-tail size="3em" color="white" />
+                </div>
               </template>
               <template v-else>
               <div v-if="ordersPast.data?.length > 0" class="tw-grid tw-gap-3">

@@ -346,7 +346,7 @@ const fileLoad = async (file: File) => {
   }
 }
 
-const openReview = ref(true)
+const openReview = ref(false)
 const offer = ref<OfferCardList>()
 const loading = ref(false)
 // const { statusNaming } = useStatus(offer.value?.status)
