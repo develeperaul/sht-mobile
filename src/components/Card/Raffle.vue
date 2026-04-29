@@ -1,31 +1,34 @@
 <template>
-  <div class="card-raffle">
-    <div class="card-raffle__content">
-      <div v-if="promotion.label" class="card-raffle__label">
-        {{ promotion.label }}
-      </div>
-
-      <div>
-        <div
-          class="h1 tw-uppercase tw-text-center tw-mb-2"
-          v-html="promotion.title"
-        ></div>
-        <div class="p2 tw-text-center" v-html="promotion.description"></div>
-      </div>
-    </div>
-    <div
-      v-if="promotion.image"
-      class="card-raffle__bg"
-      :style="{ backgroundImage: `url(${promotion.image.url})` }"
-    ></div>
-  </div>
+   <div class="card-raffle">
+     <div class="card-raffle__content">
+       <div v-if="promotion.label" class="card-raffle__label">
+         {{ promotion.label }}
+       </div>
+       
+       <div>
+         <div
+           class="h1 tw-uppercase tw-text-center tw-mb-2"
+           v-html="promotion.title"
+         ></div>
+         <div class="p2 tw-text-center" v-html="sanitizedDescription"></div>
+       </div>
+     </div>
+     <div
+       v-if="promotion.image"
+       class="card-raffle__bg"
+       :style="{ backgroundImage: `url(${promotion.image.url})` }"
+     ></div>
+   </div>
 </template>
 <script setup lang="ts">
 import { PromotionT } from 'src/models/api/main'
+import { useSanitizeHtml } from 'src/composables/useSanitizeHtml'
 
 const props = defineProps<{
   promotion: PromotionT
 }>()
+
+const { sanitized: sanitizedDescription } = useSanitizeHtml(() => props.promotion.description)
 </script>
 <style lang="scss" scoped>
 .card-raffle {

@@ -1,5 +1,5 @@
 <template>
-  <article class="item">
+  <article class="item ">
     <h2 class="label">Быстрое бронирование</h2>
     <p class="caption">Общая стоимость/чел.</p>
     <p class="price tw-flex " >

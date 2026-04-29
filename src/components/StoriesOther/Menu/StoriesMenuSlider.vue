@@ -12,8 +12,9 @@
       <div class="stories-menu-slider__item-img">
         <img :src="story.image.url" alt="" class="tw-object-cover" />
       </div>
-      <div class="stories-menu-slider__item-title">
+      <div v-if="story.title" class="stories-menu-slider__item-title">
         {{ story.title }}
+
       </div>
     </swiper-slide>
   </swiper>
@@ -44,27 +45,26 @@ const openStory = async (id: number, index: number) => {
   overflow: visible;
   padding: 1px 0;
   &__item {
-    padding: 6px;
-    margin: 2.5px;
+
+
     border-radius: 32px;
     cursor: pointer;
     overflow: hidden;
     display: grid;
     align-content: end;
+    justify-items: center;
+    grid-template-rows: 95px auto;
+    gap: 8px;
+
     width: 95px;
-    height: 95px;
-    outline: 2.4px solid #E9FF5E;
-    outline-offset: 0px;
     &:not(:last-child) {
       margin-right: 10px;
     }
     &-img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-
+      width: 95px;
+      height: 95px;
+      border-radius: 9999px;
+      overflow: hidden;
       img {
         object-fit: cover;
         width: 100%;
@@ -72,11 +72,17 @@ const openStory = async (id: number, index: number) => {
       }
     }
     &-title {
+      @apply p2;
+      text-align: center;
       position: relative;
-      font-size: 9px;
-      line-height: 120%;
+      word-break: break-all;
+
       font-weight: 400;
-      color: #fff;
+      color: #161616;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 }

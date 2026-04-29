@@ -9,10 +9,10 @@
           </svg>
 
         </button>
-          <div class=" h3 tw-text-white">
+          <div class=" h3 ">
             Заявка отправлена 💌
           </div>
-          <div class=" p2 tw-text-center tw-text-white">
+          <div class=" p2 tw-text-center ">
             Мы уже всё получили. В ближайшее время с вами свяжется менеджер
                 из нашей команды.
           </div>

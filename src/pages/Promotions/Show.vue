@@ -1,40 +1,42 @@
 <template>
-  <q-page class="tw-relative env-t tw-pb-36">
-    <div class="tw-container">
-      <div class="head">
-        <ButtonRound
-          class="btn-back"
-          type="button"
-          icon="arrowleft"
-          size="38px"
-          iconSize="0.6em"
-          @click="$router.back"
-        />
-      </div>
-      <div class="card-primary" v-if="item">
-        <div v-if="item.image" class="img-wrap">
-          <img class="photo" :src="item.image.url" :alt="item.title" />
-        </div>
-        <h1 class="title">{{ item.title }}</h1>
-        <div class="text" v-html="item.description"></div>
-      </div>
-    </div>
-    <q-inner-loading :showing="loading" />
-  </q-page>
+   <q-page class="tw-relative env-t tw-pb-36">
+     <div class="tw-container">
+       <div class="head">
+         <ButtonRound
+           class="btn-back"
+           type="button"
+           icon="arrowleft"
+           size="38px"
+           iconSize="0.6em"
+           @click="$router.back"
+         />
+       </div>
+       <div class="card-primary" v-if="item">
+         <div v-if="item.image" class="img-wrap">
+           <img class="photo" :src="item.image.url" :alt="item.title" />
+         </div>
+         <h1 class="title">{{ item.title }}</h1>
+         <div class="text" v-html="sanitizedDescription"></div>
+       </div>
+     </div>
+     <q-inner-loading :showing="loading" />
+   </q-page>
 </template>
-
+ 
 <script setup lang="ts">
-  import ButtonRound from 'src/components/Base/ButtonRound.vue';
-  import useRequest from 'src/composables/useRequest';
-  import * as promotionsApi from 'src/api/promotions';
+   import ButtonRound from 'src/components/Base/ButtonRound.vue';
+   import useRequest from 'src/composables/useRequest';
+   import * as promotionsApi from 'src/api/promotions';
+   import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
+ 
+   const props = defineProps<{
+     id: string,
+   }>();
+ 
+   const { data, loading } = useRequest(() => promotionsApi.show(props.id));
+   const item = computed(() => data.value?.data ?? null);
 
-  const props = defineProps<{
-    id: string,
-  }>();
-
-  const { data, loading } = useRequest(() => promotionsApi.show(props.id));
-
-  const item = computed(() => data.value?.data ?? null);
+   const { sanitized: sanitizedDescription } = useSanitizeHtml(() => item.value?.description);
 </script>
 
 <style scoped lang="scss">

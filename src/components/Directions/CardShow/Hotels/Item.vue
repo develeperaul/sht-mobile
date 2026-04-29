@@ -1,22 +1,25 @@
 <template>
-  <article class="item">
-    <h2 class="name">{{ item.name }}</h2>
-    <div class="raiting-wrap">
-      <span class="raiting-label">Рейтинг отеля</span>
-      <span class="raiting-value">{{ item.rating }}</span>
-    </div>
-    <div class="text-wrap" v-html="item.description"></div>
-    <GalleryImages class="gal" :images="item.images" />
-  </article>
+   <article class="item">
+     <h2 class="name">{{ item.name }}</h2>
+     <div class="raiting-wrap">
+       <span class="raiting-label">Рейтинг отеля</span>
+       <span class="raiting-value">{{ item.rating }}</span>
+     </div>
+     <div class="text-wrap " v-html="sanitizedDescription"></div>
+     <GalleryImages class="gal" :images="item.images" />
+   </article>
 </template>
 
 <script setup lang="ts">
-  import GalleryImages from '../GalleryImages.vue';
-  import { Hotel } from 'src/api/directions';
+   import GalleryImages from '../GalleryImages.vue';
+   import { Hotel } from 'src/api/directions';
+   import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
 
-  defineProps<{
-    item: Hotel,
-  }>();
+   const props = defineProps<{
+     item: Hotel,
+   }>();
+
+   const sanitizedDescription = useSanitizeHtml(() => props.item.description);
 </script>
 
 <style scoped lang="scss">
@@ -55,9 +58,7 @@
   }
 
   .text-wrap {
-    font-size: 16px;
-    line-height: 1.1;
-    @apply tw-text-black2;
+    @apply tw-text-black2 p1;
   }
 
   .gal {

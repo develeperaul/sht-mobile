@@ -1,15 +1,6 @@
 export type StoriesT = {
   id: number
-  // title: string
-  // published_at: string
-  // unpublished_at: string
-  // context_image: {
-  //   id: number
-  //   path: string
-  //   width: string
-  //   height: string
-  //   url: string
-  // }
+  title: string
   image: {
     // id: number
     // path: string
@@ -18,6 +9,15 @@ export type StoriesT = {
     url: string
   } | null
 }
+// published_at: string
+// unpublished_at: string
+// context_image: {
+//   id: number
+//   path: string
+//   width: string
+//   height: string
+//   url: string
+// }
 
 export type StoryT = {
   id: number
@@ -122,7 +122,9 @@ export type OfferT = {
   description: string
   direction: DirectionCardT
   is_weekend: boolean
-  currency: null | {name: 'USD' | 'EUR' | 'CNY', rate: string}
+  currency: null | { name: 'USD' | 'EUR' | 'CNY', rate: string }
+  prepay_children: string,
+  price_children: string
 
 }
 export interface OfferCardT extends OfferT {

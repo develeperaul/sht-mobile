@@ -49,7 +49,7 @@
                   placeholder="Как вы узнали о TeamTravel и почему решили доверить организацию вашего путешествия нам? "
                 />
               </div>
-              <div class="p1">Прикрепите фото</div>
+              <!-- <div class="p1">Прикрепите фото</div>
               <div
                 class="tw-flex tw-gap-1 tw-justify-items-start tw-overflow-auto tw-mb-6 tw-pt-2.5 no-scrollbar"
               >
@@ -62,7 +62,7 @@
                   :noimg="false"
                   class="tw-shrink-0"
                 />
-              </div>
+              </div> -->
             </div>
             <BaseButton class="tw-mt-2" @click="sendReview">
               Оставить отзыв
@@ -91,7 +91,7 @@ const sendReview = () => {
     rating: rating.value,
     description: text1.value,
     how_found_us: text2.value,
-    image_ids: imgIds.value.map((i) => i.id),
+    // image_ids: imgIds.value.map((i) => i.id),
   }).then(() => (success.value = true))
 }
 const imgIds = ref<{ url: string; id: string }[]>([])

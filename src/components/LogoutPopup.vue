@@ -9,10 +9,10 @@
           </svg>
 
         </button>
-          <div class=" h3 tw-text-white">
+          <div class=" h3 ">
             Вы действительно хотите выйти?
           </div>
-          <BaseButton class=" !tw-w-fit" @click="emit('remove')">
+          <BaseButton class=" !tw-w-fit" @click="emit('logout')">
             Выйти
           </BaseButton>
         </div>

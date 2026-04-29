@@ -3,9 +3,9 @@
     <div
       class="tw-container tw-grid tw-content-between tw-grid-rows-[1fr_auto]"
     >
-      <div class="tw-absolute tw-left-5 tw-top-0 env-t ">
+      <div class="tw-absolute tw-left-5 tw-z-10 tw-top-0 env-t " @click="back">
         <div
-          @click="router.push({ name: 'home' })"
+
           class="tw-rounded-full tw-w-8 tw-h-8 tw-bg-white tw-grid tw-place-content-center glass-w"
         >
           <BaseIcon name="arrowleft" class="tw-w-6 tw-h-6 " />
@@ -53,6 +53,11 @@ function copyRefLink() {
     linkIsInBuffer.value = true
     setTimeout(() => (linkIsInBuffer.value = false), 1000 * 10)
   })
+}
+const back = () => {
+  console.log('bacl');
+
+  router.push({ name: 'home' })
 }
 </script>
 <style lang="scss" scoped>

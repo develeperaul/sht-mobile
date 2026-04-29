@@ -81,11 +81,14 @@ const openStory = async (id: number, index: number) => {
       }
     }
     &-title {
+      @apply tw-font-wix;
+      padding: 6px 8px;
       position: relative;
-      font-size: 9px;
-      line-height: 120%;
-      font-weight: 400;
+      font-size: 10px;
+      line-height: 11px;
+      font-weight: 500;
       color: #fff;
+      filter: invert(1);
     }
   }
 }

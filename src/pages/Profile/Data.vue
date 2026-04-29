@@ -13,26 +13,25 @@
             class="p1 tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1 tw-rounded-[60px] tw-w-fit tw-shrink-0 tw-text-white"
             style="background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);"
             :class="guestActive === index ? 'tw-bg-blue_main' : 'tw-bg-white'"
-            @click="guestActive = index"
-            @blur="closePopup(index)"
+            @click="openPopup($event, index)"
             :tabindex="-1"
           >
             Гость №{{ index + 1 }}
             <div class="edit-block">
               <BaseIcon
-                @click="openPopup($event, index)"
+
                 name="dots"
                 class="tw-w-[27px] tw-h-[30px] tw-text-white"
               />
               <div
                 class="edit-block__popup"
                 :class="g.open ? 'active' : ''"
-                :style="{ left: `${popupConf.x}px` }"
+                :style="{ left: `${popupConf.x}px`, top: `${popupConf.y}px` }"
               >
                 <div
                   v-if="guestActive !== 0"
                   class="tw-flex tw-gap-2.5 tw-items-center tw-h-[50px] tw-px-5 round"
-                  @click="removeGuest"
+                  @click.stop="removeGuest"
                 >
                   <BaseIcon
                     name="trash"
@@ -47,7 +46,7 @@
                       ? 'tw-rounded-[30px]'
                       : 'tw-bg-[#C6D9F166] tw-rounded-b-[30px]'
                   "
-                  @click="editPopup(index)"
+                  @click.stop="editPopup(index)"
                 >
                   <BaseIcon
                     name="edit"
@@ -71,14 +70,16 @@
         <template v-if="index === 0">
 
           <template v-if="guestActive === index">
+
             <Form
-              @submit="updateData($event, index)"
+              @submit="updateData"
               v-if="guests[guestActive]?.edit"
               class="tw-grid tw-gap-6"
             >
 
               <div>
                 <div class="p1 tw-mb-[25px]">Фото</div>
+
                 <File
                   @file-load="fileLoad"
                   @delete-file="deleteFile"
@@ -198,9 +199,9 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div v-if="guests[guestActive]?.edit">
                 <BaseButton>Сохранить</BaseButton>
-
+              
               </div>
             </div>
           </template>
@@ -209,22 +210,10 @@
           <template v-if="guestActive === index">
             <template v-if="friends && friends[index - 1]">
               <Form
-                @submit="updateGuest($event, index - 1)"
+                @submit="updateGuest"
                 v-if="guests[guestActive]?.edit"
                 class="tw-grid tw-gap-6"
               >
-                <div>
-                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
-                  <div class="tw-grid tw-gap-2" v-if="profile">
-                    <BaseInput
-                      :model-value="friends[index - 1].phone ?? ''"
-                      un-mask
-                      maska="+7 (###)-###-##-##"
-                      name="phone"
-                      placeholder="Телефон"
-                    />
-                  </div>
-                </div>
                 <div>
                   <div class="p1 tw-mb-[25px]">Контактная информация</div>
                   <div class="tw-grid tw-gap-2">
@@ -262,17 +251,6 @@
                   <div class="p1 tw-mb-[25px]">Контактная информация</div>
                   <div class="tw-grid tw-gap-2">
                     <div
-                      v-if="friends[index - 1]?.phone"
-                      class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
-                    >
-                      {{ friends[index - 1].phone }}
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
-                  <div class="tw-grid tw-gap-2">
-                    <div
                       v-if="friends[index - 1]?.last_name"
                       class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
                     >
@@ -302,20 +280,9 @@
             </template>
             <template v-else>
               <Form
-                @submit="createGuest($event, index)"
+                @submit="createGuest"
                 class="tw-grid tw-gap-6"
               >
-                <div>
-                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
-                  <div class="tw-grid tw-gap-2" v-if="profile">
-                    <BaseInput
-                      un-mask
-                      maska="+7 (###)-###-##-##"
-                      name="phone"
-                      placeholder="Телефон"
-                    />
-                  </div>
-                </div>
                 <div>
                   <div class="p1 tw-mb-[25px]">Контактная информация</div>
                   <div class="tw-grid tw-gap-2">
@@ -342,8 +309,9 @@
                     />
                   </div>
                 </div>
-                <BaseButton>Сохранить</BaseButton>
-
+                <div v-if="guests[guestActive]?.edit">
+                  <BaseButton>Сохранить</BaseButton>
+                </div>
               </Form>
             </template>
           </template>
@@ -427,7 +395,7 @@ watch(friends, (v) => {
 //   return arr
 // })
 const guests = ref<{ open: boolean; trash: boolean; edit: boolean }[]>([
-  { open: false, trash: false, edit: true },
+  { open: false, trash: false, edit: false },
 ])
 
 // активный гость
@@ -450,20 +418,29 @@ const popupConf = ref<{ x: number; y: number }>({
 })
 // действия с попапом
 const openPopup = (e: Event, index: number) => {
-  const el = e.target
-  console.log(el.getBoundingClientRect())
-
-  popupConf.value = {
-    x: el.getBoundingClientRect().left,
-    y: el.getBoundingClientRect().top,
+  if (guestActive.value === index) {
+    const el = e.currentTarget as HTMLElement
+    if (el) {
+      popupConf.value = {
+        x: el.getBoundingClientRect().left,
+        y: el.getBoundingClientRect().top,
+      }
+      // Переключаем состояние попапа, сохраняя режим редактирования
+      const currentEdit = guests.value[index]?.edit ?? false
+      const newOpen = !guests.value[index]?.open
+      guests.value[index] = {
+        open: newOpen,
+        trash: false,
+        edit: currentEdit,
+      }
+    }
+  } else {
+    closePopup(index)
+    guestActive.value = index
   }
-  guests.value.splice(index, 1, {
-    open: true,
-    trash: false,
-    edit: false,
-  })
 }
 const closePopup = (index: number) => {
+
   guests.value.splice(index, 1, {
     open: false,
     trash: false,
@@ -471,6 +448,8 @@ const closePopup = (index: number) => {
   })
 }
 const editPopup = (index: number) => {
+  // Закрываем popup перед активацией редактирования
+  closePopup(index)
   guests.value.splice(index, 1, {
     open: false,
     trash: false,
@@ -483,7 +462,7 @@ const addGuest = () => {
   guests.value.push({ open: false, trash: false, edit: false })
   guestActive.value = guests.value.length - 1
 }
-const isVerifyMail = ref(true)
+const isVerifyMail = ref(false)
 const isVerifyPhone = ref(false)
 const updateMail = ref('')
 const updatePhone = ref('')
@@ -525,21 +504,19 @@ const updateData = async (vals: {
 
 //создание гостя
 const createGuest = (vals: {
-  phone: string
   first_name: string
   last_name: string
   patronymic: string
   birthday: string
 }) => {
   friendStore()
-    .create({ ...vals, phone: '+7' + vals.phone })
+    .create({ ...vals, phone: '' })
     .then((e) => {
       friendStore().setFriends()
     })
 }
 //обновление гостя
 const updateGuest = async (vals: {
-  phone: string
   first_name: string
   last_name: string
   patronymic: string
@@ -550,10 +527,7 @@ const updateGuest = async (vals: {
 
     if (friend) {
       console.log(vals)
-      await friendStore().update(friend.id, {
-        ...vals,
-        phone: '+7' + vals.phone,
-      })
+      await friendStore().update(friend.id, { ...vals, phone: '' })
     }
   }
 }

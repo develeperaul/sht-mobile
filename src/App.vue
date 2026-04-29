@@ -1,4 +1,5 @@
 <template>
+  <!-- <DebugConsole/> -->
   <PreloaderNew v-model="isPreloaderVisible" :duration="4500" />
   <div v-if="!isPreloaderVisible">
     <router-view />

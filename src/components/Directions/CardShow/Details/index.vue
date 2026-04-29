@@ -1,10 +1,12 @@
 <template>
   <section class="card-primary sec-card">
     <NavMenu class="nav-menu" :active="activeTab" @change:tab="activeTab = $event" />
-    <div class="area">
+    <!-- <div class="area"> -->
+    <div >
       <SectionDescription
         v-if="activeTab === 'description'"
         :text="direction.description || '-'"
+        :stories="direction.preview_stories"
       />
       <SectionHotels v-else-if="activeTab === 'hotels'" :hotels="direction.hotels" />
       <SectionFaq v-else-if="activeTab === 'faq'" :questions="direction.questions" />

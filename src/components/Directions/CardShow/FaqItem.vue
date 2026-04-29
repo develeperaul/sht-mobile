@@ -50,11 +50,11 @@
   }
 
   .text {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
     font-weight: 400;
     padding-bottom: 15px;
-    @apply tw-text-black2;
+    @apply tw-text-gray_icon;
   }
 
   .btn-icon {

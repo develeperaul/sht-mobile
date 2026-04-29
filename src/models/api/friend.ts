@@ -6,6 +6,7 @@ export type FriendT = {
   patronymic: null | string
   email: null | string
   birthday: null | string
+  isChildren?: boolean
 }
 
 export type DataCreateFriendT = {

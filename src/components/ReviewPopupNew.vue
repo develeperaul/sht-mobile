@@ -9,10 +9,10 @@
           </svg>
 
         </button>
-          <div class=" h3 tw-text-white">
+          <div class=" h3 ">
             Отзыв отправлен!
           </div>
-          <div class=" p2 tw-text-center tw-text-white">
+          <div class=" p2 tw-text-center ">
             Спасибо, что нашли время и поделились. <br> Это помогает стать нам лучше.
           </div>
           <BaseButton class=" !tw-w-fit" @click="router.push({name:'home'})">
@@ -62,7 +62,7 @@
                   placeholder="Как вы узнали о TeamTravel и почему решили доверить организацию вашего путешествия нам? "
                 />
               </div>
-              <div class="p1 tw-text-white">Прикрепите фото</div>
+              <!-- <div class="p1 tw-text-white">Прикрепите фото</div>
               <div
                 class="tw-flex tw-gap-1 tw-justify-items-start tw-overflow-auto tw-mb-6 tw-pt-2.5 no-scrollbar"
               >
@@ -75,7 +75,7 @@
                   :noimg="false"
                   class="tw-shrink-0"
                 />
-              </div>
+              </div> -->
             </div>
 
       </div>

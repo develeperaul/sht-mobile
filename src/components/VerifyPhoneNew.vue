@@ -12,10 +12,10 @@
           class="tw-grid tw-gap-4 tw-justify-items-center"
           @submit="verify"
         >
-          <div class=" h2 tw-text-white">
+          <div class=" h2 ">
             Подтвердите телефон
           </div>
-          <div class="p1 tw-text-white tw-text-center">
+          <div class="p1  tw-text-center">
             Введите код из смс <br />
             +7{{ phone }}
           </div>

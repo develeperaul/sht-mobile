@@ -9,6 +9,8 @@
       :image="direction.background"
     />
     <div class="tw-container tw-pb-28" v-if="direction">
+
+
       <AboutPirmary
         class="dir-sec"
         :maxMembers="direction.max_members"
@@ -18,7 +20,7 @@
         :offer="currentOffer"
       />
       <QuickOrder
-        class="dir-sec"
+        class="dir-sec "
         v-if="currentDate"
         :directionId="id"
         :currentDate="currentDate"
@@ -45,6 +47,7 @@
   import CardDetails from 'src/components/Directions/CardShow/Details/index.vue';
   import QuickOrder from 'src/components/Directions/CardShow/QuickOrder/index.vue';
   import TotalPrice from 'src/components/Directions/CardShow/TotalPrice.vue';
+
   import type { ShowOfferItem } from 'src/api/directions';
 
   const props = defineProps<{

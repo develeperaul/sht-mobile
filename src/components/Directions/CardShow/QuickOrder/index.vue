@@ -1,6 +1,9 @@
 <template>
   <section class="card-primary">
-    <PriceInfo class="pr-info" v-if="currentOffer" :price="currentOffer.price" />
+    <div class="tw-mb-4">
+
+      <PriceInfo class="pr-info " v-if="currentOffer" :price="currentOffer.price" />
+    </div>
     <DatesTape class="dt-sec" :dates="dates" :currentDate="currentDate" @change:date="$emit('change:date', $event)" />
     <Select
       class="dt-select"

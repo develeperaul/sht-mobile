@@ -1,10 +1,10 @@
 <template>
-  <section class="orders-soon">
-    <div class="card-primary home-card" v-if="items && items.length > 0">
+  <section class="orders-soon" v-if="items && items.length > 0">
+    <div class="card-primary home-card" >
       <h2 class="home-card__title">
         Предстоящие путешествия
       </h2>
-      <SliderItems :items="items" />
+      <SliderItems  :items="items" />
     </div>
   </section>
 </template>
@@ -13,7 +13,6 @@
   import useRequest from 'src/composables/useRequest';
   import * as ordersApi from 'src/api/orders';
   import SliderItems from './SliderItems.vue'
-
   const { data } = useRequest(() => ordersApi.all({ type: 'upcoming' }));
 
   const items = computed(() => data.value?.data ?? null);

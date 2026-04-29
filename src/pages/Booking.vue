@@ -70,7 +70,8 @@
               <div
                 class="p1 tw-px-3 tw-py-[8.5px] tw-bg-blue_light tw-mb-3 tw-rounded-[60px] tw-w-fit"
               >
-                Гость №{{ index + 2 }}
+                {{value.isChildren ? 'Ребенок':  'Гость'}} №{{ index + 2 }}
+
               </div>
               <div class="p1 tw-mb-2">
                 {{ value.last_name }} {{ value.first_name }}
@@ -132,7 +133,7 @@
                   class="tw-flex tw-justify-between tw-items-center"
                   v-for="(value, index) in guests"
                 >
-                  <div>Гость №{{ index + 2 }}</div>
+                  <div>{{value.isChildren ? 'Ребенок':  'Гость'}} №{{ index + 2 }}</div>
                   <div v-amount-pretty="currentOffer.data?.price"></div>
                 </div>
 
@@ -141,7 +142,7 @@
 
                   <div
                     v-amount-pretty="
-                      currentOffer.data?.prepay * (guests.length + 1) - disount
+                      obshPrepay
                     "
                   ></div>
                 </div>
@@ -518,7 +519,15 @@ const removeGuest = () => {
 
 const checkedChildren = ref(false)
 const childs = ref(0)
+const obshPrepay = computed(() => {
+  const guestsPrepay = guests.value.reduce((a,b) => {
+    if (b.isChildren && currentOffer.value) return a + Number(currentOffer.value.data?.prepay_children) - disount.value
+    else return a + Number(currentOffer.value.data?.prepay) - disount.value
+  },0)
+  console.log(guestsPrepay);
 
+  return Number(currentOffer.value.data?.prepay) * (guests.value.length + 1) - disount.value + guestsPrepay
+})
 watch(checkedChildren, (val) => {
   if (!val) childs.value = 0
   if (val) childs.value = 1
@@ -545,8 +554,11 @@ const createGuest = async (
         await profileStore().update({ ...vals, phone: '+7' + vals.phone })
       } else {
         const res = (await createFriend({ ...vals })).data
+        let isChildren = false;
+        if(res.birthday)
+          isChildren = isChild(res.birthday)
 
-        guests.value = [...guests.value, res]
+        guests.value = [...guests.value, { ...res, isChildren }]
       }
       editFriendCount.value = editFriendCount.value + 1
       actions.resetForm()
@@ -557,7 +569,22 @@ const createGuest = async (
     }
   }
 }
+const isChild = (dateString: string): boolean  =>{
+  // Разбиваем строку "11.11.2020" на числа
+  const parts = dateString.split('.').map(Number);
 
+  if (parts.length !== 3 || parts.some(isNaN)) return false;
+
+  const [day, month, year] = parts;
+  const birthDate = new Date(year, month - 1, day);
+
+
+  const limitDate = new Date();
+  limitDate.setFullYear(limitDate.getFullYear() - 14);
+
+
+  return birthDate >= limitDate;
+}
 // добавления гостя
 const addChild = () => {
   childs.value = childs.value + 1

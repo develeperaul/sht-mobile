@@ -35,19 +35,19 @@ function dateformat(value, [currentTime]) {
       var x = new Date(y, m, d)
       if (y > 1900) {
         if (currentTime) {
-          return +currentTime > dayjs(value, 'DD.MM.YYYY').unix()
+          const isValid = +currentTime > dayjs(value, 'DD.MM.YYYY').unix()
+          return isValid ? true : 'Формат ДД.ММ.ГГГГ'
         } else {
-          return (
-            x.getFullYear() === y && x.getMonth() === m && x.getDate() === d
-          )
+          const isValid = x.getFullYear() === y && x.getMonth() === m && x.getDate() === d
+          return isValid ? true : 'Формат ДД.ММ.ГГГГ'
         }
       }
-      return false
+      return 'Формат ДД.ММ.ГГГГ'
     }
 
-    return false
+    return 'Формат ДД.ММ.ГГГГ'
   }
-  return false
+  return 'Формат ДД.ММ.ГГГГ'
 }
 
 // глобальные правила

@@ -41,24 +41,24 @@
               </template>
               <template v-else>
               <div v-if="ordersPast.data?.length > 0" class="tw-grid tw-gap-3">
-                <Upcoming
-                  v-for="value in ordersPast.data"
-                  :to="{ name: 'upcoming', params: { uuid: value.id } }"
-                  title="Предстоящее путешествие с Team Travel"
-                  :dates="`${dayjs(value.offer.start_date).locale('ru').format('DD MMMM')}-${dayjs(value.offer.end_date).locale('ru').format('DD MMMM')}`"
-                  :img="value.offer.direction.background?.url"
-                  :name="value.offer.direction.name"
-                  :status="value.status"
-                  :diff="
-                    dayjs(dayjs(value.offer.end_date).format('YYYY-MM-DD'))
-                      .locale('ru')
-                      .diff(
-                        dayjs(value.offer.start_date).format('YYYY-MM-DD'),
-                        'day',
-                        true
-                      )
-                  "
-                />
+                <UpcomingGlass
+                    v-for="value in ordersPast.data"
+                    :to="{ name: 'upcoming', params: { uuid: value.id } }"
+                    title="Предстоящее путешествие с Team Travel"
+                    :dates="`${dayjs(value.offer.start_date).locale('ru').format('DD MMMM')}-${dayjs(value.offer.end_date).locale('ru').format('DD MMMM')}`"
+                    :img="value.offer.direction.background?.url"
+                    :name="value.offer.direction.name"
+                    :status="value.status"
+                    :diff="
+                      dayjs(dayjs(value.offer.end_date).format('YYYY-MM-DD'))
+                        .locale('ru')
+                        .diff(
+                          dayjs(value.offer.start_date).format('YYYY-MM-DD'),
+                          'day',
+                          true
+                        )
+                    "
+                  />
               </div>
               <ListNone v-else class=" tw-self-center"/>
               </template>

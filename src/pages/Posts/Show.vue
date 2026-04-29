@@ -1,56 +1,35 @@
 <template>
-  <q-page class="tw-relative">
-    <CardCover
-      class="post-cover"
-      v-if="item && item.banner_image"
-      :title="item.title"
-      :date="item.created_at"
-      :readTime="item.reading_time"
-      :image="item.banner_image"
-    />
-    <div v-if="item" class="card-primary">
-      <div class="text t" v-html="item.description"></div>
-    </div>
-    <q-inner-loading :showing="loading" />
-  </q-page>
+   <q-page class="tw-relative">
+     <CardCover
+       class="post-cover"
+       v-if="item && item.banner_image"
+       :title="item.title"
+       :date="item.created_at"
+       :readTime="item.reading_time"
+       :image="item.banner_image"
+     />
+     <div v-if="item" class="card-primary">
+       <div class="text t" v-html="sanitizedDescription"></div>
+     </div>
+     <q-inner-loading :showing="loading" />
+   </q-page>
 </template>
-
+ 
 <script setup lang="ts">
-  import useRequest from 'src/composables/useRequest';
-  import * as postsApi from 'src/api/posts';
-  import CardCover from 'src/components/Posts/CardCover.vue';
+   import useRequest from 'src/composables/useRequest';
+   import * as postsApi from 'src/api/posts';
+   import CardCover from 'src/components/Posts/CardCover.vue';
+   import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
 
-  const props = defineProps<{
-    id: string,
-  }>();
+   const props = defineProps<{
+     id: string,
+   }>();
+ 
+   const { data, loading } = useRequest(() => postsApi.show(props.id));
 
-  const { data, loading } = useRequest(() => postsApi.show(props.id));
+   const item = computed(() => data.value?.data ?? null);
 
-// const item = computed(() => data.value?.data ?? null);
-  const item = computed(() => {
-  const post = data.value?.data ?? null;
-  if (!post || !post.description) return post;
-
-  // 1. Создаем парсер
-  const parser = new DOMParser();
-  // 2. Превращаем строку в DOM-дерево
-  const doc = parser.parseFromString(post.description, 'text/html');
-
-  // 3. Находим все элементы внутри
-  const allElements = doc.querySelectorAll('*');
-
-  // 4. Удаляем атрибуты class и style
-  allElements.forEach(el => {
-    el.removeAttribute('class');
-    el.removeAttribute('style');
-  });
-
-  // 5. Возвращаем очищенный HTML обратно в описание
-  return {
-    ...post,
-    description: doc.body.innerHTML
-  };
-});
+   const { sanitized: sanitizedDescription } = useSanitizeHtml(() => item.value?.description);
 </script>
 <style lang="scss">
 // .t {

@@ -46,10 +46,11 @@ import { useRouter } from 'vue-router';
     return `${day} ${monthLabels[index - 1]![1]} ${year}`;
   }
 
-  function getOfferLabel(val: ShowOfferItem) {
+function getOfferLabel(val: ShowOfferItem) {
+
     const start = prettyDate(val.start_date);
     const end = prettyDate(val.end_date);
-    return `${start} - ${end}`;
+    return `${start}–${end}`;
   }
 </script>
 

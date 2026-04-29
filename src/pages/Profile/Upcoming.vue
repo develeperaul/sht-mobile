@@ -49,6 +49,7 @@
             {{ t.name }}
           </BaseButtonFiltr>
         </div> -->
+
         <div class="card-white" v-if="tab === 'obsh'">
           <div class=" card-status " :class="offer.status">
             <span>
@@ -171,6 +172,7 @@
               Оставить отзыв
             </BaseButton>
           </div>
+
           <BaseButton
             v-if="offer.status === 'pending' && offer.payment_url"
             @click="ordersStore().openURL(offer.payment_url)"
@@ -190,8 +192,8 @@
         <div v-if="tab === 'local'" class="tw-grid tw-gap-3">
           <template v-if="direction.data">
             <div
-              class="tw-bg-white tw-p-5 tw-rounded-32"
-              v-if="direction.data.preview_stories.length > 0"
+              class="tw-bg-white tw-p-5 tw-rounded-32 tw-overflow-hidden"
+              v-if="direction.data?.preview_stories.length > 0"
             >
               <div>
                 <div class="p1 tw-mb-3">Главные впечатления</div>
@@ -214,7 +216,7 @@
                   <tab-content name="prozhivanie" class="tw-grid">
                     <div class="tw-overflow-hidden">
                       <SliderHotels
-                        :hotels="direction.data.hotels"
+                        :hotels="direction.data?.hotels"
                         class="tw-mb-3"
                       />
                     </div>
@@ -249,7 +251,7 @@
             </div>
             <div
               class="tw-bg-white tw-p-5 tw-rounded-32"
-              v-if="direction.data.locations.length > 0"
+              v-if="direction.data.locations && direction.data.locations.length > 0"
             >
               <div class="h3 tw-mb-6">Локации</div>
               <ul
@@ -262,7 +264,7 @@
             </div>
             <div
               class="tw-bg-white tw-p-5 tw-rounded-32"
-              v-if="direction.data.additional_info.length > 0"
+              v-if="direction.data.additional_info && direction.data.additional_info.length > 0"
             >
               <div class="h3 tw-mb-6">Дополнительно оплачивается</div>
               <ul
@@ -283,9 +285,9 @@
       v-model="openReview"
       :direction__uuid="direction.data.id"
       :title="direction.data.name"
-    /> -->
+    /> -- -->
     <ReviewPopupNew
-
+      v-if="direction.data"
       v-model="openReview"
       :direction__uuid="direction.data.id"
       :title="direction.data.name"
@@ -301,7 +303,7 @@ import Stories from 'src/components/Stories/Index.vue'
 import directionsStore from 'src/stores/directionsStore'
 import { deleteMedia } from 'src/api/main'
 import { useStatus } from 'src/composition/statuslist'
-
+import { Browser } from '@capacitor/browser'
 import { useRouter } from 'vue-router'
 import ordersStore from 'src/stores/ordersStore'
 

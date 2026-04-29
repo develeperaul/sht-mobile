@@ -3,7 +3,7 @@
     <div class="select" role="select" @click="showed = !showed">
       <span class="select__label">{{ label }}</span>
       <span class="select__icon-wrap" :class="{ 'select__icon-wrap--active': showed }">
-        <BaseIcon fit name="arrow-top" />
+        <BaseIcon fit name="arrow-top" class=" tw-transform tw-rotate-180 tw-origin-center" />
       </span>
     </div>
     <div class="dropdown" v-if="showed">
