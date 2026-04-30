@@ -25,7 +25,8 @@ export interface PostsItem {
   title:         string;
   preview_image: PostsImage;
   created_at:    string;
-  rubrics:       PostCategory[];
+  rubrics: PostCategory[];
+  description:   string;
 }
 
 export interface PostsImage {

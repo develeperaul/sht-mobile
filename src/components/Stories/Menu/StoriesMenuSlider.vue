@@ -88,7 +88,7 @@ const openStory = async (id: number, index: number) => {
       line-height: 11px;
       font-weight: 500;
       color: #fff;
-      filter: invert(1);
+      // filter: invert(1);
     }
   }
 }

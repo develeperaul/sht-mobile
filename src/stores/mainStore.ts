@@ -140,12 +140,15 @@ export default defineStore('main', () => {
   const getStory = async (story_id: number) => {
     console.log(story_id)
     // storyGroup.value.data[story_id] = ''
-    try {
-      const res = (await story(story_id)).data
-      storyGroup.value.data[story_id] = res
-      return res
-    } catch (e) {
-      throw e
+    if (story_id) {
+
+      try {
+        const res = (await story(story_id)).data
+        storyGroup.value.data[story_id] = res
+        return res
+      } catch (e) {
+        throw e
+      }
     }
   }
 

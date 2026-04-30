@@ -1,11 +1,12 @@
 <template>
-  <router-link
+  <div
     class="item"
     :class="{
       'gradient-card': design === 'blue',
       'item--white': design === 'white',
     }"
-    :to="{ name: 'posts.show', params: { id: item.id } }"
+
+    @click="openBrowse(item.description)"
   >
     <div class="img-wrap">
       <img class="photo" :src="item.preview_image.url" />
@@ -28,13 +29,13 @@
       </div>
     </div>
     <p class="name">{{ item.title }}</p>
-  </router-link>
+  </div>
 </template>
 
 <script setup lang="ts">
   import type { PostsItem } from 'src/api/posts';
   import { prettyDate } from 'src/utils/dates';
-
+  // import { Browser } from '@capacitor/browser'
   const props = withDefaults(
     defineProps<{
       item: PostsItem,
@@ -43,7 +44,15 @@
     { design: 'blue' },
   );
 
-  const dateVal = computed(() => prettyDate(props.item.created_at));
+const dateVal = computed(() => prettyDate(props.item.created_at));
+  const openBrowse = (url: string) => {
+      // alert(url)
+      Browser.open({ url: url })
+      Browser.addListener('browserFinished', () => {
+        // обновить статус
+      })
+
+    }
 </script>
 
 <style scoped lang="scss">
