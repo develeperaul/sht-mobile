@@ -85,6 +85,7 @@
                   @delete-file="deleteFile"
                   :id="profile.avatar ? profile.avatar.id : undefined"
                   :url="profile?.avatar ? profile?.avatar.url : undefined"
+                  :editable="true"
                 />
                 <!-- <BaseIcon name="image" class="tw-w-[120px] tw-h-[120px]" /> -->
               </div>
@@ -143,14 +144,13 @@
               </div>
             </Form>
             <div v-else class="tw-grid tw-gap-6">
-              <div>
+              <div v-if="profile?.avatar">
                 <div class="p1 tw-mb-[25px]">Фото</div>
-                <!-- {{ profile.avatar }} -->
 
                 <File
                   @file-load="fileLoad"
-                  :id="avatar_id ?? profile.avatar.id"
-                  :url="profile?.avatar ?? ''"
+                  :id="profile.avatar.id"
+                  :url="profile.avatar.url"
                 />
               </div>
               <div>

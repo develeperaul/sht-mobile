@@ -1,9 +1,9 @@
 <template>
   <div v-if="id" class="add glass-w">
-    <div class="add__btn" @click="emit('deleteFile', id)">
+    <div v-if="editable" class="add__btn" @click="emit('deleteFile', id)">
       <!-- удаление фото -->
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.1219 9.51222C17.1219 13.715 13.7149 17.122 9.5121 17.122C5.30935 17.122 1.90234 13.715 1.90234 9.51222C1.90234 5.30947 5.30935 1.90247 9.5121 1.90247C13.7149 1.90247 17.1219 5.30947 17.1219 9.51222Z" fill="#071E3A" stroke="#071E3A" stroke-width="1.90244" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17.1219 9.51222C17.1219 13.715 13.7149 17.122 9.5121 17.122C5.30935 17.122 1.90234 13.715 1.90234 9.51222C1.90234 5.30947 5.30935 1.90247 9.5121 1.90247C13.7149 17.122 17.1219 5.30947 17.1219 9.51222Z" fill="#071E3A" stroke="#071E3A" stroke-width="1.90244" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M12.2032 6.82166L9.51272 9.51211M9.51272 9.51211L6.82227 12.2026M9.51272 9.51211L12.2032 12.2026M9.51272 9.51211L6.82227 6.82166" stroke="white" stroke-width="1.14146" stroke-linecap="round"/>
       </svg>
     </div>
@@ -47,8 +47,9 @@ const props = withDefaults(
     id?: string
     url?: string
     noimg?: boolean
+    editable?: boolean
   }>(),
-  { noimg: true }
+  { noimg: true, editable: false }
 )
 
 const emit = defineEmits<{
