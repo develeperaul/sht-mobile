@@ -47,7 +47,7 @@ const openStory = async (id: number, index: number) => {
   &__item {
 
 
-    border-radius: 32px;
+
     cursor: pointer;
     overflow: hidden;
     display: grid;
@@ -80,9 +80,12 @@ const openStory = async (id: number, index: number) => {
       font-weight: 400;
       color: #161616;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      hyphens: none;
+      overflow-wrap: normal;
+      word-break: keep-all;
     }
   }
 }

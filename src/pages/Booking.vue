@@ -122,22 +122,24 @@
               />
             </svg>
 
-            <div class="tw-mb-[52px]">
+            <div class="">
               <div class="h3 tw-mb-4">Общая стоимость</div>
               <div class="tw-grid tw-gap-4 p1">
-                <div class="tw-flex tw-justify-between tw-items-center">
+                <div class="tw-flex tw-justify-between tw-items-center tw-text-sm">
                   <div>Гость №1</div>
                   <div v-amount-pretty="currentOffer.data?.price"></div>
                 </div>
                 <div
-                  class="tw-flex tw-justify-between tw-items-center"
+                  class="tw-flex tw-justify-between tw-items-center tw-text-sm"
                   v-for="(value, index) in guests"
                 >
                   <div>{{value.isChildren ? 'Ребенок':  'Гость'}} №{{ index + 2 }}</div>
                   <div v-amount-pretty="currentOffer.data?.price"></div>
                 </div>
+                <div class=" tw-border-b tw-border-blue_bg">
 
-                <div class="tw-flex tw-justify-between tw-items-center">
+                </div>
+                <div class="tw-flex tw-justify-between tw-items-center tw-text-sm">
                   <div>Предоплата</div>
 
                   <div
@@ -146,7 +148,7 @@
                     "
                   ></div>
                 </div>
-                <div class="tw-flex tw-justify-between tw-items-center" v-if=" currentOffer.data?.currency?.rate">
+                <div class="tw-flex tw-justify-between tw-items-center tw-text-sm" v-if=" currentOffer.data?.currency?.rate">
                   <div>Остаток</div>
                   <div class=" ">
                     <span
@@ -158,6 +160,7 @@
                     </span>
                   </div>
                 </div>
+                <div class=" tw-border-b tw-border-blue_bg"></div>
                 <div class="tw-flex tw-justify-between tw-items-center">
 
                 </div>
@@ -188,7 +191,7 @@
               </div>
             </div> -->
 
-            <div class="h3 tw-flex tw-justify-between tw-items-center">
+            <div class=" h2 tw-font-wix tw-font-semibold tw-flex tw-justify-between tw-items-center">
               <div>Итого</div>
                   <div v-amount-pretty="summ"></div>
             </div>
@@ -309,7 +312,7 @@
                   </div>
                   <div class="tw-border-b-blue_bg tw-border-b tw-my-6"></div>
                   <div class="tw-mb-6">
-                    <div class="p1 tw-mb-3">Количество человек</div>
+                    <div class="p1 tw-mb-3">Количество взрослых</div>
                     <count-block
                       :count="guestsCount"
                       @inc="addGuest"

@@ -13,8 +13,8 @@
               class="card-white tw-grid tw-gap-[23px] tw-mt-[32.5px]"
               @submit="verify"
             >
-              <div class="h2 tw-text-center">Подтвердите телефон</div>
-              <div class="p1 tw-text-center">
+              <div class="h2 tw-text-center !tw-text-black">Подтвердите телефон</div>
+              <div class="p1 tw-text-center !tw-text-black">
                 Введите код из смс <br />
                 +7{{ phone }}
               </div>

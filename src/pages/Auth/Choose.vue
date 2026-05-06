@@ -14,8 +14,14 @@
 
       <div class=" tw-relative tw-grid tw-grid-rows-[1fr_auto]">
         <div class="tw-grid tw-justify-items-center tw-content-center tw-translate-y-[80px]">
-          <base-icon name="sht2" class="tw-h-[83px]" />
-          <div class="p2 tw-text-white tw-ml-[90px] tw-mt-2.5">Твой путеводитель в <br> мир путешествий</div>
+          <base-icon name="sht3" class="tw-h-[56px]" />
+          <div class=" tw-font-ua-brand tw-text-3xl tw-font-black tw-text-white tw-uppercase tw-text-center tw-mt-4 " style=" letter-spacing: -0.02em;">
+            Авторские <br> путешествия
+          </div>
+          <div class=" p1 tw-mt-2" style="color: #E9FF5E;">
+            | расширяют границы
+          </div>
+          <div class="p2 tw-text-white tw-mt-2.5">А мы с любовью их создаем.</div>
         </div>
 
         <div class="tw-py-8 tw-grid tw-gap-2">
@@ -65,7 +71,7 @@ const back = () => {
   background-repeat: no-repeat;
   background-size: 1200px 1315px;
 
-  background-position: center center;
+  background-position: center 60%;
   position: relative;
   &::before {
     content: "";

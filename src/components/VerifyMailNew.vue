@@ -1,5 +1,5 @@
 <template>
-  <BaseModal  class="filter-modal   glass-w " v-model="model" y-pos="bottom" x-pos="left" animation="zoom">
+  <BaseModal  class="filter-modal   glass " v-model="model" y-pos="bottom" x-pos="left" animation="zoom">
     <div class=" tw-w-full tw-px-3 env-b ">
       <div class="glass-w  !tw-rounded-32 tw-p-3 tw-pb-6 tw-grid  tw-justify-items-center ">
           <button class="card-sheet__close tw-justify-self-end  glass" type="button" @click="close">
@@ -13,7 +13,7 @@
           class="tw-grid tw-gap-4 tw-justify-items-center"
           @submit="verify"
         >
-          <div class=" h2 textc tw-text-white">
+          <div class=" h2 textc  tw-text-white">
             Подтвердите почту
           </div>
           <div class="p1 tw-text-white tw-text-center">

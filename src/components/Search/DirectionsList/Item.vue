@@ -6,16 +6,37 @@
       </span>
       <span class="dir-name">{{ item.name }}</span>
     </div>
-    <div class="count">{{ item.children_count }} маршрута</div>
+    <div class="count">{{ item.children_count }} {{ routeLabel }}</div>
   </router-link>
 </template>
 
 <script setup lang="ts">
   import type { DirectionSearchItem } from 'src/api/directions';
+  import { computed } from 'vue';
 
-  defineProps<{
+  const props = defineProps<{
     item: DirectionSearchItem,
   }>();
+
+  const routeLabel = computed(() => {
+    const count = props.item.children_count;
+    const lastDigit = count % 10;
+    const lastTwoDigits = count % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+      return 'маршрутов';
+    }
+
+    if (lastDigit === 1) {
+      return 'маршрут';
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+      return 'маршрута';
+    }
+
+    return 'маршрутов';
+  });
 </script>
 
 <style scoped lang="scss">

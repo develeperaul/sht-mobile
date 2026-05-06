@@ -9,10 +9,10 @@
           </svg>
 
         </button>
-          <div class=" h3 ">
+          <div class=" h3 !tw-text-black">
             Отзыв отправлен!
           </div>
-          <div class=" p2 tw-text-center ">
+          <div class=" p2 tw-text-center  !tw-text-black">
             Спасибо, что нашли время и поделились. <br> Это помогает стать нам лучше.
           </div>
           <BaseButton class=" !tw-w-fit" @click="router.push({name:'home'})">

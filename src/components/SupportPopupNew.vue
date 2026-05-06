@@ -9,10 +9,10 @@
           </svg>
 
         </button>
-          <div class=" h3 tw-text-white">
+          <div class=" h3 !tw-text-black">
             Напишите нам в tg-канал
           </div>
-          <div class=" p2 tw-text-center tw-text-white">
+          <div class=" p2 tw-text-center !tw-text-black">
             Наш отдел заботы ответит вам в течение <br> суток
           </div>
           <BaseButton>

@@ -191,7 +191,7 @@
         </div>
         <div v-if="tab === 'local'" class="tw-grid tw-gap-3">
           <template v-if="direction.data">
-            <div
+            <!-- <div
               class="tw-bg-white tw-p-5 tw-rounded-32 tw-overflow-hidden"
               v-if="direction.data?.preview_stories.length > 0"
             >
@@ -201,7 +201,7 @@
                   <Stories :stories="direction.data.preview_stories" />
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="tw-bg-white tw-p-5 tw-rounded-32">
               <div class="h3 tw-mb-3">Условия</div>
@@ -222,7 +222,6 @@
                     </div>
                     <div v-if="direction.data?.video_url">
                       <div class="p1">Обзорное видео</div>
-                      <!-- {{ showVideo }} -->
                       <div
                         class="tw-relative tw-h-[250px] tw-rounded-[30px] tw-overflow-hidden"
                       >
@@ -299,11 +298,11 @@
 import dayjs from 'dayjs'
 import { getOrder, uploadTicket } from 'src/api/order'
 import { OfferCardList } from 'src/models/api/main'
-import Stories from 'src/components/Stories/Index.vue'
+import Stories from 'src/components/StoriesOther/Index.vue'
 import directionsStore from 'src/stores/directionsStore'
 import { deleteMedia } from 'src/api/main'
 import { useStatus } from 'src/composition/statuslist'
-import { Browser } from '@capacitor/browser'
+// import { Browser } from '@capacitor/browser'
 import { useRouter } from 'vue-router'
 import ordersStore from 'src/stores/ordersStore'
 

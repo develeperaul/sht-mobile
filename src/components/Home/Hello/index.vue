@@ -8,7 +8,7 @@
         :avatar="profileStore.profile.avatar"
       />
       <div v-else class="logo-wrap">
-        <img width="133" height="55" src="~/assets/images/logo.svg" alt="логотип" />
+        <img width="133" height="55" src="~/assets/images/logo-new.svg" alt="логотип" />
       </div>
     </div>
     <div class="cover" :class="[ `cover--${type}` ]"></div>

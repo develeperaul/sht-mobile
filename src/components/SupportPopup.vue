@@ -9,10 +9,10 @@
             @click="model = false"
           />
           <div class="popup__content">
-            <div class="tw-font-semibold tw-text-center tw-mb-4">
+            <div class="tw-font-semibold tw-text-center tw-mb-4 !tw-text-black">
               Напишите нам в tg-канал
             </div>
-            <div class="p2 tw-mb-8">
+            <div class="p2 tw-mb-8 !tw-text-black">
               Наш отдел заботы ответит вам в течение суток
             </div>
             <BaseButton>

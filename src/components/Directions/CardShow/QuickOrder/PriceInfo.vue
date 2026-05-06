@@ -11,7 +11,7 @@
   <BaseModal v-model="openModal" y-pos="bottom" x-pos="left" animation="slide-bottom">
     <div class="card-sheet glass-w env-b">
       <div class="card-sheet__top">
-        <button class="card-sheet__panel" type="button" v-touch-swipe.mouse.bottom="openModal=false"></button>
+        <button class="card-sheet__panel" type="button" ></button>
       </div>
       <div class="card-sheet__body-wrap tw-py-10">
 

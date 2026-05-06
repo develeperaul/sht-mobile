@@ -1,6 +1,6 @@
 // import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { Browser } from '@capacitor/browser'
+// import { Browser } from '@capacitor/browser'
 import { DataVal } from 'src/models'
 import { useRouter } from 'vue-router'
 import { create, getOrderList } from 'src/api/order'

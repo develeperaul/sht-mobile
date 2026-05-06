@@ -35,7 +35,7 @@
 <script setup lang="ts">
   import type { PostsItem } from 'src/api/posts';
   import { prettyDate } from 'src/utils/dates';
-  import { Browser } from '@capacitor/browser'
+  // import { Browser } from '@capacitor/browser'
   const props = withDefaults(
     defineProps<{
       item: PostsItem,
@@ -80,6 +80,8 @@ const dateVal = computed(() => prettyDate(props.item.created_at));
   }
 
   .cat-wrap {
+    display: flex;
+    padding-inline: 12px;
     position: absolute;
     width: 100%;
     text-align: center;
@@ -91,7 +93,8 @@ const dateVal = computed(() => prettyDate(props.item.created_at));
 
   .category {
     display: inline-block;
-    padding: 6px 8px;
+    padding: 2px 8px ;
+    font-size: 16px;
     @apply tw-text-white;
   }
 

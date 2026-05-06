@@ -21,7 +21,7 @@
    import * as postsApi from 'src/api/posts';
    import CardCover from 'src/components/Posts/CardCover.vue';
    import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
-  import { Browser } from '@capacitor/browser'
+  // import { Browser } from '@capacitor/browser'
    const props = defineProps<{
      id: string,
    }>();

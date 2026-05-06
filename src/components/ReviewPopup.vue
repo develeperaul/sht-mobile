@@ -9,10 +9,10 @@
             @click="model = false"
           />
           <div>
-            <div class="h3 tw-font-semibold tw-text-center tw-mb-4">
+            <div class="h3 tw-font-semibold tw-text-center !tw-text-black tw-mb-4">
               Отзыв отправлен!
             </div>
-            <div class="p2 tw-text-center tw-mb-4">
+            <div class="p2 tw-text-center tw-mb-4 !tw-text-black">
               Спасибо, что нашли время и поделились. <br />
               Это помогает стать нам лучше.
             </div>
