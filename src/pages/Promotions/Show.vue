@@ -16,27 +16,29 @@
            <img class="photo" :src="item.image.url" :alt="item.title" />
          </div>
          <h1 class="title">{{ item.title }}</h1>
-         <div class="text" v-html="sanitizedDescription"></div>
+         <div class="text" v-html="typograf(sanitizedDescription)"></div>
        </div>
      </div>
      <q-inner-loading :showing="loading" />
    </q-page>
 </template>
- 
+
 <script setup lang="ts">
    import ButtonRound from 'src/components/Base/ButtonRound.vue';
    import useRequest from 'src/composables/useRequest';
    import * as promotionsApi from 'src/api/promotions';
    import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
- 
+import { useTypograf } from 'src/composables/useTypograf';
+
    const props = defineProps<{
      id: string,
    }>();
- 
+
    const { data, loading } = useRequest(() => promotionsApi.show(props.id));
    const item = computed(() => data.value?.data ?? null);
 
    const { sanitized: sanitizedDescription } = useSanitizeHtml(() => item.value?.description);
+   const {typograf} = useTypograf(()=>null)
 </script>
 
 <style scoped lang="scss">

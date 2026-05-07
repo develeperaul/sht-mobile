@@ -5,7 +5,7 @@
        <span class="raiting-label">Рейтинг отеля</span>
        <span class="raiting-value">{{ item.rating }}</span>
      </div>
-     <div class="text-wrap " v-html="sanitizedDescription"></div>
+     <div class="text-wrap " v-html="tText"></div>
      <GalleryImages class="gal" :images="item.images" />
    </article>
 </template>
@@ -14,13 +14,14 @@
    import GalleryImages from '../GalleryImages.vue';
    import { Hotel } from 'src/api/directions';
    import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
-
+    import  {useTypograf} from 'src/composables/useTypograf';
    const props = defineProps<{
      item: Hotel,
    }>();
 
     const { sanitized: sanitizedDescription } = useSanitizeHtml(() => props.item.description);
-
+    const { typograf } = useTypograf(() => null);
+    const tText = computed(() => typograf(sanitizedDescription.value));
 </script>
 
 <style scoped lang="scss">

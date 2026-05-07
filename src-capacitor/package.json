@@ -1,7 +1,7 @@
 {
-  "name": "sht-project",
+  "name": "sh-travel",
   "version": "0.0.1",
-  "description": "Sey Hello Travel",
+  "description": "SH Travel",
   "author": "Ralfik <developeraul@gmail.com>",
   "private": true,
   "dependencies": {
@@ -9,7 +9,6 @@
     "@capacitor/app": "^7.0.0",
     "@capacitor/browser": "^7.0.2",
     "@capacitor/camera": "^7.0.2",
-    "@capacitor/cli": "^7.0.0",
     "@capacitor/core": "^7.0.0",
     "@capacitor/device": "^7.0.2",
     "@capacitor/ios": "^7.0.0",

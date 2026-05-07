@@ -16,7 +16,7 @@
              {{ slide.rating }}
            </div>
          </div>
-         <div class="p1 tw-grid tw-gap-4" v-html="sanitizeHtml(slide.description)"></div>
+         <div class="p1 tw-grid tw-gap-4" v-html="typograf(sanitizeHtml(slide.description))"></div>
        </div>
      </div>
    </div>
@@ -31,6 +31,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { HotelT } from 'src/models/api/main'
 import { useSanitizeHtml } from 'src/composables/useSanitizeHtml'
+import { useTypograf } from 'src/composables/useTypograf'
 
 const props = defineProps<{
   hotels: HotelT[]
@@ -46,5 +47,7 @@ const pagination = {
     return '<div class="' + className + '">' + '<span>' + '</span>' + '</div>'
   },
 }
+
+const { typograf } = useTypograf(() => null);
 </script>
 <style lang="scss" scoped></style>

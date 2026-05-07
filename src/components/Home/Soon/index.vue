@@ -26,7 +26,7 @@
             <img width="200" height="200" :src="item.icon" />
           </div>
           <p class="title" v-html="item.title"></p>
-          <p class="text" v-html="item.text"></p>
+          <p class="text" v-html="typograf(item.text)"></p>
         </div>
       </SwiperSlide>
     </Swiper>
@@ -37,8 +37,10 @@
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import { Pagination } from 'swiper/modules';
   import { items } from './data';
+import { useTypograf } from 'src/composables/useTypograf';
 
-  const modules = [ Pagination ];
+const modules = [Pagination];
+  const { typograf} = useTypograf(()=>null)
 </script>
 
 <style scoped lang="scss">

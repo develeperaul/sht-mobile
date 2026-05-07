@@ -10,7 +10,7 @@
       </button>
     </div>
     <SlideUpDown :duration="300" :active="showed">
-      <div class="content" v-if="text" v-html="text"></div>
+      <div class="content" v-if="text" v-html="typograf(text)"></div>
       <div class="content" v-else>
         <slot></slot>
       </div>
@@ -22,6 +22,7 @@
   //@ts-ignore
   import SlideUpDown from 'vue-slide-up-down';
   import { ref } from 'vue';
+import { useTypograf } from 'src/composables/useTypograf';
 
   const props = withDefaults(
     defineProps<{
@@ -32,7 +33,8 @@
     }>(), { titleTag: 'h2', initialActive: false },
   );
 
-  const showed = ref(props.initialActive);
+const showed = ref(props.initialActive);
+  const { typograf } = useTypograf(() => null);
 </script>
 
 <style scoped lang="scss">

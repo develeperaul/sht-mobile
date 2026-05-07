@@ -108,7 +108,7 @@
           </div>
           <div class="tw-border-b tw-border-blue_bg tw-my-3"></div>
           <div class="p1">
-            {{ offer.offer.description }}
+            {{ typograf(offer.offer.description) }}
           </div>
           <div class="tw-mt-6" v-if="offer.voucher_url || offer.contract_url">
             <div class="h3 tw-font-bold tw-mb-3">Документы</div>
@@ -305,6 +305,7 @@ import { useStatus } from 'src/composition/statuslist'
 // import { Browser } from '@capacitor/browser'
 import { useRouter } from 'vue-router'
 import ordersStore from 'src/stores/ordersStore'
+import { useTypograf } from 'src/composables/useTypograf'
 
 const props = defineProps<{
   offerProps?: OfferCardList
@@ -312,6 +313,7 @@ const props = defineProps<{
 }>()
 const storeMain = mainStore()
 const router = useRouter()
+const { typograf } = useTypograf(() => null);
 const tab = ref<'obsh' | 'local'>('obsh')
 const tabs = ref<{ id: string; name: string }[]>([
   { id: 'obsh', name: 'Общая информация' },

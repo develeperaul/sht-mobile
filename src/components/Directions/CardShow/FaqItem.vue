@@ -7,7 +7,7 @@
       </button>
     </div>
     <SlideUpDown :duration="300" :active="showed">
-      <div class="text" v-html="text"></div>
+      <div class="text" v-html="typograf(text)"></div>
     </SlideUpDown>
   </article>
 </template>
@@ -16,13 +16,15 @@
   //@ts-ignore
   import SlideUpDown from 'vue-slide-up-down';
   import { ref } from 'vue';
+  import { useTypograf } from 'src/composables/useTypograf';
 
   defineProps<{
     label: string,
     text: string,
   }>();
 
-  const showed = ref(false);
+const showed = ref(false);
+  const { typograf } = useTypograf(() => null);
 </script>
 
 <style scoped lang="scss">

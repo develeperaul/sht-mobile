@@ -9,7 +9,7 @@
        <template #title>
          <span>День {{ route.day }}.</span> <span class="text-label">{{ route.title }}</span>
        </template>
-       <div class="text-wrap" v-html="sanitizeHtml(route.description)"></div>
+       <div class="text-wrap" v-html="typograf(sanitizeHtml(route.description))"></div>
        <GalleryImages class="sec-gal" v-if="route.images.length > 0" :images="route.images" />
      </DropdownItem>
    </section>
@@ -20,12 +20,15 @@
    import DropdownItem from '../DropdownItem.vue';
    import GalleryImages from '../GalleryImages.vue';
    import { useSanitizeHtml } from 'src/composables/useSanitizeHtml';
+import { useTypograf } from 'src/composables/useTypograf';
+defineProps<{
+  routes: RouteItem[],
+}>();
 
-   defineProps<{
-     routes: RouteItem[],
-   }>();
 
-   const { sanitizeHtml } = useSanitizeHtml(() => '');
+
+const { sanitizeHtml } = useSanitizeHtml(() => '');
+const { typograf } = useTypograf(() => null);
 </script>
 
 <style scoped lang="scss">

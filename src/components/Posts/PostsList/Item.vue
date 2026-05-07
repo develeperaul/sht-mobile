@@ -28,12 +28,13 @@
         <span>{{ item.reading_time }} мин</span>
       </div>
     </div>
-    <p class="name">{{ item.title }}</p>
+    <p class="name">{{ typograf(item.title) }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
   import type { PostsItem } from 'src/api/posts';
+import { useTypograf } from 'src/composables/useTypograf';
   import { prettyDate } from 'src/utils/dates';
   // import { Browser } from '@capacitor/browser'
   const props = withDefaults(
@@ -52,7 +53,9 @@ const dateVal = computed(() => prettyDate(props.item.created_at));
         // обновить статус
       })
 
-    }
+  }
+
+const { typograf} = useTypograf(()=>null)
 </script>
 
 <style scoped lang="scss">

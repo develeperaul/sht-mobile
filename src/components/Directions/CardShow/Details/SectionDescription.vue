@@ -1,6 +1,6 @@
 <template>
   <div class="content" >
-    <div class="content" v-html="text"></div>
+    <div class="content" v-html="tText"></div>
     <div
       class=" tw-mt-8"
         v-if="
@@ -22,13 +22,14 @@
 
 <script setup lang="ts">
 import { StoriesT } from 'src/models/api/main';
-
 import Stories from 'src/components/StoriesOther/Index.vue'
-  defineProps<{
+import  {useTypograf} from 'src/composables/useTypograf';
+  const props = defineProps<{
     text: string,
     stories: StoriesT[]
   }>();
-
+const { typograf } = useTypograf(() => null);
+const tText = computed(() => typograf(props.text));
 </script>
 
 <style scoped lang="scss">

@@ -5,5 +5,4 @@
     <string name="package_name">ru.sht.app</string>
     <string name="custom_url_scheme">ru.sht.app</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-
 </resources>
