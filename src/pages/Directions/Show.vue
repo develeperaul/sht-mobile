@@ -8,7 +8,7 @@
       :subtitle="direction.title"
       :image="direction.background"
     />
-    <div class="tw-container tw-pb-28" v-if="direction">
+    <div class="tw-container " :class="{ 'tw-pb-28': currentOffer }" v-if="direction">
 
 
       <AboutPirmary

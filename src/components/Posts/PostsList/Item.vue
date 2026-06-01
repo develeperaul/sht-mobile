@@ -36,7 +36,7 @@
   import type { PostsItem } from 'src/api/posts';
 import { useTypograf } from 'src/composables/useTypograf';
   import { prettyDate } from 'src/utils/dates';
-  // import { Browser } from '@capacitor/browser'
+  import { Browser } from '@capacitor/browser'
   const props = withDefaults(
     defineProps<{
       item: PostsItem,

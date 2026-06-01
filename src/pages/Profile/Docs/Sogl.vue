@@ -4,10 +4,29 @@
       <Toolbar class="tw-mb-5" title="Лицензионное соглашение" />
 
       <div
-        class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 tw-font-medium glass-w"
-        style="font-size: 14px; line-height: 18px"
+      class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 tw-font-medium glass-w"
+      style="font-size: 14px; line-height: 18px"
+      v-html="typograf(text)"
       >
-        Лицензионное соглашение на использование программы «Say Hello Travel»
+
+      </div>
+    </div>
+  </q-page>
+</template>
+<script lang="ts" setup>
+import { useTypograf } from 'src/composables/useTypograf'
+import BaseIcon from 'src/components/core/BaseIcon.vue'
+const deleteIs = ref(false)
+const logoutIs = ref(false)
+const supportIs = ref(false)
+const logout = () => {
+  authStore().logout()
+}
+
+const { typograf } = useTypograf(() => null)
+
+const text = `
+ Лицензионное соглашение на использование программы «Say Hello Travel»
         для мобильных устройств
         <br />
         <br />
@@ -270,17 +289,6 @@
         Реквизиты Правообладателя ООО «Энджой Тревел» Адрес место нахождения:
         450015, Республика Башкортостан, г Уфа, ул. Бориса Домашникова, д. 22,
         кв. 140 ИНН/КПП: 0274932990 / 027801001 ОГРН: 1170280080343
-      </div>
-    </div>
-  </q-page>
-</template>
-<script lang="ts" setup>
-import BaseIcon from 'src/components/core/BaseIcon.vue'
-const deleteIs = ref(false)
-const logoutIs = ref(false)
-const supportIs = ref(false)
-const logout = () => {
-  authStore().logout()
-}
+  `
 </script>
 <style lang="scss" scoped></style>

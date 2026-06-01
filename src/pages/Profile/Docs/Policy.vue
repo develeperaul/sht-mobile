@@ -6,8 +6,27 @@
       <div
         class="tw-bg-white tw-rounded-[20px] tw-py-3 tw-px-4 -tw-mx-4 tw-font-medium glass-w"
         style="font-size: 14px; line-height: 18px"
+        v-html="typograf(text)"
       >
-        Политика конфиденциальности
+
+      </div>
+    </div>
+  </q-page>
+</template>
+<script lang="ts" setup>
+import BaseIcon from 'src/components/core/BaseIcon.vue'
+import { useTypograf } from 'src/composables/useTypograf'
+const deleteIs = ref(false)
+const logoutIs = ref(false)
+const supportIs = ref(false)
+const logout = () => {
+  authStore().logout()
+}
+
+const { typograf } = useTypograf(() => null)
+
+const text = `
+Политика конфиденциальности
         <br />
         <br />
         1. ОБЩИЕ ПОЛОЖЕНИЯ 1. ОБЩИЕ ПОЛОЖЕНИЯ Настоящая политика обработки
@@ -276,17 +295,6 @@
         действует бессрочно до замены ее новой версией. 13.3. Актуальная версия
         Политики в свободном доступе расположена в сети Интернет по адресу
         https://www.sayhello.travel/policy
-      </div>
-    </div>
-  </q-page>
-</template>
-<script lang="ts" setup>
-import BaseIcon from 'src/components/core/BaseIcon.vue'
-const deleteIs = ref(false)
-const logoutIs = ref(false)
-const supportIs = ref(false)
-const logout = () => {
-  authStore().logout()
-}
+`
 </script>
 <style lang="scss" scoped></style>

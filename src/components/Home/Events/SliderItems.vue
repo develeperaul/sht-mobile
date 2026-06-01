@@ -41,7 +41,7 @@
   }
 
   .photo {
-    border-radius: 20px;
+    border-radius: 28px;
     width: 100%;
   }
 </style>

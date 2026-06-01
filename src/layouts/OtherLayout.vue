@@ -6,4 +6,8 @@
   </q-layout>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import useEdgeSwipeBack from 'src/composables/useEdgeSwipeBack'
+
+  useEdgeSwipeBack()
+</script>

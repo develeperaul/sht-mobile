@@ -77,6 +77,6 @@
   }
 
   :global(.filter-modal .overlay) {
-    background: none !important;
+    // background: none !important;
   }
 </style>

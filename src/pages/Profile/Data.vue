@@ -133,7 +133,7 @@
                     :model-value="profile?.birthday ?? ''"
                     name="birthday"
                     maska="##.##.####"
-                    rules="required"
+                    rules="required|dateformat"
                     placeholder="Дата рождения*"
                   />
                 </div>
@@ -201,7 +201,7 @@
               </div>
               <div v-if="guests[guestActive]?.edit">
                 <BaseButton>Сохранить</BaseButton>
-              
+
               </div>
             </div>
           </template>
@@ -239,7 +239,7 @@
                       :model-value="friends[index - 1]?.birthday ?? ''"
                       name="birthday"
                       maska="##.##.####"
-                      rules="required"
+                      rules="required|dateformat"
                       placeholder="Дата рождения*"
                     />
                   </div>
@@ -400,14 +400,32 @@ const guests = ref<{ open: boolean; trash: boolean; edit: boolean }[]>([
 
 // активный гость
 const guestActive = ref(0)
+const skipEditReset = ref(false)
 
 // обновление статусов гостя при переключении таба
-watch(guestActive, (v: number) => {
+let removingUnsaved = false
+watch(guestActive, (v: number, oldV: number) => {
+  if (skipEditReset.value) {
+    skipEditReset.value = false
+    return
+  }
+
   guests.value.splice(v, 1, {
     open: false,
     trash: false,
     edit: false,
   })
+
+  if (!removingUnsaved && oldV > 0 && oldV > friendStore().friends.length) {
+    removingUnsaved = true
+    nextTick(() => {
+      guests.value.splice(oldV, 1)
+      if (guestActive.value > oldV) {
+        guestActive.value--
+      }
+      removingUnsaved = false
+    })
+  }
 })
 
 const open = ref(true)
@@ -459,9 +477,44 @@ const editPopup = (index: number) => {
 
 // добавления гостя
 const addGuest = () => {
-  guests.value.push({ open: false, trash: false, edit: false })
-  guestActive.value = guests.value.length - 1
+  const savedCount = friendStore().friends.length
+  while (guests.value.length - 1 > savedCount) {
+    guests.value.pop()
+  }
+  guests.value.push({ open: false, trash: false, edit: true })
+
+  const newIndex = guests.value.length - 1
+  if (newIndex !== guestActive.value) {
+    skipEditReset.value = true
+    guestActive.value = newIndex
+  } else {
+    skipEditReset.value = false
+  }
 }
+
+const closePopupIfOpen = (event: Event) => {
+  const active = guests.value[guestActive.value]
+  if (!active?.open) return
+
+  const popup = document.querySelector('.edit-block__popup.active')
+  if (!popup) return
+
+  const editBlock = popup.closest('.edit-block')
+  if (editBlock?.contains(event.target as Node)) return
+
+  closePopup(guestActive.value)
+}
+
+onMounted(() => {
+  document.addEventListener('click', closePopupIfOpen)
+  document.addEventListener('scroll', closePopupIfOpen, { capture: true, passive: true })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closePopupIfOpen)
+  document.removeEventListener('scroll', closePopupIfOpen, { capture: true })
+})
+
 const isVerifyMail = ref(false)
 const isVerifyPhone = ref(false)
 const updateMail = ref('')
