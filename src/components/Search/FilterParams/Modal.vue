@@ -54,7 +54,11 @@
     value.value = false;
   }
 
-  const { data, loading, send } = useRequest(directionsApi.filters, { immediate: false });
+  const { data, loading, send } = useRequest(directionsApi.filters, {
+    immediate: false,
+    cacheKey: 'directions:filters',
+    cacheTtl: 60 * 60 * 1000,
+  });
 
   const filterValues = computed(() => data.value?.data ?? null);
 

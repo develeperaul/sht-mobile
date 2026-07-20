@@ -18,7 +18,11 @@
   import * as directionsApi from 'src/api/directions';
   import { computed } from 'vue';
 
-  const { data } = useRequest(directionsApi.all);
+  const { data } = useRequest(directionsApi.all, {
+    cacheKey: 'directions:home',
+    cacheTtl: 10 * 60 * 1000,
+    staleWhileRevalidate: true,
+  });
 
   const items = computed(() => data.value?.data ?? null);
 

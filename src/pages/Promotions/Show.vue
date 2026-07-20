@@ -34,7 +34,11 @@ import { useTypograf } from 'src/composables/useTypograf';
      id: string,
    }>();
 
-   const { data, loading } = useRequest(() => promotionsApi.show(props.id));
+   const { data, loading } = useRequest(() => promotionsApi.show(props.id), {
+     cacheKey: () => `promotions:show:${props.id}`,
+     cacheTtl: 10 * 60 * 1000,
+     staleWhileRevalidate: true,
+   });
    const item = computed(() => data.value?.data ?? null);
 
    const { sanitized: sanitizedDescription } = useSanitizeHtml(() => item.value?.description);

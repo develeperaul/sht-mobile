@@ -4,6 +4,7 @@ import { getPromotion, stories, story } from 'src/api/main'
 import { DataVal } from 'src/models'
 import { StoriesT, StoryT, StoryGroupT, PromotionT } from 'src/models/api/main'
 import { useOnline, useStorage } from '@vueuse/core'
+import { fetchWithRequestCache } from 'src/utils/requestCache'
 
 export default defineStore('main', () => {
   const isOnline = useOnline()
@@ -44,7 +45,11 @@ export default defineStore('main', () => {
   const getStories = async () => {
     try {
       storyList.value.loading = true
-      const res = (await stories()).data
+      const res = (await fetchWithRequestCache(
+        'store:stories:list',
+        10 * 60 * 1000,
+        stories,
+      )).data
 
       res.forEach((item) => getStory(item.id))
       storyList.value.data = res
@@ -143,7 +148,13 @@ export default defineStore('main', () => {
     if (story_id) {
 
       try {
-        const res = (await story(story_id)).data
+        if (storyGroup.value.data[story_id]) return storyGroup.value.data[story_id]
+
+        const res = (await fetchWithRequestCache(
+          `store:stories:show:${story_id}`,
+          10 * 60 * 1000,
+          () => story(story_id),
+        )).data
         storyGroup.value.data[story_id] = res
         return res
       } catch (e) {
@@ -182,7 +193,13 @@ export default defineStore('main', () => {
     console.log(story_id)
     // storyGroup.value.data[story_id] = ''
     try {
-      const res = (await story(story_id)).data
+      if (storyOtherGroup.value.data[story_id]) return storyOtherGroup.value.data[story_id]
+
+      const res = (await fetchWithRequestCache(
+        `store:stories-other:show:${story_id}`,
+        10 * 60 * 1000,
+        () => story(story_id),
+      )).data
       storyOtherGroup.value.data[story_id] = res
       console.log(storyOtherGroup.value)
 
@@ -208,7 +225,11 @@ export default defineStore('main', () => {
   const promotion = ref<PromotionT | null>(null)
   const setPromotion = async () => {
     try {
-      promotion.value = (await getPromotion()).data
+      promotion.value = (await fetchWithRequestCache(
+        'store:promotion',
+        10 * 60 * 1000,
+        getPromotion,
+      )).data
     } catch (e) {
       throw e
     }

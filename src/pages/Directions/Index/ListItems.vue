@@ -39,6 +39,7 @@
   import { throttle } from 'throttle-debounce';
   import type { SortType } from 'src/api/directions';
   import { options as sortOpts } from 'src/components/Search/SortParams/consts';
+  import { buildRequestCacheKey } from 'src/utils/requestCache';
 
   const props = defineProps<{
     range: { start: string, end: string } | null,
@@ -54,8 +55,7 @@
 
   const sortValue = ref<SortType>('popularity');
 
-  const { data, loading, send } = useRequest(
-    () => directionsApi.all({
+  const getParams = () => ({
       sort_by: sortValue.value,
       ...(
         Object.fromEntries(Object.entries(filter).filter(e => e[1] !== null && e[1] !== ''))
@@ -65,7 +65,15 @@
         date_from: props.range.start,
         date_to: props.range.end,
       } : {}),
-    }),
+    });
+
+  const { data, loading, send } = useRequest(
+    () => directionsApi.all(getParams()),
+    {
+      cacheKey: () => buildRequestCacheKey('directions:index', getParams()),
+      cacheTtl: 5 * 60 * 1000,
+      staleWhileRevalidate: true,
+    },
   );
 
   const refresh = throttle(500, send);

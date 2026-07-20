@@ -44,7 +44,11 @@
 
   const modules = [ FreeMode ];
 
-  const { data } = useRequest(postsApi.categories);
+  const { data } = useRequest(postsApi.categories, {
+    cacheKey: 'posts:categories',
+    cacheTtl: 60 * 60 * 1000,
+    staleWhileRevalidate: true,
+  });
 
   const items = computed<PostCategory[]>(() => {
     if(!data.value) return [];
