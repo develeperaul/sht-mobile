@@ -2,6 +2,11 @@
   <Swiper
     class="swiper-gallery-pag"
     :spaceBetween="16"
+    :speed="550"
+    :threshold="8"
+    :resistance-ratio="0.25"
+    :long-swipes-ratio="0.2"
+    :touch-release-on-edges="true"
     :modules="modules"
     pagination
   >

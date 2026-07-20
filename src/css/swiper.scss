@@ -9,3 +9,18 @@
     font-size: 0;
   }
 }
+
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.swiper-wrapper {
+  will-change: transform;
+}
+
+.swiper-slide {
+  contain: layout paint;
+}

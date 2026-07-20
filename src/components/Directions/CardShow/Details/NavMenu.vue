@@ -2,6 +2,10 @@
   <Swiper
     :space-between="12"
     :slides-per-view="'auto'"
+    :speed="400"
+    :threshold="6"
+    :long-swipes-ratio="0.25"
+    :touch-release-on-edges="true"
     free-mode
     :resistanceRatio="0"
     :modules="modules"

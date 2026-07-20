@@ -3,6 +3,10 @@
     class="items"
     slidesPerView="auto"
     spaceBetween="8"
+    :speed="400"
+    :threshold="6"
+    :long-swipes-ratio="0.25"
+    :touch-release-on-edges="true"
     freeMode
     :resistanceRatio="0"
     grabCursor

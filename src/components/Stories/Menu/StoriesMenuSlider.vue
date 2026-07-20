@@ -2,6 +2,11 @@
   <swiper
     class="stories-menu-slider"
     :slides-per-view="swiperOptions.slidesPerView"
+    :speed="400"
+    :threshold="6"
+    :resistance-ratio="0.25"
+    :long-swipes-ratio="0.25"
+    :touch-release-on-edges="true"
   >
     <swiper-slide
       class="stories-menu-slider__item"
