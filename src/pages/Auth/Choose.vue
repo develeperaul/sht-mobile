@@ -61,7 +61,15 @@ function copyRefLink() {
   })
 }
 const back = () => {
-  console.log('bacl');
+  const redirectFromPath = sessionStorage.getItem('redirectBeforeAuth')
+
+  sessionStorage.removeItem('redirectAfterPin')
+  sessionStorage.removeItem('redirectBeforeAuth')
+
+  if (redirectFromPath) {
+    router.replace(redirectFromPath)
+    return
+  }
 
   router.push({ name: 'home' })
 }
