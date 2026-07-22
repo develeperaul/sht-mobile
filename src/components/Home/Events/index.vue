@@ -16,7 +16,11 @@
   import * as promotionsApi from 'src/api/promotions';
   import { computed } from 'vue';
 
-  const { data } = useRequest(promotionsApi.all);
+  const { data } = useRequest(promotionsApi.all, {
+    cacheKey: 'promotions:all',
+    cacheTtl: 10 * 60 * 1000,
+    staleWhileRevalidate: true,
+  });
 
   const items = computed(() => data.value?.data ?? null);
 </script>

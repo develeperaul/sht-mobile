@@ -26,7 +26,11 @@
      id: string,
    }>();
 
-   const { data, loading } = useRequest(() => postsApi.show(props.id));
+   const { data, loading } = useRequest(() => postsApi.show(props.id), {
+     cacheKey: () => `posts:show:${props.id}`,
+     cacheTtl: 10 * 60 * 1000,
+     staleWhileRevalidate: true,
+   });
 
    const item = computed(() => data.value?.data ?? null);
 

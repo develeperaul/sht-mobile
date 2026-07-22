@@ -19,6 +19,7 @@ import {
 } from 'src/models/api/main'
 import { DirectionT, DirectionCardT } from 'src/models/api/main'
 import { getDirections, getDirection } from 'src/api/main'
+import { buildRequestCacheKey, fetchWithRequestCache } from 'src/utils/requestCache'
 export default defineStore('directions', () => {
   const directions = ref<DataVal<DirectionT[]>>({ loading: false, data: [] })
 
@@ -34,7 +35,12 @@ export default defineStore('directions', () => {
   }) => {
     try {
       directions.value.loading = true
-      directions.value.data = (await getDirections(obj)).data
+      const res = await fetchWithRequestCache(
+        buildRequestCacheKey('store:directions', obj ?? {}),
+        10 * 60 * 1000,
+        () => getDirections(obj),
+      )
+      directions.value.data = res.data
     } catch (e) {
       throw e
     } finally {
@@ -50,7 +56,12 @@ export default defineStore('directions', () => {
   const setDirection = async (uuid: string) => {
     try {
       direction.value.loading = true
-      direction.value.data = (await getDirection(uuid)).data
+      const res = await fetchWithRequestCache(
+        `store:directions:show:${uuid}`,
+        10 * 60 * 1000,
+        () => getDirection(uuid),
+      )
+      direction.value.data = res.data
     } catch (e) {
       throw e
     } finally {
@@ -65,7 +76,11 @@ export default defineStore('directions', () => {
   const setDirectionsSubgroup = async (uuid: string, date?: string) => {
     try {
       directionsSubgroup.value.loading = true
-      directionsSubgroup.value.data = await getDirectionSubgroup(uuid, date)
+      directionsSubgroup.value.data = await fetchWithRequestCache(
+        buildRequestCacheKey(`store:directions:subgroup:${uuid}`, { date }),
+        10 * 60 * 1000,
+        () => getDirectionSubgroup(uuid, date),
+      )
     } catch (e) {
       throw e
     } finally {
@@ -93,7 +108,12 @@ export default defineStore('directions', () => {
   const setFilters = async () => {
     try {
       filters.value.loading = true
-      filters.value.data = (await getFilters()).data
+      const res = await fetchWithRequestCache(
+        'store:directions:filters',
+        60 * 60 * 1000,
+        getFilters,
+      )
+      filters.value.data = res.data
     } catch (e) {
       throw e
     } finally {
@@ -115,7 +135,11 @@ export default defineStore('directions', () => {
     const ofs = offersMap.get(`${direction_uuid}_${days}_${date} `)
     if (!ofs) {
       try {
-        const res = (await getOffers(direction_uuid, days, date)).data
+        const res = (await fetchWithRequestCache(
+          buildRequestCacheKey('store:directions:offers', { direction_uuid, days, date }),
+          5 * 60 * 1000,
+          () => getOffers(direction_uuid, days, date),
+        )).data
 
         offersMap.set(`${direction_uuid}_${days}_${date} `, res)
         offers.value = res

@@ -32,6 +32,7 @@
   import ModalCalendar from 'src/components/Search/ModalCalendar.vue';
   import type { SortType } from 'src/api/directions';
   import { options as sortOpts } from 'src/components/Search/SortParams/consts';
+  import { buildRequestCacheKey } from 'src/utils/requestCache';
 
   const props = defineProps<{
     directionParams: DirectionParams,
@@ -44,18 +45,22 @@
 
   const sortValue = ref<SortType>('popularity');
 
-  const { data, send } = useRequest(
-    () => directionsApi.showSubgroup(
-      id.value,
-      {
+  const getParams = () => ({
         sort_by: sortValue.value,
         ...(props.directionChildrenParams.search !== '' ? { search: props.directionChildrenParams.search } : {}),
         ...(props.directionParams.range !== null ? {
           date_from: props.directionParams.range.start,
           date_to: props.directionParams.range.end,
         } : {}),
-      }
-    )
+      });
+
+  const { data, send } = useRequest(
+    () => directionsApi.showSubgroup(id.value, getParams()),
+    {
+      cacheKey: () => buildRequestCacheKey(`search:direction-children:${id.value}`, getParams()),
+      cacheTtl: 5 * 60 * 1000,
+      staleWhileRevalidate: true,
+    },
   );
 
   const refresh = throttle(500, send);

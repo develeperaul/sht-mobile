@@ -30,16 +30,22 @@
   import * as postsApi from 'src/api/posts';
   import type { PostCategory } from 'src/api/posts';
   import ButtonRound from 'src/components/Base/ButtonRound.vue';
+  import { buildRequestCacheKey } from 'src/utils/requestCache';
 
   const activeCategory = ref<PostCategory | null>(null);
 
-  const { data, loading } = useRequest(
-    () => {
-      return postsApi.all({
+  const getParams = () => ({
         ...(activeCategory.value ? { rubric_ids: [ activeCategory.value.id ] } : {}),
       });
-    },
-    { watch: [ activeCategory ] }
+
+  const { data, loading } = useRequest(
+    () => postsApi.all(getParams()),
+    {
+      watch: [ activeCategory ],
+      cacheKey: () => buildRequestCacheKey('posts:index', getParams()),
+      cacheTtl: 10 * 60 * 1000,
+      staleWhileRevalidate: true,
+    }
   );
 
   const items = computed(() => {

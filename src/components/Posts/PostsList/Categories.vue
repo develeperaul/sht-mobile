@@ -3,6 +3,10 @@
     class="items"
     slidesPerView="auto"
     spaceBetween="8"
+    :speed="400"
+    :threshold="6"
+    :long-swipes-ratio="0.25"
+    :touch-release-on-edges="true"
     freeMode
     :resistanceRatio="0"
     grabCursor
@@ -40,7 +44,11 @@
 
   const modules = [ FreeMode ];
 
-  const { data } = useRequest(postsApi.categories);
+  const { data } = useRequest(postsApi.categories, {
+    cacheKey: 'posts:categories',
+    cacheTtl: 60 * 60 * 1000,
+    staleWhileRevalidate: true,
+  });
 
   const items = computed<PostCategory[]>(() => {
     if(!data.value) return [];

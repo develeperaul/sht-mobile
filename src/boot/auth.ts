@@ -11,11 +11,13 @@ export default boot(({ router }) => {
     }
 
     const redirectPath = sessionStorage.getItem('redirectAfterPin');
+    const redirectFromPath = sessionStorage.getItem('redirectBeforeAuth');
     const isAuthenticated = !!profileStore.profile;
 
     // 1. Обработка отложенного редиректа (только если авторизованы)
     if (redirectPath && isAuthenticated) {
       sessionStorage.removeItem('redirectAfterPin');
+      sessionStorage.removeItem('redirectBeforeAuth');
       return next(redirectPath);
     }
 
@@ -23,6 +25,7 @@ export default boot(({ router }) => {
     if (to.meta.auth && !isAuthenticated) {
       // Сохраняем путь, только если его там еще нет
       if (!redirectPath) sessionStorage.setItem('redirectAfterPin', to.fullPath);
+      if (!redirectFromPath && from.name) sessionStorage.setItem('redirectBeforeAuth', from.fullPath);
       return next({ name: 'auth' });
     }
 
@@ -33,4 +36,3 @@ export default boot(({ router }) => {
     next();
   });
 });
-

@@ -52,6 +52,9 @@ import { useRouter } from 'vue-router';
       date: props.currentDate,
     }),
     {
+      cacheKey: () => `directions:offers:${props.directionId}:${props.currentDate}`,
+      cacheTtl: 5 * 60 * 1000,
+      staleWhileRevalidate: true,
       watch: [ () => props.currentDate ],
       onSuccess(res) {
         emit('change:offer', res.data[0] ?? null);

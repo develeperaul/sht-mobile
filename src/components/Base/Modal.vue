@@ -5,7 +5,8 @@
       class="modal"
       :class="[
         `x-${xPos}`,
-        `y-${yPos}`
+        `y-${yPos}`,
+        { 'is-open': value }
       ]"
       v-bind="$attrs"
     >
@@ -88,6 +89,12 @@
     top: 0;
     background: rgba(0, 0, 0, 0.64);
     z-index: -1;
+    opacity: 0;
+    transition: opacity 220ms ease-out;
+  }
+
+  .is-open .overlay {
+    opacity: 1;
   }
 
   .wrap {
@@ -98,6 +105,9 @@
     left: 0;
     top: 0;
     display: grid;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
   }
 
   .x-right .wrap {
@@ -125,33 +135,45 @@
   }
 
   .zoom-enter-active {
-    animation: zoomIn;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity var(--duration, 260ms) ease-out, transform var(--duration, 260ms) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .zoom-leave-active {
-    animation: zoomOut;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity 180ms ease-in, transform 180ms ease-in;
+  }
+
+  .zoom-enter-from,
+  .zoom-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.985);
   }
 
   .slide-right-enter-active {
-    animation: slideInRight;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity var(--duration, 280ms) ease-out, transform var(--duration, 280ms) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .slide-right-leave-active {
-    animation: slideOutRight;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity 180ms ease-in, transform 180ms ease-in;
+  }
+
+  .slide-right-enter-from,
+  .slide-right-leave-to {
+    opacity: 0;
+    transform: translate3d(32px, 0, 0);
   }
 
   .slide-bottom-enter-active {
-    animation: slideInUp;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity var(--duration, 280ms) ease-out, transform var(--duration, 280ms) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .slide-bottom-leave-active {
-    animation: slideOutDown;
-    animation-duration: var(--duration, 400ms);
+    transition: opacity 180ms ease-in, transform 180ms ease-in;
+  }
+
+  .slide-bottom-enter-from,
+  .slide-bottom-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
   }
 
   :slotted(.wrap > div) {

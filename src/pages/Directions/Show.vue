@@ -57,6 +57,9 @@
   const { data, loading } = useRequest(
     () => directionsApi.show(props.id),
     {
+      cacheKey: () => `directions:show:${props.id}`,
+      cacheTtl: 10 * 60 * 1000,
+      staleWhileRevalidate: true,
       watch: [ () => props.id ],
       onSuccess(res) {
         const datesList = Object.values(res.data.dates);

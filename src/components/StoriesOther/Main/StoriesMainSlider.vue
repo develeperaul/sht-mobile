@@ -5,8 +5,16 @@
     :slides-per-view="swiperOptions.slidesPerView"
     :centeredSlides="swiperOptions.centeredSlides"
     :initialSlide="swiperOptions.initialSlide"
+    :speed="speed"
+    :threshold="8"
+    :resistance-ratio="0.25"
+    :long-swipes-ratio="0.2"
+    :touch-release-on-edges="true"
     @swiper="setMainSlider"
     @slideChange="onSlideChange"
+    @slideChangeTransitionStart="isGroupChanging = true"
+    @slideChangeTransitionEnd="isGroupChanging = false"
+    @sliderMove="isGroupChanging = true"
     @touchStart="onTouchStart"
     @touchEnd="onTouchEnd"
     @prev="slidePrev"
@@ -14,12 +22,13 @@
   >
     <swiper-slide
       class="stories-main-slider__item"
+      :class="{ 'is-group-changing': isGroupChanging }"
       :style="{ backgroundColor: story.bg }"
       v-for="(story, i) in mainStore().storyOtherList.data"
       :key="i"
       @click="slideTo(i, speed)"
     >
-      <div class="tw-absolute tw-right-7 tw-top-7 tw-z-10 env-t">
+      <div class="stories-main-slider__close tw-absolute tw-right-7 tw-top-7 tw-z-10 env-t">
         <q-btn round flat class="" @click="closeStory">
           <base-icon name="close" class="tw-w-6 tw-h-6 tw-text-white" />
         </q-btn>
@@ -47,6 +56,7 @@ const groupSlider = ref(null)
 const autoplayDelay = ref(5000)
 const speed = ref(500)
 const isPaused = ref(false)
+const isGroupChanging = ref(false)
 let interval = ref(null)
 const storiesMainSlider = ref(null)
 
@@ -173,6 +183,11 @@ const onTouchStart = () => {
 
 const onTouchEnd = () => {
   isPaused.value = false
+  if (!mainSlider.value?.animating) {
+    setTimeout(() => {
+      isGroupChanging.value = false
+    }, 180)
+  }
 }
 
 defineExpose({
@@ -197,6 +212,16 @@ defineExpose({
     transform: scale(0.6);
     transition: transform 0.3s ease;
     position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), transparent);
+      z-index: 1;
+    }
 
     &.swiper-slide-prev,
     &.swiper-slide-next {
@@ -225,6 +250,20 @@ defineExpose({
       :deep(.stories-group-slider__pagination) {
         opacity: 1;
         visibility: visible;
+        z-index: 2;
+      }
+
+      &.is-group-changing {
+        .stories-main-slider__close {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+        }
+
+        :deep(.stories-group-slider__pagination) {
+          opacity: 0;
+          visibility: hidden;
+        }
       }
 
       .stories-main-slider__item-btn {
@@ -255,6 +294,12 @@ defineExpose({
         max-height: 100%;
       }
     }
+  }
+
+  &__close {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 180ms ease-out, visibility 180ms ease-out;
   }
 
   &__nav {

@@ -21,6 +21,7 @@
   //@ts-ignore
   import { throttle } from 'throttle-debounce';
   import { ref, watch } from 'vue';
+  import { buildRequestCacheKey } from 'src/utils/requestCache';
 
   const props = withDefaults(
     defineProps<{
@@ -34,14 +35,21 @@
     },
   )
 
-  const { data, send } = useRequest(
-    () => directionsApi.search({
+  const getParams = () => ({
       ...(props.directionParams.search !== '' ? { search: props.directionParams.search } : {}),
       ...(props.directionParams.range !== null ? {
         date_from: props.directionParams.range.start,
         date_to: props.directionParams.range.end,
       } : {}),
-    }),
+    });
+
+  const { data, send } = useRequest(
+    () => directionsApi.search(getParams()),
+    {
+      cacheKey: () => buildRequestCacheKey('search:directions', getParams()),
+      cacheTtl: 5 * 60 * 1000,
+      staleWhileRevalidate: true,
+    },
   );
 
   const refresh = throttle(500, send);
