@@ -9,7 +9,7 @@
         <div v-if="offer.offer.direction.background?.url" class="offer-bg tw-absolute tw-top-0 tw-left-0" :style="{
           backgroundImage:  'url(' + offer.offer.direction.background.url + ')'
         }"></div>
-        <div class=" tw-relative tw-grid tw-content-end tw-h-[220px] tw-mb-6" >
+        <div class=" tw-relative tw-grid tw-content-end  tw-mb-6" >
 
           <div class="badges tw-mb-3">
 

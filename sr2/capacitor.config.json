@@ -1,0 +1,17 @@
+{
+  "appId": "ru.sht.app",
+  "appName": "SH Travel",
+  "webDir": "www",
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    }
+  },
+  "hooks": {
+    "after:sync": "./firebase-spm-hook.mjs"
+  }
+}

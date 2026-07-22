@@ -24,7 +24,6 @@ declare module 'vue' {
     CardLinkNext: typeof import('./components/Home/CardLinkNext.vue')['default']
     Categories: typeof import('./components/Posts/PostsList/Categories.vue')['default']
     CodeInput: typeof import('./components/core/CodeInput.vue')['default']
-    copy: typeof import('./components/core/FileOther copy.vue')['default']
     CountBlock: typeof import('./components/CountBlock.vue')['default']
     DatesTape: typeof import('./components/Directions/CardShow/QuickOrder/DatesTape.vue')['default']
     DebugConsole: typeof import('./components/DebugConsole.vue')['default']
