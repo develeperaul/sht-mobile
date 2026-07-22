@@ -32,3 +32,6 @@ yarn-error.log*
 # local .env files
 .env.local*
 src-capacitor2
+src-capacitor
+sr2
+src.zip

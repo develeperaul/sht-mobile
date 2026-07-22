@@ -10,6 +10,10 @@
 @import './directions-filter.scss';
 
 @layer base {
+  html {
+    overscroll-behavior-x: none;
+  }
+
   body {
     @apply tw-font-gilroy tw-font-normal no-scrollbar;
     font-size: 16px;

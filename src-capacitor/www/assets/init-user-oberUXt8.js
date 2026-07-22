@@ -1,1 +1,0 @@
-import{b as r}from"./index-3fevySbJ.js";import{u as t,g as a}from"./index-D96pBbGc.js";const c=r(async({app:l,router:s})=>{const e=t();a().then(o=>{e.changeProfile(o.data)}).catch(o=>{e.changeProfile(null),console.log("Не удалось загрузить пользователя",o)})});export{c as default};

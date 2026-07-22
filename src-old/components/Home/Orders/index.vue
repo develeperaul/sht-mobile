@@ -1,0 +1,27 @@
+<template>
+  <section class="orders-soon" v-if="items && items.length > 0">
+    <div class="card-primary home-card" >
+      <h2 class="home-card__title">
+        Предстоящие путешествия
+      </h2>
+      <SliderItems  :items="items" />
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+  import useRequest from 'src/composables/useRequest';
+  import * as ordersApi from 'src/api/orders';
+  import SliderItems from './SliderItems.vue'
+  const { data } = useRequest(() => ordersApi.all({ type: 'upcoming' }));
+
+  const items = computed(() => data.value?.data ?? null);
+</script>
+
+<style scoped lang="scss">
+  .orders-soon {
+    border-radius: 32px;
+    padding: 3px;
+    background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);
+  }
+</style>

@@ -1,0 +1,39 @@
+<template>
+  <q-page class="tw-container env-t tw-grid tw-content-between">
+    <div>
+      <Toolbar class="tw-mb-5" title="Документы" />
+
+      <div class="tw-bg-white tw-rounded-[24px] tw-px-2.5 glass-w">
+        <router-link
+          :to="{ name: 'sogl' }"
+          class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
+        >
+          <div class="tw-flex tw-gap-2 tw-items-center">
+            <div>Лицензионное соглашение</div>
+          </div>
+          <BaseIcon name="right" class="tw-w-4 tw-h-4 " />
+        </router-link>
+        <div class="tw-border-b tw-border-blue_bg"></div>
+        <router-link
+          :to="{ name: 'policy' }"
+          class="tw-flex tw-items-center tw-justify-between tw-h-[55px] p1"
+        >
+          <div class="tw-flex tw-gap-2 tw-items-center">
+            <div>Политика конфиденциальности</div>
+          </div>
+          <BaseIcon name="right" class="tw-w-4 tw-h-4 " />
+        </router-link>
+      </div>
+    </div>
+  </q-page>
+</template>
+<script lang="ts" setup>
+import BaseIcon from 'src/components/core/BaseIcon.vue'
+const deleteIs = ref(false)
+const logoutIs = ref(false)
+const supportIs = ref(false)
+const logout = () => {
+  authStore().logout()
+}
+</script>
+<style lang="scss" scoped></style>

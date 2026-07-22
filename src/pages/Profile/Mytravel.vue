@@ -19,7 +19,7 @@
                     v-for="value in ordersUpcoming.data"
                     :to="{ name: 'upcoming', params: { uuid: value.id } }"
                     title="Предстоящее путешествие с Team Travel"
-                    :dates="`${dayjs(value.offer.start_date).locale('ru').format('DD MMMM')}-${dayjs(value.offer.end_date).locale('ru').format('DD MMMM')}`"
+                    :dates="`${dayjs(value.offer.start_date).locale('ru').format('DD MMMM')}—${dayjs(value.offer.end_date).locale('ru').format('DD MMMM')}`"
                     :img="value.offer.direction.background?.url"
                     :name="value.offer.direction.name"
                     :status="value.status"

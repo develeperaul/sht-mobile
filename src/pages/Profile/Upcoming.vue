@@ -4,12 +4,13 @@
     <div class="tw-pb-[100px]">
       <!-- <head-block title="Team Travel" class="tw-mb-3" theme="white" /> -->
        <Toolbar invert class=" tw-mb-5 tw-relative tw-z-10" title="Team Travel" />
-      <div v-if="loading">Загрузка</div>
+      <q-inner-loading :showing="loading" />
       <div v-if="offer" >
         <div v-if="offer.offer.direction.background?.url" class="offer-bg tw-absolute tw-top-0 tw-left-0" :style="{
           backgroundImage:  'url(' + offer.offer.direction.background.url + ')'
-        }"></div>
-        <div class=" tw-relative tw-grid tw-content-end  tw-mb-6" >
+        }"
+        ref="offerBgRef"></div>
+        <div ref="topContentRef" class=" tw-relative tw-grid tw-content-end tw-min-h-[220px]  tw-h-full tw-mb-6" >
 
           <div class="badges tw-mb-3">
 
@@ -189,8 +190,9 @@
                   </BaseSelectFaq>
                 </div> -->
         </div>
-        <div v-if="tab === 'local'" class="tw-grid tw-gap-3">
+        <div v-if="tab === 'local'" class="">
           <template v-if="direction.data">
+            <CardDetails  :direction="direction.data" />
             <!-- <div
               class="tw-bg-white tw-p-5 tw-rounded-32 tw-overflow-hidden"
               v-if="direction.data?.preview_stories.length > 0"
@@ -203,7 +205,7 @@
               </div>
             </div> -->
 
-            <div class="tw-bg-white tw-p-5 tw-rounded-32">
+            <!-- <div class="tw-bg-white tw-p-5 tw-rounded-32">
               <div class="h3 tw-mb-3">Условия</div>
               <div class="tw-mb-3">
                 <tab-head
@@ -273,7 +275,7 @@
                   {{ info.name }}
                 </li>
               </ul>
-            </div>
+            </div> -->
           </template>
         </div>
 
@@ -302,15 +304,17 @@ import Stories from 'src/components/StoriesOther/Index.vue'
 import directionsStore from 'src/stores/directionsStore'
 import { deleteMedia } from 'src/api/main'
 import { useStatus } from 'src/composition/statuslist'
-// import { Browser } from '@capacitor/browser'
+import { Browser } from '@capacitor/browser'
 import { useRouter } from 'vue-router'
 import ordersStore from 'src/stores/ordersStore'
 import { useTypograf } from 'src/composables/useTypograf'
-
+import CardDetails from 'src/components/Directions/CardShow/Details/index.vue';
 const props = defineProps<{
   offerProps?: OfferCardList
   uuid: string
 }>()
+const offerBgRef = ref<HTMLElement | null>(null)
+const topContentRef = ref<HTMLElement | null>(null)
 const storeMain = mainStore()
 const router = useRouter()
 const { typograf } = useTypograf(() => null);
@@ -363,16 +367,33 @@ const statusNaming = computed(() => {
 })
 const { direction, transportData, powerData } = storeToRefs(directionsStore())
 onMounted(async () => {
-  if (props.offerProps) offer.value = props.offerProps
+  if (props.offerProps) {
+    offer.value = props.offerProps
+  }
   else {
     loading.value = true
     offer.value = (await getOrder(props.uuid)).data
+    await nextTick()
+
+    requestAnimationFrame(() => {
+      if (offerBgRef.value && topContentRef.value) {
+        const h = topContentRef.value.offsetHeight;
+        const hBg = offerBgRef.value.offsetHeight;
+
+        requestAnimationFrame(() => {
+          offerBgRef.value!.style.height = `${h - 220 + 40 + hBg}px`
+        })
+      }
+    })
+
     loading.value = false
   }
   if (offer.value) {
     await directionsStore().setDirection(offer.value.offer.direction.id)
-    if (offer.value.offer.direction.background)
-      mainStore().bg = offer.value.offer.direction.background.url
+    if (offer.value.offer.direction.background) {
+      // mainStore().bg = offer.value.offer.direction.background.url
+
+    }
     else mainStore().bg = ''
   }
 })
@@ -395,7 +416,7 @@ const diff = computed(() => {
 })
 const interval = computed(() => {
   if (offer.value)
-    return `${dayjs(offer.value.offer.start_date).locale('ru').format('DD MMMM')}-${dayjs(offer.value.offer.end_date).locale('ru').format('DD MMMM')}`
+    return `${dayjs(offer.value.offer.start_date).locale('ru').format('DD MMMM')}–${dayjs(offer.value.offer.end_date).locale('ru').format('DD MMMM')}`
   return ''
 })
 

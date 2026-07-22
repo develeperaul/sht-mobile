@@ -1,0 +1,15 @@
+<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject x="-3" y="-3" width="50" height="50">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(1.5px);clip-path:url(#bgblur_0_111_11_clip_path);height:100%;width:100%"></div>
+  </foreignObject>
+  <g data-figma-bg-blur-radius="3">
+    <rect width="44" height="44" rx="22" fill="white"/>
+    <!-- Изменены координаты для центровки по вертикали -->
+    <path d="M21.4697 18.2684C21.7625 17.9756 22.2373 17.9757 22.5302 18.2684L29.1308 24.868C29.4236 25.1608 29.4234 25.6356 29.1308 25.9286C28.8379 26.2214 28.3632 26.2214 28.0703 25.9286L22 19.8582L15.9306 25.9286C15.6377 26.2214 15.163 26.2214 14.8701 25.9286C14.5774 25.6356 14.5773 25.1608 14.8701 24.868L21.4697 18.2684Z" fill="#1C1C1E"/>
+  </g>
+  <defs>
+    <clipPath id="bgblur_0_111_11_clip_path" transform="translate(3 3)">
+      <rect width="44" height="44" rx="22"/>
+    </clipPath>
+  </defs>
+</svg>

@@ -22,6 +22,9 @@
 <script setup lang="ts">
   import MenuBottom from 'src/components/Blocks/Menu.vue';
   import { useRoute } from 'vue-router'
+  import useEdgeSwipeBack from 'src/composables/useEdgeSwipeBack'
+
+  useEdgeSwipeBack()
 
   const route = useRoute()
   const storeMain = mainStore()

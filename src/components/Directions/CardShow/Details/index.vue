@@ -10,7 +10,7 @@
       />
       <SectionHotels v-else-if="activeTab === 'hotels'" :hotels="direction.hotels" />
       <SectionFaq v-else-if="activeTab === 'faq'" :questions="direction.questions" />
-      <SectionFood v-else-if="activeTab === 'food'" :text="foodText" />
+      <SectionFood v-else-if="activeTab === 'food'"  :text="foodText" :slider="foodSlider" />
       <SectionIncludes
         v-else-if="activeTab === 'includes'"
         :services="direction.services"
@@ -43,6 +43,11 @@
     const res = props.direction.services.find(item => item.type === 'power_supply');
     if(!res) return '-';
     return res.description;
+  });
+  const foodSlider = computed(() => {
+    const res = props.direction.services.find(item => item.type === 'power_supply');
+    if(!res) return [];
+    return res.slider;
   });
 </script>
 

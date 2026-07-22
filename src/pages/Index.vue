@@ -50,21 +50,21 @@
   }
 
   .main-content {
-    margin-top: 25px;
+    margin-top: 20px;
   }
 
   .search-dirs {
-    margin-bottom: 12px;
+    margin-bottom: 17.5px;
   }
 
   .main-stories {
     margin-bottom: 20px;
-    margin-inline: -20px;
+    margin-inline: -12px;
     & > :first-child {
-      margin-left: 20px;
+      margin-left: 12px;
     }
     & > :last-child {
-      margin-right: 20px;
+      margin-right: 12px;
     }
   }
 </style>

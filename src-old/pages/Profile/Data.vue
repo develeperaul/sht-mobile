@@ -1,0 +1,595 @@
+<template>
+  <q-page class="tw-container env-t">
+    <!-- <head-block title="Личные данные" class="tw-mb-3" /> -->
+    <Toolbar class="tw-mb-5" title="Личные данные" />
+    <div>
+      <div>
+        <div
+          class="tw-flex tw-gap-2 tw-overflow-auto no-scrollbar tw-mb-6"
+          @scroll="closePopup(guestActive)"
+        >
+          <div
+            v-for="(g, index) in guests"
+            class="p1 tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1 tw-rounded-[60px] tw-w-fit tw-shrink-0 tw-text-white"
+            style="background: linear-gradient(99.64deg, #A7BEFD 3.89%, #72A5F6 79.63%);"
+            :class="guestActive === index ? 'tw-bg-blue_main' : 'tw-bg-white'"
+            @click="openPopup($event, index)"
+            :tabindex="-1"
+          >
+            Гость №{{ index + 1 }}
+            <div class="edit-block">
+              <BaseIcon
+
+                name="dots"
+                class="tw-w-[27px] tw-h-[30px] tw-text-white"
+              />
+              <div
+                class="edit-block__popup"
+                :class="g.open ? 'active' : ''"
+                :style="{ left: `${popupConf.x}px`, top: `${popupConf.y}px` }"
+              >
+                <div
+                  v-if="guestActive !== 0"
+                  class="tw-flex tw-gap-2.5 tw-items-center tw-h-[50px] tw-px-5 round"
+                  @click.stop="removeGuest"
+                >
+                  <BaseIcon
+                    name="trash"
+                    class="tw-w-6 tw-h-6 tw-text-blue_icon"
+                  />
+                  Удалить гостя
+                </div>
+                <div
+                  class="tw-flex tw-gap-2.5 tw-items-center tw-h-[50px] tw-px-5"
+                  :class="
+                    guestActive === 0
+                      ? 'tw-rounded-[30px]'
+                      : 'tw-bg-[#C6D9F166] tw-rounded-b-[30px]'
+                  "
+                  @click.stop="editPopup(index)"
+                >
+                  <BaseIcon
+                    name="edit"
+                    class="tw-w-6 tw-h-6 tw-text-blue_icon"
+                  />
+                  Редактировать
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tw-w-[38px] tw-h-[38px] tw-rounded-full h2 tw-grid tw-place-content-center tw-bg-white tw-shrink-0 glass-w"
+            @click="addGuest"
+          >
+            +
+          </div>
+        </div>
+      </div>
+      <template v-for="(g, index) in guests">
+
+        <template v-if="index === 0">
+
+          <template v-if="guestActive === index">
+
+            <Form
+              @submit="updateData"
+              v-if="guests[guestActive]?.edit"
+              class="tw-grid tw-gap-6"
+            >
+
+              <div>
+                <div class="p1 tw-mb-[25px]">Фото</div>
+
+                <File
+                  @file-load="fileLoad"
+                  @delete-file="deleteFile"
+                  :id="profile.avatar ? profile.avatar.id : undefined"
+                  :url="profile?.avatar ? profile?.avatar.url : undefined"
+                  :editable="true"
+                />
+                <!-- <BaseIcon name="image" class="tw-w-[120px] tw-h-[120px]" /> -->
+              </div>
+              <div>
+                <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                <div class="tw-grid tw-gap-2" v-if="profile">
+                  <BaseInput
+                    :model-value="profile.phone ?? ''"
+                    un-mask
+                    maska="+7 (###)-###-##-##"
+                    name="phone"
+                    placeholder="Телефон"
+                    rules="required|cellphone"
+                  />
+                  <BaseInput
+                    :model-value="profile.email ?? ''"
+                    name="email"
+                    rules="required|email"
+                    placeholder="Почта"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                <div class="tw-grid tw-gap-2">
+                  <BaseInput
+                    :model-value="profile?.first_name ?? ''"
+                    name="last_name"
+                    rules="required"
+                    placeholder="Имя*"
+                  />
+                  <BaseInput
+                    :model-value="profile?.last_name ?? ''"
+                    name="first_name"
+                    rules="required"
+                    placeholder="Фамилия*"
+                  />
+                  <BaseInput
+                    :model-value="profile?.patronymic ?? ''"
+                    name="patronymic"
+                    rules="required"
+                    placeholder="Отчество*"
+                  />
+                  <BaseInput
+                    :model-value="profile?.birthday ?? ''"
+                    name="birthday"
+                    maska="##.##.####"
+                    rules="required"
+                    placeholder="Дата рождения*"
+                  />
+                </div>
+              </div>
+              <div>
+                <BaseButton>Сохранить</BaseButton>
+
+              </div>
+            </Form>
+            <div v-else class="tw-grid tw-gap-6">
+              <div v-if="profile?.avatar">
+                <div class="p1 tw-mb-[25px]">Фото</div>
+
+                <File
+                  @file-load="fileLoad"
+                  :id="profile.avatar.id"
+                  :url="profile.avatar.url"
+                />
+              </div>
+              <div>
+                <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                <div class="tw-grid tw-gap-2">
+                  <div
+                    v-if="profile?.phone"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.phone }}
+                  </div>
+                  <div
+                    v-if="profile?.email"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.email }}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                <div class="tw-grid tw-gap-2">
+                  <div
+                    v-if="profile?.last_name"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.last_name }}
+                  </div>
+                  <div
+                    v-if="profile?.first_name"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.first_name }}
+                  </div>
+                  <div
+                    v-if="profile?.patronymic"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.patronymic }}
+                  </div>
+                  <div
+                    v-if="profile?.birthday"
+                    class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                  >
+                    {{ profile.birthday }}
+                  </div>
+                </div>
+              </div>
+              <div v-if="guests[guestActive]?.edit">
+                <BaseButton>Сохранить</BaseButton>
+              
+              </div>
+            </div>
+          </template>
+        </template>
+        <template v-else>
+          <template v-if="guestActive === index">
+            <template v-if="friends && friends[index - 1]">
+              <Form
+                @submit="updateGuest"
+                v-if="guests[guestActive]?.edit"
+                class="tw-grid tw-gap-6"
+              >
+                <div>
+                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                  <div class="tw-grid tw-gap-2">
+                    <BaseInput
+                      :model-value="friends[index - 1]?.first_name ?? ''"
+                      name="last_name"
+                      rules="required"
+                      placeholder="Имя*"
+                    />
+                    <BaseInput
+                      :model-value="friends[index - 1]?.last_name ?? ''"
+                      name="first_name"
+                      rules="required"
+                      placeholder="Фамилия*"
+                    />
+                    <BaseInput
+                      :model-value="friends[index - 1]?.patronymic ?? ''"
+                      name="patronymic"
+                      rules="required"
+                      placeholder="Отчество*"
+                    />
+                    <BaseInput
+                      :model-value="friends[index - 1]?.birthday ?? ''"
+                      name="birthday"
+                      maska="##.##.####"
+                      rules="required"
+                      placeholder="Дата рождения*"
+                    />
+                  </div>
+                </div>
+                <BaseButton>Сохранить</BaseButton>
+              </Form>
+              <div v-else class="tw-grid tw-gap-6">
+                <div>
+                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                  <div class="tw-grid tw-gap-2">
+                    <div
+                      v-if="friends[index - 1]?.last_name"
+                      class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                    >
+                      {{ friends[index - 1].last_name }}
+                    </div>
+                    <div
+                      v-if="friends[index - 1]?.first_name"
+                      class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                    >
+                      {{ friends[index - 1].first_name }}
+                    </div>
+                    <div
+                      v-if="friends[index - 1]?.patronymic"
+                      class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                    >
+                      {{ friends[index - 1].patronymic }}
+                    </div>
+                    <div
+                      v-if="friends[index - 1]?.birthday"
+                      class="p1 tw-rounded-[60px] tw-bg-white tw-h-[52px] tw-px-4 tw-flex tw-items-center"
+                    >
+                      {{ friends[index - 1].birthday }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template v-else>
+              <Form
+                @submit="createGuest"
+                class="tw-grid tw-gap-6"
+              >
+                <div>
+                  <div class="p1 tw-mb-[25px]">Контактная информация</div>
+                  <div class="tw-grid tw-gap-2">
+                    <BaseInput
+                      name="last_name"
+                      rules="required"
+                      placeholder="Имя*"
+                    />
+                    <BaseInput
+                      name="first_name"
+                      rules="required"
+                      placeholder="Фамилия*"
+                    />
+                    <BaseInput
+                      name="patronymic"
+                      rules="required"
+                      placeholder="Отчество*"
+                    />
+                    <BaseInput
+                      name="birthday"
+                      maska="##.##.####"
+                      rules="required"
+                      placeholder="Дата рождения*"
+                    />
+                  </div>
+                </div>
+                <div v-if="guests[guestActive]?.edit">
+                  <BaseButton>Сохранить</BaseButton>
+                </div>
+              </Form>
+            </template>
+          </template>
+        </template>
+      </template>
+      <div class=" tw-grid tw-grid-cols-2 tw-gap-2 tw-mt-2">
+                    <button @click="deleteIs = true" class=" glass-w tw-text-red tw-h-[60px] tw-font-wix tw-font-semibold tw-flex tw-justify-center tw-items-center tw-gap-0.5 !tw-rounded-[48px]">
+                      <span class=" tw-text-sm">
+                        Удалить аккаунт
+                      </span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.59961 3.59995H14.3996M5.59961 1.19995H10.3996M6.39961 11.6V6.79995M9.59961 11.6V6.79995M10.7996 14.8H5.19961C4.31595 14.8 3.59961 14.0836 3.59961 13.2L3.23433 4.43326C3.21539 3.97876 3.57874 3.59995 4.03364 3.59995H11.9656C12.4205 3.59995 12.7838 3.97876 12.7649 4.43326L12.3996 13.2C12.3996 14.0836 11.6833 14.8 10.7996 14.8Z" stroke="#FF3B30" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                    </button>
+                    <button @click="logoutIs = true" class=" glass-w tw-h-[60px] tw-font-wix tw-font-semibold tw-flex tw-justify-center tw-items-center tw-gap-0.5 !tw-rounded-[48px]">
+                      <span class=" tw-text-sm">
+                        Выйти
+                      </span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.76471 5.20002V3.80002C9.76471 3.42872 9.61597 3.07263 9.35121 2.81007C9.08645 2.54752 8.72736 2.40002 8.35294 2.40002H3.41176C3.03734 2.40002 2.67825 2.54752 2.4135 2.81007C2.14874 3.07263 2 3.42872 2 3.80002V12.2C2 12.5713 2.14874 12.9274 2.4135 13.19C2.67825 13.4525 3.03734 13.6 3.41176 13.6H8.35294C8.72736 13.6 9.08645 13.4525 9.35121 13.19C9.61597 12.9274 9.76471 12.5713 9.76471 12.2V10.8M5.52941 8.00002H14M14 8.00002L11.8824 5.90002M14 8.00002L11.8824 10.1" stroke="#8BA7F6" stroke-width="1.28571" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+
+                    </button>
+
+                  </div>
+    </div>
+    <VerifyMailNew
+      v-model="isVerifyMail"
+      :mail="updateMail"
+      @update="isVerifyMail = false"
+    />
+    <VerifyPhoneNew
+      v-model="isVerifyPhone"
+      :phone="updatePhone"
+      @update="isVerifyPhone = false"
+    />
+    <DeletePopup v-model="deleteIs" @remove="logout"/>
+    <LogoutPopup v-model="logoutIs" @logout="logout"/>
+  </q-page>
+</template>
+<script setup lang="ts">
+import profileStore from 'src/stores/profileStore'
+import { updateProfile, uploadFile, updateProfilePhoto } from 'src/api/profile'
+import friendStore from 'src/stores/friendStore'
+import { deleteMedia } from 'src/api/main'
+
+const { profile } = storeToRefs(profileStore())
+const { friends } = storeToRefs(friendStore())
+const deleteIs = ref(false)
+const logoutIs = ref(false)
+const supportIs = ref(false)
+const logout = () => {
+  authStore().logout()
+}
+onMounted(async () => {
+  await Promise.allSettled([
+    friendStore().setFriends(),
+    profileStore().setProfile(),
+  ])
+})
+
+watch(friends, (v) => {
+  const count = friendStore().friends.length
+  for (let i = 1; i <= count; i++) {
+    guests.value.splice(i, 1, {
+      open: false,
+      trash: false,
+      edit: false,
+    })
+  }
+})
+// const guests = computed(() => {
+//   const count = friendStore().friends.length
+//   const arr = [{ open: false, trash: false, edit: false }]
+//   if (count > 0) {
+//     for (let i = 0; i < count; i++) {
+//       arr.push({ open: false, trash: false, edit: false })
+//     }
+//   }
+//   return arr
+// })
+const guests = ref<{ open: boolean; trash: boolean; edit: boolean }[]>([
+  { open: false, trash: false, edit: false },
+])
+
+// активный гость
+const guestActive = ref(0)
+
+// обновление статусов гостя при переключении таба
+watch(guestActive, (v: number) => {
+  guests.value.splice(v, 1, {
+    open: false,
+    trash: false,
+    edit: false,
+  })
+})
+
+const open = ref(true)
+
+const popupConf = ref<{ x: number; y: number }>({
+  x: 0,
+  y: 0,
+})
+// действия с попапом
+const openPopup = (e: Event, index: number) => {
+  if (guestActive.value === index) {
+    const el = e.currentTarget as HTMLElement
+    if (el) {
+      popupConf.value = {
+        x: el.getBoundingClientRect().left,
+        y: el.getBoundingClientRect().top,
+      }
+      // Переключаем состояние попапа, сохраняя режим редактирования
+      const currentEdit = guests.value[index]?.edit ?? false
+      const newOpen = !guests.value[index]?.open
+      guests.value[index] = {
+        open: newOpen,
+        trash: false,
+        edit: currentEdit,
+      }
+    }
+  } else {
+    closePopup(index)
+    guestActive.value = index
+  }
+}
+const closePopup = (index: number) => {
+
+  guests.value.splice(index, 1, {
+    open: false,
+    trash: false,
+    edit: false,
+  })
+}
+const editPopup = (index: number) => {
+  // Закрываем popup перед активацией редактирования
+  closePopup(index)
+  guests.value.splice(index, 1, {
+    open: false,
+    trash: false,
+    edit: true,
+  })
+}
+
+// добавления гостя
+const addGuest = () => {
+  guests.value.push({ open: false, trash: false, edit: false })
+  guestActive.value = guests.value.length - 1
+}
+const isVerifyMail = ref(false)
+const isVerifyPhone = ref(false)
+const updateMail = ref('')
+const updatePhone = ref('')
+//обновление профиля
+const updateData = async (vals: {
+  phone: string
+  first_name: string
+  last_name: string
+  patronymic: string
+  birthday: string
+  email: string
+}) => {
+  await profileStore().update({ ...vals, phone: '+7' + vals.phone })
+  console.log(
+    profile.value?.email !== vals.email ||
+      (profile.value?.email === null && vals.email !== null)
+  )
+
+  if (
+    profile.value?.email !== vals.email &&
+    vals.email !== null &&
+    vals.email.length > 0
+  ) {
+    console.log(vals.email.length > 0)
+
+    updateMail.value = vals.email
+    isVerifyMail.value = true
+  }
+
+  if (
+    profile.value?.phone !== '+7' + vals.phone &&
+    vals.phone !== null &&
+    vals.phone.length > 0
+  ) {
+    updatePhone.value = vals.phone
+    isVerifyPhone.value = true
+  }
+}
+
+//создание гостя
+const createGuest = (vals: {
+  first_name: string
+  last_name: string
+  patronymic: string
+  birthday: string
+}) => {
+  friendStore()
+    .create({ ...vals, phone: '' })
+    .then((e) => {
+      friendStore().setFriends()
+    })
+}
+//обновление гостя
+const updateGuest = async (vals: {
+  first_name: string
+  last_name: string
+  patronymic: string
+  birthday: string
+}) => {
+  if (guestActive.value !== 0 && friends.value.length > 0) {
+    const friend = friends.value[guestActive.value - 1]
+
+    if (friend) {
+      console.log(vals)
+      await friendStore().update(friend.id, { ...vals, phone: '' })
+    }
+  }
+}
+// удаление гостя
+const removeGuest = async () => {
+  if (guestActive.value !== 0 && friends.value.length > 0) {
+    const friend = friends.value[guestActive.value - 1]
+    if (friend) {
+      await friendStore().remove(friend.id)
+      guests.value.splice(guestActive.value, 1)
+      guestActive.value = guests.value.length - 1
+    }
+  }
+}
+
+// работа с файлом
+const avatar_id = ref<string>('')
+//загрузка файла
+const fileLoad = async (file: File) => {
+  try {
+    avatar_id.value = (await uploadFile(file)).data.id
+    profile.value = (await updateProfilePhoto(avatar_id.value)).data
+  } catch (e) {
+    throw e
+  }
+}
+const deleteFile = async (id: string) => {
+  try {
+    await deleteMedia(id)
+    await profileStore().setProfile()
+    avatar_id.value = ''
+  } catch (e) {
+    throw e
+  }
+}
+</script>
+<style lang="scss" scoped>
+.edit-block {
+  position: relative;
+}
+.edit-block__popup {
+  display: none;
+  position: fixed;
+  backdrop-filter: blur(6px);
+  border-radius: 30px;
+  background: #FFFFFF66;
+  color: black;
+  transform: translateX(-24px);
+  z-index: 2;
+  &::before {
+    content: '';
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    top: -8px;
+    left: 30px;
+    width: 16px;
+    height: 8px;
+    background: #FFFFFF66;
+    display: block;
+  }
+  &.active {
+    display: block;
+  }
+}
+</style>
