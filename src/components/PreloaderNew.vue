@@ -81,7 +81,7 @@
             </div>
             <base-button
               class="tw-mb-6 tw-text-black"
-              @click="emit('update:modelValue', false)"
+              @click="closePreloader"
               style=" width: inherit;"
             >Начать</base-button
             >
@@ -175,6 +175,11 @@ function pause(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+function closePreloader() {
+  LocalStorage.setItem('preloader', 'true')
+  emit('update:modelValue', false)
+}
+
 async function startPreloaderAnimation() {
   const ANIMATION_DURATION = props.duration
   const AFTER_ANIMATION_WAIT_DURATION = 500
@@ -208,9 +213,8 @@ async function startPreloaderAnimation() {
   await pause(AFTER_ANIMATION_WAIT_DURATION)
 
   emit('finished')
-  LocalStorage.setItem('preloader', 'true')
   if (props.autoClose) {
-    emit('update:modelValue', false)
+    closePreloader()
   }
 }
 
