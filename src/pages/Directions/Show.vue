@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
+  import { useRoute } from 'vue-router';
   import * as directionsApi from 'src/api/directions';
   import useRequest from 'src/composables/useRequest';
   import AboutPirmary from 'src/components/Directions/CardShow/AboutPrimary/index.vue';
@@ -54,16 +55,16 @@
     id: string,
   }>();
 
-  const { data, loading } = useRequest(
+  const route = useRoute();
+
+  const { data, loading, send } = useRequest(
     () => directionsApi.show(props.id),
     {
       cacheKey: () => `directions:show:${props.id}`,
       cacheTtl: 10 * 60 * 1000,
       staleWhileRevalidate: true,
-      watch: [ () => props.id ],
       onSuccess(res) {
         const datesList = Object.values(res.data.dates);
-        currentDate.value = null;
         if(datesList[0]) {
           currentDate.value = datesList[0][0] ?? null;
         }
@@ -80,8 +81,11 @@
   const currentDate = ref<string | null>(null);
   const currentOffer = ref<ShowOfferItem | null>(null);
 
-  watch(() => props.id, () => currentDate.value = null);
-  // watch(currentDate, () => currentOffer.value = null);
+  watch(() => route.params.id, () => {
+    currentOffer.value = null;
+    currentDate.value = null;
+    send();
+  });
 </script>
 
 <style scoped lang="scss">
