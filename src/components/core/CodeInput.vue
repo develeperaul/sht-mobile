@@ -103,7 +103,7 @@ const {
 .input-code {
   /*tw-border-negative tw-border*/
   @apply h1 tw-outline-none  tw-border-b tw-border-blue_bg tw-bg-white tw-text-center tw-w-full tw-h-[60px] focus:tw-border-red;
-  @apply focus:tw-border-blue_link focus:tw-border-red valid:tw-border-red;
+  @apply focus:tw-border-blue_link focus:tw-border-blue_icon2 valid:tw-border-gray_icon2;
   &__transparent {
     @apply tw-bg-transparent
   }

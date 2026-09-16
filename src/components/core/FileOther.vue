@@ -117,6 +117,9 @@ const openCamera = async () => {
       quality: 85,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt, // системное меню: Камера / Фото
+      promptLabelHeader: 'Выберите источник',
+      promptLabelPhoto: 'Из галереи',
+      promptLabelPicture: 'Сделать фото',
     })
 
     if (!photo.dataUrl) return
