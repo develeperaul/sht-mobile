@@ -1,1 +1,0 @@
-import{B as s}from"./index-DvZdcrm1.js";function i(r){if(!r)return"";if(typeof window>"u")return r;const t=new DOMParser().parseFromString(r,"text/html"),e=n=>{n.removeAttribute("style"),Array.from(n.children).forEach(o=>e(o))};return e(t.body),t.body.innerHTML}function c(r){return{sanitized:s(()=>i(r())),sanitizeHtml:i}}export{c as u};
